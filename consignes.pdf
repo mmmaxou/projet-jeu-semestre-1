@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="fr" xml:lang="fr">
+<head>
+    <title>Cours : Langage C (2017)</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Moodle Theme by 3rd Wave Media | elearning.3rdwavemedia.com" />
+    
+    <link rel="shortcut icon" href="https://elearning.u-pem.fr/theme/image.php/herald/theme/1513674439/favicon" />
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('https://elearning.u-pem.fr/theme/herald/fonts/glyphicons-halflings-regular.eot');
+  src: url('https://elearning.u-pem.fr/theme/herald/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('https://elearning.u-pem.fr/theme/herald/fonts/glyphicons-halflings-regular.woff') format('woff'), url('https://elearning.u-pem.fr/theme/herald/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('https://elearning.u-pem.fr/theme/herald/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+
+/* Flexslider icons */
+/*
+@font-face {
+	font-family: 'flexslider-icon';
+	src:url('https://elearning.u-pem.fr/theme/herald/fonts/flexslider-icon.eot');
+	src:url('https://elearning.u-pem.fr/theme/herald/fonts/flexslider-icon.eot?#iefix') format('embedded-opentype'),
+		url('https://elearning.u-pem.fr/theme/herald/fonts/flexslider-icon.woff') format('woff'),
+		url('https://elearning.u-pem.fr/theme/herald/fonts/flexslider-icon.ttf') format('truetype'),
+		url('https://elearning.u-pem.fr/theme/herald/fonts/flexslider-icon.svg#flexslider-icon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+*/
+</style>    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="moodle, Cours : Langage C (2017)" />
+<link rel="stylesheet" type="text/css" href="https://elearning.u-pem.fr/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple.css" /><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="https://elearning.u-pem.fr/theme/styles.php/herald/1513674439/all" />
+<script type="text/javascript">
+//<![CDATA[
+var M = {}; M.yui = {};
+M.pageloadstarttime = new Date();
+M.cfg = {"wwwroot":"https:\/\/elearning.u-pem.fr","sesskey":"uuNbDtzWsy","themerev":"1513674439","slasharguments":1,"theme":"herald","iconsystemmodule":"core\/icon_system_standard","jsrev":"1513674439","admin":"admin","svgicons":true,"usertimezone":"Europe\/Paris","contextid":133393,"developerdebug":true};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
+var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''}
+if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else{me.path=component+'/'+component+'.'+me.type}};
+YUI_config = {"debug":true,"base":"https:\/\/elearning.u-pem.fr\/lib\/yuilib\/3.17.2\/","comboBase":"https:\/\/elearning.u-pem.fr\/theme\/yui_combo.php?","combine":true,"filter":"RAW","insertBefore":"firstthemesheet","groups":{"yui2":{"base":"https:\/\/elearning.u-pem.fr\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"https:\/\/elearning.u-pem.fr\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"https:\/\/elearning.u-pem.fr\/theme\/yui_combo.php?m\/1513674439\/","combine":true,"comboBase":"https:\/\/elearning.u-pem.fr\/theme\/yui_combo.php?","ext":false,"root":"m\/1513674439\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":"DEBUG","modules":{"moodle-core-checknet":{"requires":["base-base","moodle-core-notification-alert","io-base"]},"moodle-core-languninstallconfirm":{"requires":["base","node","moodle-core-notification-confirm","moodle-core-notification-alert"]},"moodle-core-dock":{"requires":["base","node","event-custom","event-mouseenter","event-resize","escape","moodle-core-dock-loader","moodle-core-event"]},"moodle-core-dock-loader":{"requires":["escape"]},"moodle-core-handlebars":{"condition":{"trigger":"handlebars","when":"after"}},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-formchangechecker":{"requires":["base","event-focus","moodle-core-event"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification-dialogue","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-event":{"requires":["event-custom"]},"moodle-core-maintenancemodetimer":{"requires":["base","node"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-widget-focusafterclose","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-dragdrop":{"requires":["base","node","io","dom","dd","event-key","event-focus","moodle-core-notification"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core_availability-form":{"requires":["base","node","event","event-delegate","panel","moodle-core-notification-dialogue","json"]},"moodle-backup-confirmcancel":{"requires":["node","node-event-simulate","moodle-core-notification-confirm"]},"moodle-backup-backupselectall":{"requires":["node","event","node-event-simulate","anim"]},"moodle-course-formatchooser":{"requires":["base","node","node-event-simulate"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-modchooser":{"requires":["moodle-core-chooserdialogue","moodle-course-coursebase"]},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-course-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-course-coursebase","moodle-course-util"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-form-passwordunmask":{"requires":[]},"moodle-form-showadvanced":{"requires":["node","base","selector-css3"]},"moodle-form-dateselector":{"requires":["base","node","overlay","calendar"]},"moodle-form-shortforms":{"requires":["node","base","selector-css3","moodle-core-event"]},"moodle-question-searchform":{"requires":["base","node"]},"moodle-question-chooser":{"requires":["moodle-core-chooserdialogue"]},"moodle-question-qbankmanager":{"requires":["node","selector-css3"]},"moodle-question-preview":{"requires":["base","dom","event-delegate","event-key","core_question_engine"]},"moodle-availability_completion-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_date-form":{"requires":["base","node","event","io","moodle-core_availability-form"]},"moodle-availability_grade-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_group-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_grouping-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_profile-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-qtype_ddimageortext-dd":{"requires":["node","dd","dd-drop","dd-constrain"]},"moodle-qtype_ddimageortext-form":{"requires":["moodle-qtype_ddimageortext-dd","form_filepicker"]},"moodle-qtype_ddmarker-form":{"requires":["moodle-qtype_ddmarker-dd","form_filepicker","graphics","escape"]},"moodle-qtype_ddmarker-dd":{"requires":["node","event-resize","dd","dd-drop","dd-constrain","graphics"]},"moodle-qtype_ddwtos-dd":{"requires":["node","dd","dd-drop","dd-constrain"]},"moodle-mod_assign-history":{"requires":["node","transition"]},"moodle-mod_checklist-linkselect":{"requires":["node","event-valuechange"]},"moodle-mod_forum-subscriptiontoggle":{"requires":["base-base","io-base"]},"moodle-mod_offlinequiz-randomquestion":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_offlinequiz-repaginate":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_offlinequiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_offlinequiz-util","querystring-parse"]},"moodle-mod_offlinequiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_offlinequiz-offlinequizbase","moodle-mod_offlinequiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-mod_offlinequiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_offlinequiz-offlinequizquestionbank":{"requires":["base","event","node","io","io-form","yui-later","moodle-question-qbankmanager","moodle-core-notification-dialogue"]},"moodle-mod_offlinequiz-modform":{"requires":["base","node","event"]},"moodle-mod_offlinequiz-offlinequizbase":{"requires":["base","node"]},"moodle-mod_offlinequiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_offlinequiz-offlinequizbase","moodle-mod_offlinequiz-util-base","moodle-mod_offlinequiz-util-page","moodle-mod_offlinequiz-util-slot","moodle-course-util"]},"moodle-mod_offlinequiz-util":{"requires":["node"],"use":["moodle-mod_offlinequiz-util-base"],"submodules":{"moodle-mod_offlinequiz-util-base":{},"moodle-mod_offlinequiz-util-slot":{"requires":["node","moodle-mod_offlinequiz-util-base"]},"moodle-mod_offlinequiz-util-page":{"requires":["node","moodle-mod_offlinequiz-util-base"]}}},"moodle-mod_quiz-quizquestionbank":{"requires":["base","event","node","io","io-form","yui-later","moodle-question-qbankmanager","moodle-core-notification-dialogue"]},"moodle-mod_quiz-randomquestion":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-repaginate":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_quiz-util","querystring-parse"]},"moodle-mod_quiz-quizbase":{"requires":["base","node"]},"moodle-mod_quiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_quiz-modform":{"requires":["base","node","event"]},"moodle-mod_quiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-base","moodle-mod_quiz-util-page","moodle-mod_quiz-util-slot","moodle-course-util"]},"moodle-mod_quiz-util":{"requires":["node","moodle-core-actionmenu"],"use":["moodle-mod_quiz-util-base"],"submodules":{"moodle-mod_quiz-util-base":{},"moodle-mod_quiz-util-slot":{"requires":["node","moodle-mod_quiz-util-base"]},"moodle-mod_quiz-util-page":{"requires":["node","moodle-mod_quiz-util-base"]}}},"moodle-message_airnotifier-toolboxes":{"requires":["base","node","io"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-event","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-filter_mathjaxloader-loader":{"requires":["moodle-core-event"]},"moodle-editor_atto-rangy":{"requires":[]},"moodle-editor_atto-editor":{"requires":["node","transition","io","overlay","escape","event","event-simulate","event-custom","node-event-html5","node-event-simulate","yui-throttle","moodle-core-notification-dialogue","moodle-core-notification-confirm","moodle-editor_atto-rangy","handlebars","timers","querystring-stringify"]},"moodle-editor_atto-plugin":{"requires":["node","base","escape","event","event-outside","handlebars","event-custom","timers","moodle-editor_atto-menu"]},"moodle-editor_atto-menu":{"requires":["moodle-core-notification-dialogue","node","event","event-custom"]},"moodle-report_eventlist-eventfilter":{"requires":["base","event","node","node-event-delegate","datatable","autocomplete","autocomplete-filters"]},"moodle-report_loglive-fetchlogs":{"requires":["base","event","node","io","node-event-delegate"]},"moodle-gradereport_grader-gradereporttable":{"requires":["base","node","event","handlebars","overlay","event-hover"]},"moodle-gradereport_history-userselector":{"requires":["escape","event-delegate","event-key","handlebars","io-base","json-parse","moodle-core-notification-dialogue"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-tool_lp-dragdrop-reorder":{"requires":["moodle-core-dragdrop"]},"moodle-tool_monitor-dropdown":{"requires":["base","event","node"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","transition","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-atto_accessibilitychecker-button":{"requires":["color-base","moodle-editor_atto-plugin"]},"moodle-atto_accessibilityhelper-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_align-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_bold-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_charmap-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_clear-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_collapse-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emoticon-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_equation-button":{"requires":["moodle-editor_atto-plugin","moodle-core-event","io","event-valuechange","tabview","array-extras"]},"moodle-atto_fullscreen-button":{"requires":["event-resize","moodle-editor_atto-plugin"]},"moodle-atto_html-button":{"requires":["moodle-editor_atto-plugin","event-valuechange"]},"moodle-atto_image-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_indent-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_italic-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_link-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-usedfiles":{"requires":["node","escape"]},"moodle-atto_managefiles-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_media-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_multilang2-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_noautolink-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_orderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_rtl-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_strike-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_structure-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_subscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_superscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_table-button":{"requires":["moodle-editor_atto-plugin","moodle-editor_atto-menu","event","event-valuechange"]},"moodle-atto_title-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_underline-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_undo-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_unorderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-tinymce_mathslate-mathjaxeditor":{"requires":["moodle-tinymce_mathslate-snippeteditor","dd-drop"]},"moodle-tinymce_mathslate-snippeteditor":{"requires":["json"]},"moodle-tinymce_mathslate-dialogue":{"requires":["escape","moodle-local_mathslate-editor","moodle-tinymce_mathslate-editor"]},"moodle-tinymce_mathslate-editor":{"requires":["dd-drag","dd-proxy","dd-drop","event","tabview","io-base","json","moodle-tinymce_mathslate-textool","moodle-tinymce_mathslate-mathjaxeditor"]},"moodle-tinymce_mathslate-textool":{"requires":["dd-drag","dd-proxy","dd-drop","event","json"]}}},"gallery":{"name":"gallery","base":"https:\/\/elearning.u-pem.fr\/lib\/yuilib\/gallery\/","combine":true,"comboBase":"https:\/\/elearning.u-pem.fr\/theme\/yui_combo.php?","ext":false,"root":"gallery\/1513674439\/","patterns":{"gallery-":{"group":"gallery"}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"https:\/\/elearning.u-pem.fr\/lib\/javascript.php\/1513674439\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker","moodle-core-notification-dialogue"]},"core_comment":{"name":"core_comment","fullpath":"https:\/\/elearning.u-pem.fr\/lib\/javascript.php\/1513674439\/comment\/comment.js","requires":["base","io-base","node","json","yui2-animation","overlay","escape"]},"mathjax":{"name":"mathjax","fullpath":"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/mathjax\/2.7.1\/MathJax.js?delayStartupUntil=configured"}}};
+M.yui.loader = {modules: {}};
+
+//]]>
+</script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+      
+    <style>
+        .path-course .coursebox .content { position: relative !important; }
+        .path-course .coursebox .courseimage {
+            position: absolute !important;
+            top: -28px !important;
+            right: 0px !important;
+            width: auto !important;
+            text-align: right !important;
+        }
+        .panel-body ul {
+            margin-top: 12px !important;
+            margin-bottom: 12px !important;
+        }
+        .main p:after {
+            display: block !important;
+            clear: both !important;
+            content: '' !important;
+        }
+        .btn {
+            max-width: 100% !important;
+            white-space: normal !important;
+        }
+        .cua_courses * {
+            -webkit-box-sizing: border-box !important;
+            -moz-box-sizing: border-box !important;
+            -ms-box-sizing: border-box !important;
+            -o-box-sizing: border-box !important;
+            box-sizing: border-box !important;
+        }
+        .cua_courses:after {
+            display: block !important;
+            clear: both !important;
+            content: '' !important;
+        }
+        .cua_course {
+            float: left !important;
+            display: inline-block !important;
+            vertical-align: top !important;
+            width: calc(100% / 3) !important;
+            max-width: 100% !important;
+            padding: 24px !important;
+            margin: 0px !important;
+            border-radius: 4px !important;
+            overflow: hidden !important;
+        }
+        .cua_course__link{
+            position: relative !important;
+            display: block !important;
+            height: 0px;
+            padding-bottom: 58%;
+            text-decoration: none !important;
+            color: #28A5A8 !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-color: #F0F4F6 !important;
+            border-radius: 4px !important;
+            overflow: hidden !important;
+        }
+        .cua_course__link { color: #1E7D7F !important; }
+        .cua_course__link:hover { color: #1E7D7F !important; }
+        .cua_course__body {
+            position: absolute !important;
+            top: calc(100% - 40px) !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: #F0F4F6 !important;
+            -webkit-transition: .3s !important;
+            -moz-transition: .3s !important;
+            -ms-transition: .3s !important;
+            -o-transition: .3s !important;
+            transition: .3s !important;
+        }
+        .cua_course__link:hover .cua_course__body { top: 0px !important; }
+        .cua_course__title {
+            width: 100% !important;
+            padding: 12px 16px !important;
+            margin: 0px !important;
+            font-size: 16px !important;
+            color: #fff !important;
+            background: #494D55 !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+        }
+        .cua_course__excerpt {
+            height: calc(100% - 83.6px);
+            padding: 12px 16px 0px 16px !important;
+            margin: 0px !important;
+            font-size: 12px !important;
+            color: #494D55 !important;
+            text-overflow: ellipsis !important;
+            overflow: hidden !important;
+        }
+        .cua_course__teachers {
+            position: absolute !important;
+            bottom: 0px !important;
+            left: 0px !important;
+            width: 100% !important;
+            padding: 12px 16px !important;
+            margin: 0px !important;
+            font-size: 12px !important;
+            color: #494D55 !important;
+            background: #F0F4F6 !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+        }
+        @media all and (max-width: 1152px) {
+            .cua_course { width: 50% !important; }
+        }
+        @media all and (max-width: 720px) {
+            .cua_course { width: 100% !important; }
+        }
+    </style>
+</head>
+
+<body  id="page-course-view-topics" class="format-topics  path-course path-course-view gecko dir-ltr lang-fr yui-skin-sam yui3-skin-sam elearning-u-pem-fr pagelayout-course course-3304 context-133393 category-20 has-region-side-pre used-region-side-pre side-pre-only layout-option-langmenu">
+<div class="skiplinks">
+    <a href="#maincontent" class="skip">Passer au contenu principal</a>
+</div><script type="text/javascript" src="https://elearning.u-pem.fr/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple.js"></script><script type="text/javascript" src="https://elearning.u-pem.fr/theme/jquery.php/core/jquery-3.1.0.js"></script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/theme/jquery.php/theme_herald/bootstrap_plugins/bootstrap.js"></script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/theme/jquery.php/theme_herald/back-to-top.js"></script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/theme/jquery.php/theme_herald/jquery.fitvids.js"></script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/theme/jquery.php/theme_herald/bootstrap-hover-dropdown.js"></script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/theme/jquery.php/theme_herald/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/lib/javascript.php/1513674439/lib/javascript-static.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+<header id="page-header" class="header">
+    <div id="topbar" class="topbar container-fluid navbar-fixed-top">  
+        <nav role="navigation" class="main-nav">
+            <div class="navbar-header">
+                <button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target="#nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button><!--//nav-toggle-->
+            </div><!--//navbar-header-->
+            <div id="nav-collapse" class="nav-collapse collapse">
+                <div id="nav-collapse" class="nav-collapse collapse">
+                                <ul class="nav">
+                                        <li><a href="https://elearning.u-pem.fr">Accueil</a></li>
+                                        <li><a href="https://elearning.u-pem.fr/my/">Mes cours</a></li>
+                                        <!-- <li><a href="https://elearning.u-pem.fr/course/">Tableau de bord</a></li> -->
+                                        <li>
+                        <a class="dropdown-toggle" href="" data-toggle="dropdown" aria-expanded="false">Accès rapide aux cours</a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="https://elearning.u-pem.fr/course/view.php?id=3275">Communication interpersonnelle et professionnelle 1(2017)</a></li>
+                                                        <li><a href="https://elearning.u-pem.fr/course/view.php?id=3546">IMAC 1 2017 ENGLISH (2017)</a></li>
+                                                        <li><a href="https://elearning.u-pem.fr/course/view.php?id=3400">IMAC1 - Programmation Web (2017)</a></li>
+                                                        <li><a href="https://elearning.u-pem.fr/course/view.php?id=3304">Langage C (2017)</a></li>
+                                                    </ul>
+                    </li>
+                                        <li><a href="https://elearning.u-pem.fr/portail/admin/course_archive.php">Archive des cours</a></li>
+                                        <li><a href="https://elearning.u-pem.fr/auth/mnet/jump.php?hostid=3" target="_blank">Portfolio</a></li>
+                                        <li><a href="https://wims.u-pem.fr/" target="_blank">WIMS</a></li>
+                                        <li><a href="http://podcast.u-pem.fr/" target="_blank">Podcast</a></li>
+                                        <li><a href="https://www.compilatio.net/" target="_blank">Anti-Plagiat</a></li>
+                                        <li><a href="https://www.projet-voltaire.fr/" target="_blank">Orthographe</a></li>
+                                        <li><a href="https://www.u-pem.fr/espace-numerique-de-travail-etudiants/ma-formation/certification-de-langues/plate-forme-de-langues/redirection-vers-speexx/" target="_blank">Langues</a></li>
+                                    </ul>             
+            </div>            
+            </div>
+        </nav>                        
+    </div><!--//topbar-->    
+ 
+    <div class=" branding container-fluid">     
+        <div class="row" >
+            <h1 class="logo col-md-5 col-sm-12 col-xs-12">
+                <a href="https://elearning.u-pem.fr" style="display: inline-block; height: 64px;"><img id="logo" src="//elearning.u-pem.fr/pluginfile.php/1/theme_herald/logo/1513674439/logo_upem-elearning.png" alt="ELEARNING" style="height: 64px;" /></a>
+            </h1><!--//logo-->
+ 
+            <div class="info-container col-md-7 col-sm-12 col-xs-12">
+ 
+                <div class="logininfo-container" style="float:right;display:inline-block;vertical-align:top;margin-top:32px;">
+                     
+                                        
+ 
+                                            <div class="usermenu"><div class="moodle-actionmenu nowrap-items" id="action-menu-0" data-enhance="moodle-core-actionmenu">
+
+        <ul class="menubar" id="action-menu-0-menubar" role="menubar">
+
+            <!--
+
+            --><!--
+
+            --><li role="presentation"><a href="#" class="toggle-display textmenu" id="action-menu-toggle-0" title="" role="menuitem"><span class="userbutton"><span class="usertext">MAXIMILIEN PLUCHARD</span><span class="avatars"><span class="avatar current"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/u/f2" alt="Avatar MAXIMILIEN PLUCHARD" title="Avatar MAXIMILIEN PLUCHARD" class="userpicture defaultuserpic" width="35" height="35" role="presentation" /></span></span></span><b class="caret"></b></a>
+</li>
+
+        </ul>
+
+
+        <ul class="menu  align-tr-br" id="action-menu-0-menu" data-rel="menu-content" aria-labelledby="action-menu-toggle-0" role="menu" data-align="tr-br">
+            <li role="presentation">    <a href="https://elearning.u-pem.fr/my/" class="icon menu-action" role="menuitem"data-title="mymoodle,admin" aria-labelledby="actionmenuaction-1"><img class="icon " alt="Tableau de bord" title="Tableau de bord" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/dashboard" /><span class="menu-action-text" id="actionmenuaction-1">Tableau de bord</span></a>
+
+
+
+
+
+</li><li role="presentation">
+<span class="filler">&nbsp;</span>
+
+
+
+</li><li role="presentation">    <a href="https://elearning.u-pem.fr/user/profile.php?id=22445" class="icon menu-action" role="menuitem"data-title="profile,moodle" aria-labelledby="actionmenuaction-2"><img class="icon " alt="Profil" title="Profil" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/user" /><span class="menu-action-text" id="actionmenuaction-2">Profil</span></a>
+
+
+
+
+
+</li><li role="presentation">    <a href="https://elearning.u-pem.fr/grade/report/overview/index.php" class="icon menu-action" role="menuitem"data-title="grades,grades" aria-labelledby="actionmenuaction-3"><img class="icon " alt="Notes" title="Notes" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/t/grades" /><span class="menu-action-text" id="actionmenuaction-3">Notes</span></a>
+
+
+
+
+
+</li><li role="presentation">    <a href="https://elearning.u-pem.fr/message/index.php" class="icon menu-action" role="menuitem"data-title="messages,message" aria-labelledby="actionmenuaction-4"><img class="icon " alt="Messages personnels" title="Messages personnels" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/t/message" /><span class="menu-action-text" id="actionmenuaction-4">Messages personnels</span></a>
+
+
+
+
+
+</li><li role="presentation">    <a href="https://elearning.u-pem.fr/user/preferences.php" class="icon menu-action" role="menuitem"data-title="preferences,moodle" aria-labelledby="actionmenuaction-5"><img class="icon " alt="Préférences" title="Préférences" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/t/preferences" /><span class="menu-action-text" id="actionmenuaction-5">Préférences</span></a>
+
+
+
+
+
+</li><li role="presentation">
+<span class="filler">&nbsp;</span>
+
+
+
+</li><li role="presentation">    <a href="https://elearning.u-pem.fr/login/logout.php?sesskey=uuNbDtzWsy" class="icon menu-action" role="menuitem"data-title="logout,moodle" aria-labelledby="actionmenuaction-6"><img class="icon " alt="Déconnexion" title="Déconnexion" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/a/logout" /><span class="menu-action-text" id="actionmenuaction-6">Déconnexion</span></a>
+
+
+
+
+
+</li>
+        </ul>
+</div></div> 
+                     
+                </div><!--//logininfo-container-->
+ 
+                                <form action="https://elearning.u-pem.fr/course/search.php" method="get" style="float:right;display:inline-block;vertical-align:top;margin-top:38px;margin-right:48px;">
+                    <input name="search" type="text" size="30" value="" placeholder="Recherche d'un cours">
+                    <input type="submit" value="Valider">
+                </form>
+                 
+                <div class="popover-region collapsed popover-region-messages"
+    id="nav-message-popover-container" data-userid="22445"
+    data-region="popover-region">
+    <div class="popover-region-toggle nav-link"
+        data-region="popover-region-toggle"
+        aria-role="button"
+        aria-controls="popover-region-container-5a3ccc80b6cf75a3ccc80a596553"
+        aria-haspopup="true"
+        aria-label="Afficher la fenêtre des messages sans nouveau message"
+        tabindex="0">
+                <img class="icon " alt="Ouvrir/fermer le menu messages" title="Ouvrir/fermer le menu messages" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/t/message" />
+        <div class="count-container hidden" data-region="count-container"></div>
+
+    </div>
+    <div 
+        id="popover-region-container-5a3ccc80b6cf75a3ccc80a596553"
+        class="popover-region-container"
+        data-region="popover-region-container"
+        aria-expanded="false"
+        aria-hidden="true"
+        aria-label="Fenêtre de notification"
+        role="region">
+        <div class="popover-region-header-container">
+            <h3 class="popover-region-header-text" data-region="popover-region-header-text">Messages personnels</h3>
+            <div class="popover-region-header-actions" data-region="popover-region-header-actions">        <div class="newmessage-link">
+                <a href="https://elearning.u-pem.fr/message/index.php?contactsfirst=1">Nouveau message
+                </a>
+        </div>
+        <div class="hover-tooltip-container">
+                    <a class="mark-all-read-button"
+                    href="#"
+                    role="button"
+                    title="Tout marquer comme lu"
+                    data-action="mark-all-read">
+                    <span class="normal-icon"><img class="icon " alt="Tout marquer comme lu" title="Tout marquer comme lu" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/t/markasread" /></span>
+                    <span class="loading-icon"><img class="icon " alt="Chargement" title="Chargement" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/y/loading" /></span>
+                </a>
+
+    <div class="hover-tooltip">
+        Tout marquer comme lu
+    </div>
+</div>
+        <div class="hover-tooltip-container">
+                    <a href="https://elearning.u-pem.fr/message/edit.php?id=22445"
+                    title="Préférences des messages">
+                    <img class="icon " alt="Préférences des messages" title="Préférences des messages" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/settings" />
+                </a>
+
+    <div class="hover-tooltip">
+        Préférences des messages
+    </div>
+</div>
+</div>
+        </div>
+        <div class="popover-region-content-container" data-region="popover-region-content-container">
+            <div class="popover-region-content" data-region="popover-region-content">
+                        <div class="messages" data-region="messages" role="log" aria-busy="false" aria-atomic="false" aria-relevant="additions"></div>
+        <div class="empty-message" data-region="empty-message" tabindex="0">Aucun message</div>
+
+            </div>
+            <span class="loading-icon"><img class="icon " alt="Chargement" title="Chargement" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/y/loading" /></span>
+        </div>
+                <a class="see-all-link"
+                    href="https://elearning.u-pem.fr/message/index.php">
+                    <div class="popover-region-footer-container">
+                        <div class="popover-region-seeall-text">Tout afficher</div>
+                    </div>
+                </a>
+    </div>
+</div><div class="popover-region collapsed popover-region-notifications"
+    id="nav-notification-popover-container" data-userid="22445"
+    data-region="popover-region">
+    <div class="popover-region-toggle nav-link"
+        data-region="popover-region-toggle"
+        aria-role="button"
+        aria-controls="popover-region-container-5a3ccc80b7d845a3ccc80a596554"
+        aria-haspopup="true"
+        aria-label="Afficher la fenêtre des notifications sans nouvelle notification"
+        tabindex="0">
+                <img class="icon " alt="Ouvrir/fermer le menu notifications" title="Ouvrir/fermer le menu notifications" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/notifications" />
+        <div class="count-container hidden" data-region="count-container"></div>
+
+    </div>
+    <div 
+        id="popover-region-container-5a3ccc80b7d845a3ccc80a596554"
+        class="popover-region-container"
+        data-region="popover-region-container"
+        aria-expanded="false"
+        aria-hidden="true"
+        aria-label="Fenêtre de notification"
+        role="region">
+        <div class="popover-region-header-container">
+            <h3 class="popover-region-header-text" data-region="popover-region-header-text">Notifications</h3>
+            <div class="popover-region-header-actions" data-region="popover-region-header-actions">        <div class="hover-tooltip-container">
+                    <a class="mark-all-read-button"
+                    href="#"
+                    title="Tout marquer comme lu"
+                    data-action="mark-all-read"
+                    role="button">
+                    <span class="normal-icon"><img class="icon " alt="Tout marquer comme lu" title="Tout marquer comme lu" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/t/markasread" /></span>
+                    <span class="loading-icon"><img class="icon " alt="Chargement" title="Chargement" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/y/loading" /></span>
+                </a>
+
+    <div class="hover-tooltip">
+        Tout marquer comme lu
+    </div>
+</div>
+        <div class="hover-tooltip-container">
+                    <a href="https://elearning.u-pem.fr/message/notificationpreferences.php?userid=22445"
+                    title="Préférences de notification">
+                    <img class="icon " alt="Préférences de notification" title="Préférences de notification" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/settings" />
+                </a>
+
+    <div class="hover-tooltip">
+        Préférences de notification
+    </div>
+</div>
+</div>
+        </div>
+        <div class="popover-region-content-container" data-region="popover-region-content-container">
+            <div class="popover-region-content" data-region="popover-region-content">
+                        <div class="all-notifications"
+            data-region="all-notifications"
+            role="log"
+            aria-busy="false"
+            aria-atomic="false"
+            aria-relevant="additions"></div>
+        <div class="empty-message" tabindex="0" data-region="empty-message">Vous n'avez pas de notification</div>
+
+            </div>
+            <span class="loading-icon"><img class="icon " alt="Chargement" title="Chargement" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/y/loading" /></span>
+        </div>
+                <a class="see-all-link"
+                    href="https://elearning.u-pem.fr/message/output/popup/notifications.php">
+                    <div class="popover-region-footer-container">
+                        <div class="popover-region-seeall-text">Tout afficher</div>
+                    </div>
+                </a>
+    </div>
+</div> 
+                 
+                            </div>
+        </div><!--//row-->             
+    </div><!--//branding-->
+</header><div class="page-wrapper">
+    <div id="page" class="container-fluid">    
+        <div id="page-content" class="row">
+            <div id="page-navbar" class=" col-md-12 clearfix">
+            	<div class="breadcrumb-nav"><span class="accesshide" id="navbar-label">Chemin de la page</span><nav aria-labelledby="navbar-label"><ul class="breadcrumb"><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://elearning.u-pem.fr/my/"><span itemprop="title">Tableau de bord</span></a></span> <span class="divider"> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25BA;</span> </span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://elearning.u-pem.fr/course/index.php"><span itemprop="title">Cours</span></a></span> <span class="divider"> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25BA;</span> </span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="https://elearning.u-pem.fr/course/index.php?categoryid=20"><span itemprop="title">UPEM Année universitaire 2017/2018</span></a></span> <span class="divider"> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25BA;</span> </span></li><li><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" title="Langage C (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3304"><span itemprop="title">Langage C (2017)</span></a></span></li></ul></nav></div>
+            	<nav class="breadcrumb-button"></nav>
+        	</div>
+                       <section id="region-main" class="col-md-9 col-sm-12 col-xs-12">
+                            <div class="region-main-inner">
+                <span class="notifications" id="user-notifications"><div class="alert alert-error alert-block fade in "  role="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    Désolé, cette activité n'est pas visible actuellement
+</div></span><div role="main"><span id="maincontent"></span><div class="course-content"><h2 class="accesshide">Aperçu des sections</h2><ul class="topics"><li id="section-0" class="section main clearfix" role="region" aria-label="Généralités"><span class="hidden sectionname">Généralités</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/spacer" /></div><div class="content"><h3 class="sectionname accesshide"><span><a href="https://elearning.u-pem.fr/course/view.php?id=3304#section-0">Généralités</a></span></h3><div class="section_availability"></div><div class="summary"></div><ul class="section img-text"><li class="activity forum modtype_forum " id="module-58552"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/forum/view.php?id=58552"><img src="https://elearning.u-pem.fr/theme/image.php/herald/forum/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Annonces<span class="accesshide " > Forum</span></span></a></div></div></div></div></li><li class="activity forum modtype_forum " id="module-58553"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/forum/view.php?id=58553"><img src="https://elearning.u-pem.fr/theme/image.php/herald/forum/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Annonces<span class="accesshide " > Forum</span></span></a></div></div></div></div></li><li class="activity forum modtype_forum " id="module-58554"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/forum/view.php?id=58554"><img src="https://elearning.u-pem.fr/theme/image.php/herald/forum/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Forum des nouvelles</span></a></div></div></div></div></li><li class="activity forum modtype_forum " id="module-58555"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/forum/view.php?id=58555"><img src="https://elearning.u-pem.fr/theme/image.php/herald/forum/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Forum Langage C</span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Ce forum est destiné à échanger entre étudiants et enseignants sur le langage C.</p><p>Vous pouvez y poser vos questions si vous souhaitez éclaircir des points du cours ou avoir des aides en cas de difficultés rencontrées dans les sujets de TD.</p><p>Bon courage dans vos apprentissages.</p><p><br></p></div></div></div></div></div></div></li><li class="activity label modtype_label " id="module-58556"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="no-overflow"><p>Modalités d'évaluation de l'enseignement :</p><p>TD noté : 25%</p><p>Projet &nbsp;: 25%</p><p>Examen final : 50%</p></div></div></div></div></div></div></li></ul></div></li><li id="section-1" class="section main clearfix" role="region" aria-label="Cours"><span class="hidden sectionname">Cours</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/spacer" /></div><div class="content"><h3 class="sectionname"><span><a href="https://elearning.u-pem.fr/course/view.php?id=3304#section-1">Cours</a></span></h3><div class="section_availability"></div><div class="summary"></div><ul class="section img-text"><li class="activity resource modtype_resource " id="module-58557"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58557"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">1. Commandes Linux de base<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Introduction au système d'exploitation Linux</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58558"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58558"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">2. Introduction au C<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Compilation d'un programme, types simples, variables, tableaux</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58559"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58559"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">3. Structures de contrôle. Fonctions. Pointeurs<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Structures de contrôle : boucles for, while, do, instruction switch. Appel et retour de fonctions. Pointeurs et tableaux</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58560"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58560"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">4. Fonctions récursives<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Fonctions récursives. Traitement des erreurs. Fonctions sur les chaines de caractères</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58561"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58561"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">5. Pièges et astuces du langage C<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Automatisation de la compilation. Prototype de main(). Du code propre. Précision des calculs en virgule flottante. Boucles et expressions logiques. Instructions if et switch</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58562"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58562"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">6. Types structurés<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Types structure. Pointeurs sur structures. Variables globales</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58563"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58563"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">7. Allocation dynamique<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Allocation dynamique, libération de mémoire</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58564"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58564"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">8. Allocation dynamique et structures<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Allocation dynamique pour les types structurés. Listes chainées. Taille mémoire des structures. Fonctions mathématiques</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58565"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58565"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">9. Tableaux multidimensionnels<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Tableaux multidimensionnels. Pointeurs sur tableaux. Tableaux de pointeurs</p></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58566"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><div class=" dimmed_text"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">10. Typedef. Énumérations. Unions<span class="accesshide " > Fichier</span></span></div></div><div class="availabilityinfo isrestricted">
+    <span class="label label-info">Accès restreint</span> Disponible à partir du <strong>16 janvier 2018, 10:30</strong>
+</div><div class="contentwithoutlink  dimmed_text"></div></div></div></div></li></ul></div></li><li id="section-2" class="section main clearfix" role="region" aria-label="Travaux pratiques"><span class="hidden sectionname">Travaux pratiques</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/spacer" /></div><div class="content"><h3 class="sectionname"><span><a href="https://elearning.u-pem.fr/course/view.php?id=3304#section-2">Travaux pratiques</a></span></h3><div class="section_availability"></div><div class="summary"></div><ul class="section img-text"><li class="activity resource modtype_resource " id="module-58569"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58569"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">1. Commandes linux de base<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58570"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58570"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">2. Entrées/sorties, variables, structures conditionnelles<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58572"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58572"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">3. Itérations, fonctions et tableaux<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58573"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58573"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">4. tableaux et pointeurs<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58574"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58574"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">5. Chaines de caractères et fonctions récursives<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58576"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58576"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">7. Complèments<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-67459"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=67459"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">tp7-bis<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-67853"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=67853"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">8. Types structurés<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity folder modtype_folder " id="module-68152"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="contentwithoutlink "><div class="no-overflow"><div class="box generalbox foldertree"><div id="folder_tree0" class="filemanager"><ul><li><div class="fp-filename-icon"><span class="fp-icon"><img class="icon " alt="8. TP8 bis" title="8. TP8 bis" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/folder-24" /></span><span class="fp-filename">8. TP8 bis</span></div><ul><li><span class="fp-filename-icon"><a href="https://elearning.u-pem.fr/pluginfile.php/168057/mod_folder/content/0/code.c?forcedownload=1"><span class="fp-icon"><img class="icon " alt="code.c" title="code.c" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/sourcecode-24" /></span><span class="fp-filename">code.c</span></a></span></li><li><span class="fp-filename-icon"><a href="https://elearning.u-pem.fr/pluginfile.php/168057/mod_folder/content/0/makefile1?forcedownload=1"><span class="fp-icon"><img class="icon " alt="makefile1" title="makefile1" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/text-24" /></span><span class="fp-filename">makefile1</span></a></span></li><li><span class="fp-filename-icon"><a href="https://elearning.u-pem.fr/pluginfile.php/168057/mod_folder/content/0/makefile2?forcedownload=1"><span class="fp-icon"><img class="icon " alt="makefile2" title="makefile2" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/unknown-24" /></span><span class="fp-filename">makefile2</span></a></span></li></ul></li></ul></div></div><div class="box generalbox folderbuttons"><div class="singlebutton"><form method="post" action="https://elearning.u-pem.fr/mod/folder/download_folder.php"><div><input type="submit" value="Télécharger le dossier" /><input type="hidden" name="id" value="68152" /><input type="hidden" name="sesskey" value="uuNbDtzWsy" /></div></form></div></div></div></div></div></div></div></li><li class="activity resource modtype_resource " id="module-68258"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=68258"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">9. Allocation dynamique<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-58577"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58577"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">10. Listes chaînées<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-69863"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=69863"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">11. Tableaux à deux dimensions et listes doublement chaînées<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li></ul></div></li><li id="section-3" class="section main clearfix" role="region" aria-label="Rendus"><span class="hidden sectionname">Rendus</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/spacer" /></div><div class="content"><h3 class="sectionname"><span><a href="https://elearning.u-pem.fr/course/view.php?id=3304#section-3">Rendus</a></span></h3><div class="section_availability"></div><div class="summary"></div><ul class="section img-text"><li class="activity assign modtype_assign " id="module-58597"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58597"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 2 à la fin de la séance<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58598"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58598"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 2 depuis chez vous<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58599"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58599"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 3 à la fin de la séance<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58600"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58600"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 3 depuis chez vous<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58601"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58601"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 4 à la fin de la séance<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58602"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58602"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 4 depuis chez vous<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58603"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58603"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu TP 5 à la fin de la séance<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58604"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58604"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu TP 5 depuis chez vous<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58605"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58605"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP noté du 17 novembre groupe1<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58606"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58606"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP noté du 17 novembre groupe 2<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58608"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58608"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 7 à la fin de la séance<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58609"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58609"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 7 depuis chez vous<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58610"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58610"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 8 à la fin de la séance<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58611"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58611"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 8 depuis chez vous<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li><li class="activity assign modtype_assign " id="module-58615"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/assign/view.php?id=58615"><img src="https://elearning.u-pem.fr/theme/image.php/herald/assign/1513674439/icon" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Rendu du TP 9 depuis chez vous<span class="accesshide " > Devoir</span></span></a></div></div></div></div></li></ul></div></li><li id="section-4" class="section main clearfix hidden"><div class="left side"></div><div class="right side"></div><div class="content"><div>Projet n'est pas disponible</div></div></li><li id="section-5" class="section main clearfix" role="region" aria-label="ANNALES"><span class="hidden sectionname">ANNALES</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/spacer" /></div><div class="content"><h3 class="sectionname"><span><a href="https://elearning.u-pem.fr/course/view.php?id=3304#section-5">ANNALES</a></span></h3><div class="section_availability"></div><div class="summary"><div class="no-overflow"><p>Annales d'examen</p></div></div><ul class="section img-text"><li class="activity resource modtype_resource " id="module-58632"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=58632"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">Examen du 21 janvier 2014<span class="accesshide " > Fichier</span></span></a></div><div class="contentafterlink"><div class="no-overflow"><div class="no-overflow"><p>Attention, vos camarades de 2013-2014 avaient suivi moins de cours de langage C que vous.</p></div></div></div></div></div></div></li></ul></div></li><li id="section-6" class="section main clearfix" role="region" aria-label="Section 6"><span class="hidden sectionname">Section 6</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/spacer" /></div><div class="content"><h3 class="sectionname"><span><a href="https://elearning.u-pem.fr/course/view.php?id=3304#section-6">Section 6</a></span></h3><div class="section_availability"></div><div class="summary"></div><ul class="section img-text"></ul></div></li><li id="section-7" class="section main clearfix" role="region" aria-label="Projet 2017/18"><span class="hidden sectionname">Projet 2017/18</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/spacer" /></div><div class="content"><h3 class="sectionname"><span><a href="https://elearning.u-pem.fr/course/view.php?id=3304#section-7">Projet 2017/18</a></span></h3><div class="section_availability"></div><div class="summary"></div><ul class="section img-text"><li class="activity resource modtype_resource " id="module-70050"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="https://elearning.u-pem.fr/mod/resource/view.php?id=70050"><img src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/f/pdf-24" class="iconlarge activityicon" alt=" " role="presentation" /><span class="instancename">sujet<span class="accesshide " > Fichier</span></span></a></div></div></div></div></li></ul></div></li></ul></div></div>                </div><!--//region-main-inner-->
+            </section>
+                        <aside id="block-region-side-pre" class="col-md-3 col-sm-12 col-xs-12 pull-right block-region" data-blockregion="side-pre" data-droptarget="1"><a class="skip skip-block" id="fsb-1" href="#sb-1">Sauter Navigation</a><div id="inst4" class="block_navigation  block" role="navigation" data-block="navigation" data-instanceid="4" aria-labelledby="instance-4-header" data-dockable="1"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-4-header">Navigation</h2></div></div><div class="content"><ul class="block_tree list" role="tree" data-ajax-loader="block_navigation/nav_loader"><li class="type_unknown depth_1 contains_branch" aria-labelledby="label_1_1"><p class="tree_item branch navigation_node" role="treeitem" aria-expanded="true" aria-owns="random5a3ccc80a59651_group" data-collapsible="false"><a tabindex="-1" id="label_1_1" href="https://elearning.u-pem.fr/my/">Tableau de bord</a></p><ul id="random5a3ccc80a59651_group" role="group"><li class="type_setting depth_2 item_with_icon" aria-labelledby="label_2_2"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_2_2" href="https://elearning.u-pem.fr/?redirect=0"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Accueil du site</span></a></p></li><li class="type_course depth_2 contains_branch" aria-labelledby="label_2_3"><p class="tree_item branch" role="treeitem" aria-expanded="false" aria-owns="random5a3ccc80a59653_group"><span tabindex="-1" id="label_2_3" title="Elearning, Plateforme pédagogique de l&#039;Université Paris-Est Marne-La-Vallée">Pages du site</span></p><ul id="random5a3ccc80a59653_group" role="group" aria-hidden="true"><li class="type_unknown depth_3 item_with_icon" aria-labelledby="label_3_5"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_5" href="https://elearning.u-pem.fr/blog/index.php"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Blogs du site</span></a></p></li><li class="type_custom depth_3 item_with_icon" aria-labelledby="label_3_6"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_6" href="https://elearning.u-pem.fr/badges/view.php?type=1"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Badges de site</span></a></p></li><li class="type_setting depth_3 item_with_icon" aria-labelledby="label_3_7"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_7" href="https://elearning.u-pem.fr/tag/search.php"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Tags</span></a></p></li><li class="type_custom depth_3 item_with_icon" aria-labelledby="label_3_8"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_8" href="https://elearning.u-pem.fr/calendar/view.php?view=month"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Calendrier</span></a></p></li><li class="type_activity depth_3 item_with_icon" aria-labelledby="label_3_10"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_10" title="Forum" href="https://elearning.u-pem.fr/mod/forum/view.php?id=1"><img class="icon navicon" alt="Forum" title="Forum" src="https://elearning.u-pem.fr/theme/image.php/herald/forum/1513674439/icon" /><span class="item-content-wrap">Brèves</span></a></p></li></ul></li><li class="type_system depth_2 contains_branch" aria-labelledby="label_2_11"><p class="tree_item branch" role="treeitem" aria-expanded="true" aria-owns="random5a3ccc80a59659_group"><span tabindex="-1" id="label_2_11">Mes cours</span></p><ul id="random5a3ccc80a59659_group" role="group"><li class="type_custom depth_3 item_with_icon" aria-labelledby="label_3_12"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_3_12" href="https://elearning.u-pem.fr/course/index.php#"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Plus...</span></a></p></li></ul></li><li class="type_system depth_2 contains_branch" aria-labelledby="label_2_13"><p class="tree_item branch canexpand" role="treeitem" aria-expanded="true" aria-owns="random5a3ccc80a596511_group"><a tabindex="-1" id="label_2_13" href="https://elearning.u-pem.fr/course/index.php">Cours</a></p><ul id="random5a3ccc80a596511_group" role="group"><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_14"><p class="tree_item branch canexpand" role="treeitem" aria-expanded="true" aria-owns="random5a3ccc80a596512_group"><a tabindex="-1" id="label_3_14" href="https://elearning.u-pem.fr/course/index.php?categoryid=20">UPEM Année universitaire 2017/2018</a></p><ul id="random5a3ccc80a596512_group" role="group"><li class="type_category depth_4 contains_branch" aria-labelledby="label_4_15"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_24" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_24" data-node-key="24" data-node-type="10"><a tabindex="-1" id="label_4_15" href="https://elearning.u-pem.fr/course/index.php?categoryid=24">Technologie mécanique (2017)</a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_16"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_16" title="Programmation fonctionnelle (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3841"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Programmation fonctionnelle (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_17"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_17" title="SOCIOLOGIE DES RESSOURCES HUMAINES (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3840"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">SOCIOLOGIE DES RESSOURCES HUMAINES (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_18"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_18" title="Montage et gestion de projets. L3 MIPI (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3839"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Montage et gestion de projets. L3 MIPI (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_19"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_19" title="exam anglais (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3838"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">exam anglais (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_20"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_20" title=" Expression écrite ang L2S4 (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3837"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap"> Expression écrite ang L2S4 (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_21"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_21" title="Management des SI (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3835"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Management des SI (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_22"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_22" title="L2 Automates et Langages (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3834"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">L2 Automates et Langages (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_23"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_23" title="L3 - Prog. système (2017)  " href="https://elearning.u-pem.fr/course/view.php?id=3833"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">L3 - Prog. système (2017)  </span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_24"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_24" title="L2 - Architecture des Systèmes Informatiques (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3832"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">L2 - Architecture des Systèmes Informatiques (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_25"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_25" title="MMI1_AUDIOVISUEL_S1_S2" href="https://elearning.u-pem.fr/course/view.php?id=3830"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">MMI1_AUDIOVISUEL_S1_S2</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_26"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_26" title="INTRODUCTION AUX TRANSFERTS CONVECTIFS ET RADIATIFS (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3825"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">INTRODUCTION AUX TRANSFERTS CONVECTIFS ET RADIATIFS (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_27"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_27" title="CAPTEURS ET CHAINES DE MESURE (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3824"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">CAPTEURS ET CHAINES DE MESURE (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_28"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_28" title="LOGISTIQUE (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3823"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">LOGISTIQUE (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_29"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_29" title="UE d&#039;ouverture 2016-2019" href="https://elearning.u-pem.fr/course/view.php?id=3821"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">UE d'ouverture 2016-2019</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_30"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_30" title="geologie (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3819"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">geologie (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_31"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_31" title="Projets tutorés 2018-2019 MMI Meaux (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3818"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Projets tutorés 2018-2019 MMI Meaux (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_32"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_32" title="Bac à sable MAYUR (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3817"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Bac à sable MAYUR (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_33"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_33" title="Electronique analogique (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3816"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Electronique analogique (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_34"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_34" title="Méthodologie du Mémoire Universitaire et Professionnel. M1 MIPI &amp; MITIC (2017) " href="https://elearning.u-pem.fr/course/view.php?id=3815"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Méthodologie du Mémoire Universitaire et Professionnel. M1 MIPI &amp; MITIC (2017) </span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_35"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_35" title="Perfectionnement à la Programmation C (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3814"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Perfectionnement à la Programmation C (2017)</span></a></p></li><li class="type_course depth_4 item_with_icon" aria-labelledby="label_4_36"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_4_36" title="Examen C2I SEG S1B (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3813"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Examen C2I SEG S1B (2017)</span></a></p></li><li class="type_course depth_4 contains_branch current_branch" aria-labelledby="label_4_37"><p class="tree_item branch active_tree_node canexpand" role="treeitem" aria-expanded="true" aria-owns="random5a3ccc80a596534_group"><a tabindex="-1" id="label_4_37" title="Langage C (2017)" href="https://elearning.u-pem.fr/course/view.php?id=3304">Langage C (2017)</a></p><ul id="random5a3ccc80a596534_group" role="group"><li class="type_unknown depth_5 contains_branch" aria-labelledby="label_5_38"><p class="tree_item branch" role="treeitem" aria-expanded="false" aria-owns="random5a3ccc80a596535_group"><a tabindex="-1" id="label_5_38" href="https://elearning.u-pem.fr/user/index.php?id=3304">Participants</a></p><ul id="random5a3ccc80a596535_group" role="group" aria-hidden="true"><li class="type_setting depth_6 item_with_icon" aria-labelledby="label_6_39"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_6_39" href="https://elearning.u-pem.fr/blog/index.php?courseid=3304"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">Blogs de cours</span></a></p></li><li class="type_user depth_6 item_with_icon" aria-labelledby="label_6_40"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_6_40" href="https://elearning.u-pem.fr/user/view.php?id=22445&amp;course=3304"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/navigationitem" /><span class="item-content-wrap">MAXIMILIEN PLUCHARD</span></a></p></li></ul></li><li class="type_setting depth_5 item_with_icon" aria-labelledby="label_5_41"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_5_41" href="https://elearning.u-pem.fr/badges/view.php?type=2&amp;id=3304"><img class="icon navicon" alt="Badges" title="Badges" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/badge" /><span class="item-content-wrap">Badges</span></a></p></li><li class="type_setting depth_5 item_with_icon" aria-labelledby="label_5_42"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_5_42" href="https://elearning.u-pem.fr/admin/tool/lp/coursecompetencies.php?courseid=3304"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/competencies" /><span class="item-content-wrap">Compétences</span></a></p></li><li class="type_setting depth_5 item_with_icon" aria-labelledby="label_5_43"><p class="tree_item hasicon" role="treeitem"><a tabindex="-1" id="label_5_43" href="https://elearning.u-pem.fr/grade/report/index.php?id=3304"><img class="icon navicon" alt="" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/i/grades" /><span class="item-content-wrap">Notes</span></a></p></li><li class="type_structure depth_5 contains_branch" aria-labelledby="label_5_44"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_29726" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_29726" data-node-key="29726" data-node-type="30"><a tabindex="-1" id="label_5_44" href="https://elearning.u-pem.fr/course/view.php?id=3304#section-0">Généralités</a></p></li><li class="type_structure depth_5 contains_branch" aria-labelledby="label_5_45"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_29727" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_29727" data-node-key="29727" data-node-type="30"><a tabindex="-1" id="label_5_45" href="https://elearning.u-pem.fr/course/view.php?id=3304#section-1">Cours</a></p></li><li class="type_structure depth_5 contains_branch" aria-labelledby="label_5_46"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_29728" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_29728" data-node-key="29728" data-node-type="30"><a tabindex="-1" id="label_5_46" href="https://elearning.u-pem.fr/course/view.php?id=3304#section-2">Travaux pratiques</a></p></li><li class="type_structure depth_5 contains_branch" aria-labelledby="label_5_47"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_29729" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_29729" data-node-key="29729" data-node-type="30"><a tabindex="-1" id="label_5_47" href="https://elearning.u-pem.fr/course/view.php?id=3304#section-3">Rendus</a></p></li><li class="type_structure depth_5 contains_branch" aria-labelledby="label_5_48"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_29731" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_29731" data-node-key="29731" data-node-type="30"><a tabindex="-1" id="label_5_48" href="https://elearning.u-pem.fr/course/view.php?id=3304#section-5">ANNALES</a></p></li><li class="type_structure depth_5 contains_branch" aria-labelledby="label_5_49"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_29733" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_29733" data-node-key="29733" data-node-type="30"><a tabindex="-1" id="label_5_49" href="https://elearning.u-pem.fr/course/view.php?id=3304#section-6">Section 6</a></p></li><li class="type_structure depth_5 contains_branch" aria-labelledby="label_5_50"><p class="tree_item branch" role="treeitem" id="expandable_branch_30_32946" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_30_32946" data-node-key="32946" data-node-type="30"><a tabindex="-1" id="label_5_50" href="https://elearning.u-pem.fr/course/view.php?id=3304#section-7">Projet 2017/18</a></p></li></ul></li></ul></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_51"><p class="tree_item branch canexpand" role="treeitem" aria-expanded="false" aria-owns="random5a3ccc80a596541_group"><a tabindex="-1" id="label_3_51" href="https://elearning.u-pem.fr/course/index.php?categoryid=1">Zone de Test</a></p><ul id="random5a3ccc80a596541_group" role="group" aria-hidden="true"><li class="type_category depth_4 contains_branch" aria-labelledby="label_4_52"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_11" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_11" data-node-key="11" data-node-type="10"><a tabindex="-1" id="label_4_52" href="https://elearning.u-pem.fr/course/index.php?categoryid=11">Cours de Formation</a></p></li><li class="type_category depth_4 contains_branch" aria-labelledby="label_4_53"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_13" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_13" data-node-key="13" data-node-type="10"><a tabindex="-1" id="label_4_53" href="https://elearning.u-pem.fr/course/index.php?categoryid=13">Zone de Test PL</a></p></li><li class="type_category depth_4 contains_branch" aria-labelledby="label_4_54"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_25" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_25" data-node-key="25" data-node-type="10"><a tabindex="-1" id="label_4_54" href="https://elearning.u-pem.fr/course/index.php?categoryid=25">presetation du test</a></p></li></ul></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_55"><p class="tree_item branch canexpand" role="treeitem" aria-expanded="false" aria-owns="random5a3ccc80a596542_group"><a tabindex="-1" id="label_3_55" href="https://elearning.u-pem.fr/course/index.php?categoryid=2">UPEM Année universitaire 2015/2016</a></p><ul id="random5a3ccc80a596542_group" role="group" aria-hidden="true"><li class="type_category depth_4 contains_branch" aria-labelledby="label_4_56"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_10" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_10" data-node-key="10" data-node-type="10"><a tabindex="-1" id="label_4_56" href="https://elearning.u-pem.fr/course/index.php?categoryid=10">Technologie mécanique</a></p></li></ul></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_57"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_5" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_5" data-node-key="5" data-node-type="10"><a tabindex="-1" id="label_3_57" href="https://elearning.u-pem.fr/course/index.php?categoryid=5">École d'architecture de la ville &amp; des territoires</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_58"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_7" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_7" data-node-key="7" data-node-type="10"><a tabindex="-1" id="label_3_58" href="https://elearning.u-pem.fr/course/index.php?categoryid=7">Groupe de Moodler Parisien</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_59"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_8" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_8" data-node-key="8" data-node-type="10"><a tabindex="-1" id="label_3_59" href="https://elearning.u-pem.fr/course/index.php?categoryid=8">Licence Pro LP ASSR</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_60"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_9" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_9" data-node-key="9" data-node-type="10"><a tabindex="-1" id="label_3_60" href="https://elearning.u-pem.fr/course/index.php?categoryid=9">École spéciale des travaux publics</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_61"><p class="tree_item branch canexpand" role="treeitem" aria-expanded="false" aria-owns="random5a3ccc80a596543_group"><a tabindex="-1" id="label_3_61" href="https://elearning.u-pem.fr/course/index.php?categoryid=12">UPEM Année universitaire 2016/2017</a></p><ul id="random5a3ccc80a596543_group" role="group" aria-hidden="true"><li class="type_category depth_4 contains_branch" aria-labelledby="label_4_62"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_17" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_17" data-node-key="17" data-node-type="10"><a tabindex="-1" id="label_4_62" href="https://elearning.u-pem.fr/course/index.php?categoryid=17">Technologie mécanique</a></p></li></ul></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_63"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_14" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_14" data-node-key="14" data-node-type="10"><a tabindex="-1" id="label_3_63" href="https://elearning.u-pem.fr/course/index.php?categoryid=14">Tutoriel</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_64"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_15" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_15" data-node-key="15" data-node-type="10"><a tabindex="-1" id="label_3_64" href="https://elearning.u-pem.fr/course/index.php?categoryid=15">Digital U</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_65"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_16" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_16" data-node-key="16" data-node-type="10"><a tabindex="-1" id="label_3_65" href="https://elearning.u-pem.fr/course/index.php?categoryid=16">Forum Unesco</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_66"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_18" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_18" data-node-key="18" data-node-type="10"><a tabindex="-1" id="label_3_66" href="https://elearning.u-pem.fr/course/index.php?categoryid=18">OfflineQuiz</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_67"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_19" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_19" data-node-key="19" data-node-type="10"><a tabindex="-1" id="label_3_67" href="https://elearning.u-pem.fr/course/index.php?categoryid=19">COMPLIS</a></p></li><li class="type_category depth_3 contains_branch" aria-labelledby="label_3_68"><p class="tree_item branch" role="treeitem" id="expandable_branch_10_23" aria-expanded="false" data-requires-ajax="true" data-loaded="false" data-node-id="expandable_branch_10_23" data-node-key="23" data-node-type="10"><a tabindex="-1" id="label_3_68" href="https://elearning.u-pem.fr/course/index.php?categoryid=23">Digital U 2017</a></p></li></ul></li></ul></li></ul></div></div><span class="skip-block-to" id="sb-1"></span><a class="skip skip-block" id="fsb-3" href="#sb-3">Sauter Recherche forums</a><div id="inst49737" class="block_search_forums  block" role="search" data-block="search_forums" data-instanceid="49737" aria-labelledby="instance-49737-header" data-dockable="1"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-49737-header">Recherche forums</h2></div></div><div class="content"><div class="searchform">
+    <form action="https://elearning.u-pem.fr/mod/forum/search.php" style="display: inline;">
+        <fieldset class="invisiblefieldset">
+            <legend class="accesshide">Rechercher</legend>
+            <input type="hidden" name="id" value="3304">
+            <label class="accesshide" for="searchform_search">Rechercher</label>
+            <input id="searchform_search" name="search" type="text" size="16">
+            <button id="searchform_button" type="submit" title="Rechercher">Valider</button><br>
+            <a href="https://elearning.u-pem.fr/mod/forum/search.php?id=3304">Recherche avancée</a>
+                <span class="helptooltip">
+                    <a href="https://elearning.u-pem.fr/help.php?component=core&amp;identifier=search&amp;lang=fr" title="Aide sur Rechercher" aria-haspopup="true" target="_blank"><img class="icon iconhelp" alt="Aide sur Rechercher" title="Aide sur Rechercher" src="https://elearning.u-pem.fr/theme/image.php/herald/core/1513674439/help" />
+</a>
+                </span>
+        </fieldset>
+    </form>
+</div></div></div><span class="skip-block-to" id="sb-3"></span><a class="skip skip-block" id="fsb-4" href="#sb-4">Sauter Dernières annonces</a><div id="inst49739" class="block_news_items  block" role="complementary" data-block="news_items" data-instanceid="49739" aria-labelledby="instance-49739-header" data-dockable="1"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-49739-header">Dernières annonces</h2></div></div><div class="content">(Aucune annonce n'a encore été publiée)</div></div><span class="skip-block-to" id="sb-4"></span><a class="skip skip-block" id="fsb-5" href="#sb-5">Sauter Événements à venir</a><div id="inst49736" class="block_calendar_upcoming  block" role="complementary" data-block="calendar_upcoming" data-instanceid="49736" aria-labelledby="instance-49736-header" data-dockable="1"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-49736-header">Événements à venir</h2></div></div><div class="content"><div class="post">Aucun événement à venir</div><div class="footer"><div class="gotocal"><a href="https://elearning.u-pem.fr/calendar/view.php?view=upcoming&amp;course=3304">Aller au calendrier</a>...</div><div class="newevent"><a href="https://elearning.u-pem.fr/calendar/event.php?action=new&amp;course=3304">Nouvel événement</a>...</div></div></div></div><span class="skip-block-to" id="sb-5"></span><a class="skip skip-block" id="fsb-6" href="#sb-6">Sauter Activité récente</a><div id="inst49738" class="block_recent_activity  block" role="complementary" data-block="recent_activity" data-instanceid="49738" aria-labelledby="instance-49738-header" data-dockable="1"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-49738-header">Activité récente</h2></div></div><div class="content"><div class="activityhead">Activité depuis le mercredi 20 décembre 2017, 10:13</div><div class="activityhead"><a href="https://elearning.u-pem.fr/course/recent.php?id=3304">Rapport complet des activités récentes...</a></div><h3>Modifications du cours:</h3><p class="activity">Fichier ajouté(e)<br /><a href="https://elearning.u-pem.fr/mod/resource/view.php?id=69863">11. Tableaux à deux dimensions et listes doublement chaînées</a></p><p class="activity">Fichier ajouté(e)<br /><a href="https://elearning.u-pem.fr/mod/resource/view.php?id=70050">sujet</a></p></div></div><span class="skip-block-to" id="sb-6"></span></aside>                    </div><!--//page-content-->            
+    </div><!--//#page-->        
+</div><!--page-wrapper-->
+
+<footer id="page-footer" class="footer">
+	    
+    
+        <div class="footer-content">
+            <div class="container">
+                
+                                <div class="row"> 
+                                       
+                    <div class="footer-col links col-md-3 col-sm-6 col-xs-12">
+                        <div class="footer-col-inner">
+                         <p class="title" style="font-size: 24.5px; margin: 10px 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: bold; line-height: 40px; color: #333333; text-rendering: optimizeLegibility; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;"><span style="color: #ffffff;">Qui sommes nous ?</span></p>
+<p style="line-height: 20px;"><span style="color: #ffffff; font-size: medium;"><a href="http://www.u-pem.fr" target="_blank" style="color: #0088cc; text-decoration: none;"><span style="color: #ffffff;">Université Paris-Est Marne-la-Vallée</span></a></span></p>
+<p style="line-height: 20px;"><span style="color: #ffffff; font-size: medium;"><a href="http://www.u-pem.fr/campus-numerique-ip/" style="color: #0088cc; text-decoration: none;"><span style="color: #ffffff;">Campus Numérique</span></a></span></p>     
+                        </div><!--//footer-col-inner-->
+                    </div><!--//foooter-col-->  
+                         
+                                
+                    <div class="footer-col links col-md-3 col-sm-6 col-xs-12 sm-break">
+                        <div class="footer-col-inner">
+                            <h3 class="title" style="font-size: 24.5px; margin: 10px 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: bold; line-height: 40px; color: #333333; text-rendering: optimizeLegibility; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;"><span style="color: #ffffff;">Support</span></h3>
+<p style="line-height: 20px;"><span style="font-size: medium; color: #ffffff;"><a href="http://www.u-pem.fr/campus-numerique-ip/assistance/?tx_ttnews%5Bcat%5D=99&amp;cHash=c936e533f67cbaaddda01752716910d3" style="color: #0088cc; text-decoration: none;"><span style="color: #ffffff;">FAQs</span></a></span></p>
+<p style="line-height: 20px;"><span style="font-size: medium; color: #ffffff;"><a href="http://www.u-pem.fr/universite/mentions-legales/" style="color: #0088cc; text-decoration: none;"><span style="color: #ffffff;">Privacy</span></a></span></p> 
+                        </div><!--//footer-col-inner-->            
+                    </div><!--//foooter-col-->  
+                      
+                     
+                    <div class="footer-col contact col-md-6 col-sm-12 col-xs-12">
+                        <div class="footer-col-inner">
+                            <h3 class="title" style="font-size: 24.5px; margin: 10px 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: bold; line-height: 40px; color: #333333; text-rendering: optimizeLegibility; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;"><span style="color: #ffffff;">Restons en contact</span></h3>
+<p style="margin: 0px 0px 10px; color: #333333; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;"><span style="font-size: medium; color: #ffffff;">Vous pouvez nous contacter au 01 60 95 73 56, du lundi au vendredi de 9h à 17h ou par courriel<span class="Apple-converted-space"> </span></span></p>
+<p><span style="font-size: medium; color: #ffffff;"><a href="mailto:campus.numerique@u-pem.fr" style="color: #0088cc; text-decoration: none;"><span style="color: #ffffff;">campus.numerique@u-pem.fr</span></a></span></p> 
+                        </div><!--//footer-col-inner-->
+                    </div><!--//foooter-col-->
+                                    </div><!--//row-->
+                 
+                
+                <p class="helplink"></p>
+                 
+            
+            </div><!--//container-->
+        </div><!--//footer-content-->
+        <div class="bottom-bar">
+            <div class="container text-center">
+                <small class="copyright">&copy; 2017 Université Paris-Est</small>            </div><!--//container-->
+        </div><!--//bottom-bar-->    
+	
+
+</footer>
+
+<script type="text/javascript">
+//<![CDATA[
+var require = {
+    baseUrl : 'https://elearning.u-pem.fr/lib/requirejs.php/1513674439/',
+    // We only support AMD modules with an explicit define() statement.
+    enforceDefine: true,
+    skipDataMain: true,
+    waitSeconds : 0,
+
+    paths: {
+        jquery: 'https://elearning.u-pem.fr/lib/javascript.php/1513674439/lib/jquery/jquery-3.1.0.min',
+        jqueryui: 'https://elearning.u-pem.fr/lib/javascript.php/1513674439/lib/jquery/ui-1.12.1/jquery-ui.min',
+        jqueryprivate: 'https://elearning.u-pem.fr/lib/javascript.php/1513674439/lib/requirejs/jquery-private'
+    },
+
+    // Custom jquery config map.
+    map: {
+      // '*' means all modules will get 'jqueryprivate'
+      // for their 'jquery' dependency.
+      '*': { jquery: 'jqueryprivate' },
+
+      // 'jquery-private' wants the real jQuery module
+      // though. If this line was not here, there would
+      // be an unresolvable cyclic dependency.
+      jqueryprivate: { jquery: 'jquery' }
+    }
+};
+
+//]]>
+</script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/lib/javascript.php/1513674439/lib/requirejs/require.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+require(['core/first'], function() {
+;
+require(["media_videojs/loader"], function(loader) {
+    loader.setUp(function(videojs) {
+        videojs.options.flash.swf = "https://elearning.u-pem.fr/media/player/videojs/videojs/video-js.swf";
+videojs.addLanguage("fr",{
+ "Play": "Lecture",
+ "Pause": "Pause",
+ "Current Time": "Temps actuel",
+ "Duration Time": "Durée",
+ "Remaining Time": "Temps restant",
+ "Stream Type": "Type de flux",
+ "LIVE": "EN DIRECT",
+ "Loaded": "Chargé",
+ "Progress": "Progression",
+ "Fullscreen": "Plein écran",
+ "Non-Fullscreen": "Fenêtré",
+ "Mute": "Sourdine",
+ "Unmute": "Son activé",
+ "Playback Rate": "Vitesse de lecture",
+ "Subtitles": "Sous-titres",
+ "subtitles off": "Sous-titres désactivés",
+ "Captions": "Sous-titres transcrits",
+ "captions off": "Sous-titres transcrits désactivés",
+ "Chapters": "Chapitres",
+ "Close Modal Dialog": "Fermer la boîte de dialogue modale",
+ "Descriptions": "Descriptions",
+ "descriptions off": "descriptions désactivées",
+ "Audio Track": "Piste audio",
+ "You aborted the media playback": "Vous avez interrompu la lecture de la vidéo.",
+ "A network error caused the media download to fail part-way.": "Une erreur de réseau a interrompu le téléchargement de la vidéo.",
+ "The media could not be loaded, either because the server or network failed or because the format is not supported.": "Cette vidéo n'a pas pu être chargée, soit parce que le serveur ou le réseau a échoué ou parce que le format n'est pas reconnu.",
+ "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "La lecture de la vidéo a été interrompue à cause d'un problème de corruption ou parce que la vidéo utilise des fonctionnalités non prises en charge par votre navigateur.",
+ "No compatible source was found for this media.": "Aucune source compatible n'a été trouvée pour cette vidéo.",
+ "The media is encrypted and we do not have the keys to decrypt it.": "Le média est chiffré et nous n'avons pas les clés pour le déchiffrer.",
+ "Play Video": "Lire la vidéo",
+ "Close": "Fermer",
+ "Modal Window": "Fenêtre modale",
+ "This is a modal window": "Ceci est une fenêtre modale",
+ "This modal can be closed by pressing the Escape key or activating the close button.": "Ce modal peut être fermé en appuyant sur la touche Échap ou activer le bouton de fermeture.",
+ ", opens captions settings dialog": ", ouvrir les paramètres des sous-titres transcrits",
+ ", opens subtitles settings dialog": ", ouvrir les paramètres des sous-titres",
+ ", opens descriptions settings dialog": ", ouvrir les paramètres des descriptions",
+ ", selected": ", sélectionné"
+});
+
+    });
+});;
+require(["block_navigation/navblock"], function(amd) { amd.init("4"); });;
+require(["block_settings/settingsblock"], function(amd) { amd.init("5", null); });;
+
+require(['core/yui'], function(Y) {
+    M.util.init_skiplink(Y);
+});
+;
+
+require(['core/yui'], function(Y) {
+    Y.use('moodle-core-actionmenu', function() {
+        M.core.actionmenu.init();
+    });
+});
+;
+
+require(['jquery', 'message_popup/message_popover_controller'], function($, controller) {
+    var container = $('#nav-message-popover-container');
+    var controller = new controller(container);
+    controller.registerEventListeners();
+    controller.registerListNavigationEventListeners();
+});
+;
+
+require(['jquery', 'message_popup/notification_popover_controller'], function($, controller) {
+    var container = $('#nav-notification-popover-container');
+    var controller = new controller(container);
+    controller.registerEventListeners();
+    controller.registerListNavigationEventListeners();
+});
+;
+
+require(['jquery', 'theme_bootstrapbase/bootstrap'], function($) {
+    // Setup closing of bootstrap alerts.
+    $().alert();
+});
+;
+require(["core/notification"], function(amd) { amd.init(133393, []); });;
+require(["core/log"], function(amd) { amd.setConfig({"level":"trace"}); });
+});
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+M.yui.add_module({"mod_folder":{"name":"mod_folder","fullpath":"https:\/\/elearning.u-pem.fr\/lib\/javascript.php\/1513674439\/mod\/folder\/module.js","requires":[]}});
+
+//]]>
+</script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/theme/javascript.php/herald/1513674439/footer"></script>
+<script type="text/javascript" src="https://elearning.u-pem.fr/lib/javascript.php/1513674439/course/format/topics/format.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+M.str = {"moodle":{"lastmodified":"Modifi\u00e9 le","name":"Nom","error":"Erreur","info":"Information","yes":"Oui","no":"Non","ok":"OK","viewallcourses":"Afficher tous les cours","cancel":"Annuler","morehelp":"Plus d'aide","loadinghelp":"Chargement...","confirm":"Confirmer","areyousure":"En \u00eates-vous bien s\u00fbr\u00a0?","closebuttontitle":"Fermer","unknownerror":"Erreur inconnue"},"repository":{"type":"Type","size":"Taille","invalidjson":"Cha\u00eene JSON non valide","nofilesattached":"Aucun fichier joint","filepicker":"S\u00e9lecteur de fichiers","logout":"D\u00e9connexion","nofilesavailable":"Aucun fichier disponible","norepositoriesavailable":"D\u00e9sol\u00e9, aucun de vos d\u00e9p\u00f4ts actuels ne peut retourner de fichiers dans le format requis.","fileexistsdialogheader":"Le fichier existe","fileexistsdialog_editor":"Un fichier de ce nom a d\u00e9j\u00e0 \u00e9t\u00e9 joint au texte que vous modifiez.","fileexistsdialog_filemanager":"Un fichier de ce nom a d\u00e9j\u00e0 \u00e9t\u00e9 joint","renameto":"Renommer \u00e0 {$a}","referencesexist":"Ce fichier est utilis\u00e9 comme source par {$a} alias.","select":"S\u00e9lectionnez"},"admin":{"confirmdeletecomments":"Voulez-vous vraiment supprimer des commentaires\u00a0?","confirmation":"Confirmation"},"block":{"addtodock":"D\u00e9placer vers le dock","undockitem":"Retirer cet \u00e9l\u00e9ment du dock","dockblock":"Mettre le bloc {$a} dans le dock","undockblock":"\u00d4ter du dock le bloc {$a}","undockall":"Tout retirer du dock","hidedockpanel":"Cacher le panneau du dock","hidepanel":"Cacher le dock"},"langconfig":{"thisdirectionvertical":"btt"}};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+(function() {Y.use("moodle-core-dock-loader",function() {M.core.dock.loader.initLoader();
+});
+Y.use("moodle-filter_glossary-autolinker",function() {M.filter_glossary.init_filter_autolinking({"courseid":0});
+});
+Y.use("moodle-filter_mathjaxloader-loader",function() {M.filter_mathjaxloader.configure({"mathjaxconfig":"MathJax.Hub.Config({\r\nconfig: [\"Accessible.js\", \"Safe.js\"],\r\nerrorSettings: { message: [\"!\"] },\r\nskipStartupTypeset: true,\r\nmessageStyle: \"none\"\r\n});","lang":"fr"});
+});
+M.util.help_popups.setup(Y);
+Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
+});
+M.util.init_block_hider(Y, {"id":"inst4","title":"Navigation","preference":"block4hidden","tooltipVisible":"Cacher bloc Navigation","tooltipHidden":"Afficher bloc Navigation"});
+M.util.init_block_hider(Y, {"id":"inst49737","title":"Recherche forums","preference":"block49737hidden","tooltipVisible":"Cacher bloc Recherche forums","tooltipHidden":"Afficher bloc Recherche forums"});
+M.util.init_block_hider(Y, {"id":"inst49739","title":"Derni\u00e8res annonces","preference":"block49739hidden","tooltipVisible":"Cacher bloc Derni\u00e8res annonces","tooltipHidden":"Afficher bloc Derni\u00e8res annonces"});
+M.util.init_block_hider(Y, {"id":"inst49736","title":"\u00c9v\u00e9nements \u00e0 venir","preference":"block49736hidden","tooltipVisible":"Cacher bloc \u00c9v\u00e9nements \u00e0 venir","tooltipHidden":"Afficher bloc \u00c9v\u00e9nements \u00e0 venir"});
+M.util.init_block_hider(Y, {"id":"inst49738","title":"Activit\u00e9 r\u00e9cente","preference":"block49738hidden","tooltipVisible":"Cacher bloc Activit\u00e9 r\u00e9cente","tooltipHidden":"Afficher bloc Activit\u00e9 r\u00e9cente"});
+ M.util.js_pending('random5a3ccc80a596560'); Y.use('mod_folder', function(Y) { M.mod_folder.init_tree(Y, "folder_tree0", true);  M.util.js_complete('random5a3ccc80a596560'); });
+ M.util.js_pending('random5a3ccc80a596561'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random5a3ccc80a596561'); });
+})();
+//]]>
+</script>
+    <script>
+        $( document ).ready(function() {
+            $('#accordion li.panel-body').removeClass('panel-body');
+            $('.coursebox').css('min-height', $('.path-course .coursebox .courseimage').height());
+            $('.path-course .coursebox .summary, .path-course .coursebox .coursecat, .path-course .coursebox .coursename').css('padding-right', $('.path-course .coursebox .courseimage').width() + 24);
+        });
+    </script>
+</body>
+</html>
