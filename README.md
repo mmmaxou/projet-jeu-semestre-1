@@ -1,1 +1,1 @@
-# projet-jeu-trimestre-1
+# projet-jeu-semestre-1

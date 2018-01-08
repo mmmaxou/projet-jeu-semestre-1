@@ -1,101 +1,52 @@
 /* Programme Tableaux statiques a deux dimensions */
 
 #include <stdio.h>
-#define N 4
 
-void initialiseTab(int tab[N][N]) {
-	printf("Remplissage du tableau ...\n");
-	int i, j, n = 0;
-	for ( i=0; i<N; i++) {
-		for ( j=0; j<N; j++) {
-			/* Question */
-			/*
-				scanf("%d", &n);
-				tab[i][j] = n;
-			*/
-			
-			
-			/* Handy way */
-			tab[i][j] = i+j+n;
-		}
-	}
-}
-void afficheTab(int tab[N][N]) {
-	printf("Affichage du tableau ...\n");
-	int i, j;
-	for ( i=0; i<N; i++) {
-		for ( j=0; j<N; j++) {
-			printf("%d ", tab[i][j]);
-		}
-		printf("\n");
-	}
-}
-void remplitDiagonale(int tab[N][N]) {
-	printf("Remplissage des diagonales du tableau ...\n");
-	int i, j;
-	/*
-	for ( i=0; i<N; i++) {
-		for ( j=0; j<N; j++) {
-			if ( i==j ) {
-				tab[i][j] = 0;
-			}
-		}
-	}
-	*/
-	
-	for ( i=0, j=0; i<N && j<N; i++, j++) {
-		tab[i][j] = 0;
-	}
-}
-void remplitPartieSup(int tab[N][N]) {
-	printf("Remplissage des parties superieures du tableau ...\n");
-	int i, j;
-	/*
-	for ( i=0; i<N; i++) {
-		for ( j=0; j<N; j++) {
-			if ( i<j ) {
-				tab[i][j] = 1;
-			}
-		}
-	}
-	*/
-	for ( i=0; i<N; i++) {
-		for ( j=i+1; j<N; j++) {
-			tab[i][j] = 1;
-		}
-	}
-	
-}
-void sym(int tab[N][N]) {
-	printf("Symetrie n");
-	int i, j;
-	/*
-	for ( i=0; i<N; i++) {
-		for ( j=0; j<N; j++) {
-			if ( j<i ) {
-				tab[i][j] = tab[j][i];
-			}
-		}
-	}
-	*/
-	
-	for ( i=0; i<N; i++) {
-		for ( j=i+1; j<N; j++) {
-			tab[j][i] = tab[i][j];
-		}
-	}
-}
+/* Dimensions du monde en nombre de casess */
+#define LONG 12
+#define LARG 18
+#define ROUGE 'R'/* Identifiant du premier joueur */
+#define BLEU 'B' /* Identifiant du deuxieme joueur */
+#define SERF 's'/* Identifiant du Serf */
+#define GUERRIER 'g'/* Identifiant du Guerrier */
+
+/* STRUCTURES */
+typedef struct unite{
+  int posX, posY; /* Pour stocker les coordonnees de l'unite*/
+  char couleur; /* ROUGE ou BLEU */
+  char genre; /* GUERRIER ou SERF*/
+  struct unite *suiv; /* liste des unites suivantes*/
+} Unite;
+typedef Unite* UListe;
+typedef struct monde{
+Unite *plateau[LONG][LARG];
+int tour; /* Numero du tour */
+UListe rouge, bleu; /* Listes des deux joueurs */
+} Monde;
+
+/* DECLARATIONS DES FONCTIONS */
+void initialiserMonde( Monde *monde );
 
 int main(int argc, char *argv[]) {
-	
-	int tab[N][N];
-	
-	initialiseTab(tab);
-	remplitDiagonale(tab);
-	remplitPartieSup(tab);
-	sym(tab);
-	afficheTab(tab);
-	
-	return 0;
+
+  Monde monde;
+  
+  initialiserMonde(&monde);
+  return 0;
+  
 }
+
+/* Initialise une variable de type Monde*/
+void initialiserMonde( Monde *monde ) {
+  int x,y;
+  monde->tour = 0;
+  monde->rouge = NULL;
+  monde->bleu = NULL;
+  for ( x=0; x<LONG; x++) {
+    for ( y=0; y<LONG; y++) {
+      monde->plateau[x][y] = NULL;
+    }
+  }
+}
+
 
