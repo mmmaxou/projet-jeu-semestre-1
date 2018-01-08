@@ -30,16 +30,13 @@ void initialiserMonde( Monde *monde );
 int creerUnite( char type, Unite *unite );
 int placerAuMonde( Unite *unite, Monde *monde, int posX,int posY, char couleur );
 int affichePlateau( Monde *monde );
+void remplirMonde ( Monde *monde );
 
 int main(int argc, char *argv[]) {
 
   Monde monde;  
-  Unite u1;
-
   initialiserMonde(&monde);
-
-  creerUnite(SERF, &u1);
-  placerAuMonde(&u1, &monde, 0, 0, BLEU);
+  remplirMonde(&monde);
   affichePlateau(&monde);    
   return 0;
 
@@ -114,5 +111,27 @@ int affichePlateau( Monde *monde ) {
     printf("\n");
   }
   return 1;
+}
+
+void remplirMonde ( Monde *monde ) {
+  Unite *u1 = malloc(sizeof(*u1));
+  Unite *u2 = malloc(sizeof(*u2));
+  Unite *u3 = malloc(sizeof(*u3));
+  Unite *u4 = malloc(sizeof(*u4));
+  Unite *u5 = malloc(sizeof(*u5));
+  Unite *u6 = malloc(sizeof(*u6));
+  
+  creerUnite(GUERRIER, u1);
+  creerUnite(SERF, u2);
+  creerUnite(SERF, u3);
+  creerUnite(GUERRIER, u4);
+  creerUnite(SERF, u5);
+  creerUnite(SERF, u6);
+  placerAuMonde(u1, monde, 0, 0, BLEU);
+  placerAuMonde(u2, monde, 1, 0, BLEU);
+  placerAuMonde(u3, monde, 0, 1, BLEU);
+  placerAuMonde(u4, monde, LONG-1, LARG-1, ROUGE);
+  placerAuMonde(u5, monde, LONG-2, LARG-1, ROUGE);
+  placerAuMonde(u6, monde, LONG-1, LARG-2, ROUGE);  
 }
 
