@@ -1,8 +1,20 @@
+# Variables
+
+src_dir = src
+obj_dir = obj
+
+_OBJECTS = main.o UListe.o Monde.o
+OBJECTS = $(patsubst %,$(obj_dir)/%,$(_OBJECTS))
+
+
+
+# Compiler
+
 all: compil
-compil: main.o
-	gcc main.o -o game.exe
+compil: $(OBJECTS)
+	gcc $(OBJECTS) -o game.exe
 	@echo Compilation finie
-%.o: %.c
-	gcc -c -Wall -ansi $<
+$(obj_dir)/%.o: $(src_dir)/%.c
+	gcc -c -Wall -ansi $< -o $@
 clean:
-	rm -R *.o
+	del /S *.o

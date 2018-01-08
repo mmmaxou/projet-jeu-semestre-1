@@ -1,7 +1,6 @@
-/* Programme Tableaux statiques a deux dimensions */
-
 #include <stdio.h>
 #include <stdlib.h>
+#include "header.h"
 
 /* Dimensions du monde en nombre de casess */
 #define LONG 12
@@ -11,45 +10,14 @@
 #define SERF 's'/* Identifiant du Serf */
 #define GUERRIER 'g'/* Identifiant du Guerrier */
 
-/* STRUCTURES */
-typedef struct unite{
-  int posX, posY; /* Pour stocker les coordonnees de l'unite*/
-  char couleur; /* ROUGE ou BLEU */
-  char genre; /* GUERRIER ou SERF*/
-  struct unite *suiv; /* liste des unites suivantes*/
-} Unite;
-typedef Unite* UListe;
-typedef struct monde{
-  Unite *plateau[LONG][LARG];
-  UListe rouge, bleu; /* Listes des deux joueurs */
-  int tour; /* Numero du tour */
-} Monde;
-
-/* DECLARATIONS DES FONCTIONS */
-void initialiserMonde( Monde *monde );
-int creerUnite( char type, Unite *unite );
-int placerAuMonde( Unite *unite, Monde *monde, int posX,int posY, char couleur );
-int affichePlateau( Monde *monde );
-void remplirMonde ( Monde *monde );
-
-int main(int argc, char *argv[]) {
-
-  Monde monde;  
-  initialiserMonde(&monde);
-  remplirMonde(&monde);
-  affichePlateau(&monde);    
-  return 0;
-
-}
-
 /*
   Initialise une variable de type Monde
 */
 void initialiserMonde( Monde *monde ) {
   int x,y;
   monde->tour = 0;
-  monde->rouge = NULL;
-  monde->bleu = NULL;
+  monde->rouge.premier = NULL;
+  monde->bleu.premier = NULL;
   for ( x=0; x<LONG; x++) {
     for ( y=0; y<LARG; y++) {
       monde->plateau[x][y] = NULL;
@@ -57,22 +25,6 @@ void initialiserMonde( Monde *monde ) {
   }
 }
 
-/*
-  Cree une variable de type Unite 
-  Retourne un code d'erreur :
-  0: Erreur d'allocation memoire
-  1: Pas d'erreur  
-*/
-int creerUnite( char type, Unite *unite ) {
-
-  if ( unite != NULL ) {
-    unite->genre = type;
-    return 1;
-  } else {
-    return 0;
-  }
-
-}
 
 /*
   Place une unite qui vient d'etre creee a la position souhaitee dans le monde sous le controle de son nouveau maitre.
@@ -88,6 +40,11 @@ int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur 
     unite->posX = posX;
     unite->posY = posY;
     monde->plateau[posX][posY] = unite;
+    if ( couleur == ROUGE ) {
+      insertionUListe(&(monde->rouge), unite);
+    } else if ( couleur == BLEU ) {
+      insertionUListe(&(monde->bleu), unite);
+    }
     return 1;
   }  
 }
@@ -98,7 +55,7 @@ int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur 
   0: ???
   1: Pas d'erreur
 */
-int affichePlateau( Monde *monde ) {
+int afficherPlateau( Monde *monde ) {
   int x,y;
   for ( x=0; x<LONG; x++) {
     for ( y=0; y<LARG; y++) {
@@ -113,6 +70,9 @@ int affichePlateau( Monde *monde ) {
   return 1;
 }
 
+/*
+  Fonction utilitaire pour remplir le monde
+*/
 void remplirMonde ( Monde *monde ) {
   Unite *u1 = malloc(sizeof(*u1));
   Unite *u2 = malloc(sizeof(*u2));
@@ -127,11 +87,11 @@ void remplirMonde ( Monde *monde ) {
   creerUnite(GUERRIER, u4);
   creerUnite(SERF, u5);
   creerUnite(SERF, u6);
-  placerAuMonde(u1, monde, 0, 0, BLEU);
-  placerAuMonde(u2, monde, 1, 0, BLEU);
-  placerAuMonde(u3, monde, 0, 1, BLEU);
-  placerAuMonde(u4, monde, LONG-1, LARG-1, ROUGE);
-  placerAuMonde(u5, monde, LONG-2, LARG-1, ROUGE);
-  placerAuMonde(u6, monde, LONG-1, LARG-2, ROUGE);  
+  
+  placerAuMonde( u1, monde, 0, 0, BLEU);
+  placerAuMonde( u2, monde, 1, 0, BLEU);
+  placerAuMonde( u3, monde, 0, 1, BLEU);
+  placerAuMonde( u4, monde, LONG-1, LARG-1, ROUGE);
+  placerAuMonde( u5, monde, LONG-2, LARG-1, ROUGE);
+  placerAuMonde( u6, monde, LONG-1, LARG-2, ROUGE);  
 }
-
