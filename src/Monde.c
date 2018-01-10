@@ -84,7 +84,11 @@ int afficherPlateau( Monde *monde ) {
       if ( monde->plateau[x][y] == NULL ) {
         printf("|   ");
       } else {
-        printf("| %c ", monde->plateau[x][y]->genre);
+				if ( monde->plateau[x][y]->couleur == BLEU ) {
+        	printf("|•%c•", monde->plateau[x][y]->genre);
+				} else {
+        	printf("| %c ", monde->plateau[x][y]->genre);
+				}
       }
     }
     printf("|\n");
@@ -314,6 +318,10 @@ char* format( int n ) {
 	s[0] = '0';
 	s[1] = '0';
 	s[2] = '0';
+	
+	if ( n == 0 ) {
+		return "000";
+	}
 	
 	s[2] += n % 10;
 	if( n >= 10) {
