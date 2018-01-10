@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "header.h"
-#define LONG 12
 #define LARG 18
+#define LONG 12
 #define ROUGE 'R'/* Identifiant du premier joueur */
 #define BLEU 'B' /* Identifiant du deuxieme joueur */
 #define SERF 's'/* Identifiant du Serf */
@@ -16,8 +16,8 @@ void initialiserMonde( Monde *monde ) {
   monde->tour = 0;
   monde->rouge.premier = NULL;
   monde->bleu.premier = NULL;
-  for ( x=0; x<LONG; x++) {
-    for ( y=0; y<LARG; y++) {
+  for ( x=0; x<LARG; x++) {
+    for ( y=0; y<LONG; y++) {
       monde->plateau[x][y] = NULL;
     }
   }
@@ -71,11 +71,16 @@ int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur 
 */
 int afficherPlateau( Monde *monde ) {
   int x,y;
-  for ( x=0; x<LONG; x++ ) {
+	char *s;
+	
+	printupperline();
+  for ( y=0; y<LONG; y++ ) {
+		s = format(y);
 		
 		/* affiche une ligne de bord */
 		printborderline();
-    for ( y=0; y<LARG; y++ ) {
+		printf("%s ", s);
+    for ( x=0; x<LARG; x++ ) {
       if ( monde->plateau[x][y] == NULL ) {
         printf("|   ");
       } else {
@@ -87,13 +92,27 @@ int afficherPlateau( Monde *monde ) {
 	printborderline();
   return 1;
 }
-
 void printborderline() {
 	int i;
+	printf("    ");
 	for ( i=0; i<LARG; i++ ) {
 		printf("+---");
 	}
 	printf("+\n");	
+}
+void printupperline() {
+	int i;
+	char * s;
+	printf("    ");
+	for ( i=0; i<LARG; i++ ) {
+		s = format(i);
+		printf(" %s", s);
+	}
+	printf("  <- x\n");	
+}
+
+void afficherUnite( Unite * u ) {
+	printf("X : %d || Y: %d || clr: %c || genre: %c\n", u->posX, u->posY, u->couleur, u->genre );
 }
 
 /*
@@ -106,23 +125,20 @@ void remplirMonde ( Monde *monde ) {
   Unite *u4 = malloc(sizeof(*u4));
   Unite *u5 = malloc(sizeof(*u5));
   Unite *u6 = malloc(sizeof(*u6));
-  Unite *u7 = malloc(sizeof(*u7));
-  
+	
   creerUnite(GUERRIER, u1);
   creerUnite(SERF, u2);
   creerUnite(SERF, u3);
   creerUnite(GUERRIER, u4);
   creerUnite(SERF, u5);
   creerUnite(SERF, u6);
-  creerUnite(GUERRIER, u7);
   
   placerAuMonde( u1, monde, 0, 0, BLEU);
   placerAuMonde( u2, monde, 1, 0, BLEU);
   placerAuMonde( u3, monde, 0, 1, BLEU);
-  placerAuMonde( u4, monde, LONG-1, LARG-1, ROUGE);
-  placerAuMonde( u5, monde, LONG-2, LARG-1, ROUGE);
-  placerAuMonde( u6, monde, LONG-1, LARG-2, ROUGE);  
-  placerAuMonde( u7, monde, LONG-2, LARG-2, BLEU);  
+  placerAuMonde( u4, monde, 17, 11, ROUGE);
+  placerAuMonde( u5, monde, 17, 10, ROUGE);
+  placerAuMonde( u6, monde, 16, 11, ROUGE);   
 }
 
 /*
@@ -242,21 +258,24 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 		return -1;
 	}
 	
+	afficherUnite(unite);
 	/*
 		On verifie que la coordonnée entrée est voisine
 	*/
 	delta += abs( unite->posX - destX );
 	delta += abs( unite->posY - destY );
 	/*printf("delta : %d\n", delta);*/
+	
 	if ( delta > 2 ) {
 		printf("ERREUR : Position non voisine\n");
 		return -2;
 	}
 	
-	if ( monde->plateau[destX][destY] != NULL )
-	{
+	if ( monde->plateau[destX][destY] != NULL )	{
+		
 		/* Il y a une unite a la case ciblée */		
 		cible = monde->plateau[destX][destY];
+		printf("OUI\n");
 		
 		/* On verifie que l'unite n'attaque pas son allié */
 		if ( cible->couleur == unite->couleur ) {
@@ -290,7 +309,18 @@ int abs ( int x ) {
 	return x < 0 ? -x : x;
 }
 
-
+char* format( int n ) {
+	char *s = malloc(3 * sizeof(*s));
+	s[0] = '0';
+	s[1] = '0';
+	s[2] = '0';
+	
+	s[2] += n % 10;
+	if( n >= 10) {
+		s[1] += (n-(n%10)) / 10;
+	}
+	return s;
+}
 
 
 
