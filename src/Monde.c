@@ -129,7 +129,7 @@ void remplirMonde ( Monde *monde ) {
 	Renvoie :
 	0 = Erreur destX ou destY non valide
 	1 = Erreur position occupée
-	2 = Erreur position occupée
+	2 = Succes
 */
 int deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	/* On verifie que la coordonnée entrée est valide */
@@ -150,3 +150,51 @@ int deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	printf("Deplacement réussi\n");
 	return 2;
 }
+
+
+/*
+	Supprime une unite du plateau et de l'equipe qui la possede
+	Renvoie :
+	0 = Erreur l'unite n'existe pas
+	2 = Succes
+*/
+int enleverUnite( Unite *unite, Monde *monde ) {
+	/* On verifie que l'unite existe */
+	if ( unite == NULL ) {
+		printf("L'unite n'existe pas\n");
+		return 0;
+	}
+	/* On supprime la reference a l'unite du plateau */
+	monde->plateau[unite->posX][unite->posY] = NULL;
+	
+	/* On supprime la reference a l'unite de la liste correspondante */
+	
+	/* On libere l'espace de l'unite */
+	free(unite);
+	printf("Unite supprimée\n");
+	return 2;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

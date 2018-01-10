@@ -35,3 +35,7 @@ void afficherUListe ( UListe *liste ) {
   }
   printf("NULL\n");
 }
+
+void supprimerUnite ( UListe *liste, Unite *unite ) {
+	
+}
