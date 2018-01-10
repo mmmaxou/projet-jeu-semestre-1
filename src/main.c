@@ -17,24 +17,13 @@ int main(int argc, char *argv[]) {
   remplirMonde(&monde);
   afficherPlateau(&monde);    
   afficherUListe(&(monde.rouge));
+	
+	/* Test deplacement */
+	deplacerUnite( monde.rouge.premier, &monde, 3, 4);
+	deplacerUnite( monde.rouge.premier, &monde, -3, 4);
+	deplacerUnite( monde.rouge.premier, &monde, 3, -4);
+	deplacerUnite( monde.rouge.premier, &monde, 0, 0);
+	afficherPlateau(&monde);
   return 0;
-  
-
-}
-
-/*
-  Cree une variable de type Unite 
-  Retourne un code d'erreur :
-  0: Erreur d'allocation memoire
-  1: Pas d'erreur  
-*/
-int creerUnite( char type, Unite *unite ) {
-  if ( unite != NULL ) {
-    unite->genre = type;
-    unite->suiv = NULL;
-    return 1;
-  } else {
-    return 0;
-  }
-
+	
 }

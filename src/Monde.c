@@ -25,6 +25,22 @@ void initialiserMonde( Monde *monde ) {
   }
 }
 
+/*
+  Cree une variable de type Unite 
+  Retourne un code d'erreur :
+  0: Erreur d'allocation memoire
+  1: Pas d'erreur  
+*/
+int creerUnite( char type, Unite *unite ) {
+  if ( unite != NULL ) {
+    unite->genre = type;
+    unite->suiv = NULL;
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 
 /*
   Place une unite qui vient d'etre creee a la position souhaitee dans le monde sous le controle de son nouveau maitre.
@@ -106,4 +122,31 @@ void remplirMonde ( Monde *monde ) {
   placerAuMonde( u4, monde, LONG-1, LARG-1, ROUGE);
   placerAuMonde( u5, monde, LONG-2, LARG-1, ROUGE);
   placerAuMonde( u6, monde, LONG-1, LARG-2, ROUGE);  
+}
+
+/*
+	Deplace une unite sur le monde
+	Renvoie :
+	0 = Erreur destX ou destY non valide
+	1 = Erreur position occupée
+	2 = Erreur position occupée
+*/
+int deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
+	/* On verifie que la coordonnée entrée est valide */
+	if ( destX<0 || destX>LARG || destY<0 || destY>LONG ) {
+		printf("Position non valide\n");
+		return 0;
+	}
+	/* On verifie que la coordonnée entrée est disponible */
+	if ( monde->plateau[destX][destY] != NULL ) {
+		printf("Position occupée\n");
+		return 1;	
+	}
+	
+	monde->plateau[unite->posX][unite->posY] = NULL;
+	unite->posX = destX;
+	unite->posY = destY;
+	monde->plateau[destX][destY] = unite;
+	printf("Deplacement réussi\n");
+	return 2;
 }

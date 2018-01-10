@@ -28,6 +28,7 @@ typedef struct monde {
 void initialiserMonde( Monde *monde );
 int creerUnite( char type, Unite *unite );
 int placerAuMonde( Unite *unite, Monde *monde, int posX,int posY, char couleur );
+int deplacerUnite( Unite *unite, Monde *monde, int destX, int destY );
 int afficherPlateau( Monde *monde );
 void printborderline();
 void remplirMonde ( Monde *monde );
