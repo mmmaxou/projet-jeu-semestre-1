@@ -33,6 +33,8 @@ int afficherPlateau( Monde *monde );
 void printborderline();
 void remplirMonde ( Monde *monde );
 int enleverUnite( Unite *unite, Monde *monde );
+int attaquer( Unite *unite, Monde *monde, int posX, int
+posY );
 
 /* UListe */
 void insertionUListe ( UListe *l, Unite *u );

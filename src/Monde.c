@@ -134,12 +134,12 @@ void remplirMonde ( Monde *monde ) {
 int deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	/* On verifie que la coordonnée entrée est valide */
 	if ( destX<0 || destX>LARG || destY<0 || destY>LONG ) {
-		printf("Position non valide\n");
+		printf("ERREUR : Position non valide\n");
 		return 0;
 	}
 	/* On verifie que la coordonnée entrée est disponible */
 	if ( monde->plateau[destX][destY] != NULL ) {
-		printf("Position occupée\n");
+		printf("ERREUR : Position occupée\n");
 		return 1;	
 	}
 	
@@ -163,7 +163,7 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	int errSuppression;
 	/* On verifie que l'unite existe */
 	if ( unite == NULL ) {
-		printf("L'unite n'existe pas\n");
+		printf("ERREUR : L'unite n'existe pas\n");
 		return 0;
 	}
 	/* On supprime la reference a l'unite du plateau */
@@ -183,13 +183,75 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	
 	/* On libere l'espace de l'unite */
 	free(unite);
-	printf("Unite enlevée\n");
+	/*printf("Unite enlevée\n");*/
 	return 2;
 	
 }
 
+/*
+	Gere le combat
+	L'unite passée en argument attaquera la case spécifiée par <destX> et <destY>
+	
+	Le GUERRIER bat le SERF
+	Les deux meur 1ent en cas d'égalité
+	
+	Renvoi :
+	0 = Perte de l'unite attaquante
+	1 = Victoire
+	2 = Erreur case attaquée vide
+	3 = Erreur tir allié
+	4 = Erreur inconnue
+*/
+int attaquer( Unite *unite, Monde *monde, int posX, int
+posY ) {
+	Unite *cible;
+	/* On verifie que la case attaquée n'est pas vide */
+	if ( monde->plateau[posX][posY] == NULL ) {
+		printf("ERREUR : La case attaquée est vide\n");
+		return 2;
+	}
+	
+	cible = monde->plateau[posX][posY];
+	
+	/* On verifie que l'unite n'attaque pas son allié */
+	if ( cible->couleur == unite->couleur ) {
+		printf("ERREUR : La case attaquée est un allié\n");
+		return 3;		
+	}
+	
+	/* 
+	Recherche du gagnant, il y a plusieurs cas :
+		- Les deux unites sont de meme genre -> 2 morts
+		- Une unite bat l'autre -> 1 mort
+	*/
+	/* Cas 1 : Meme genre */
+	if ( cible->genre == unite->genre ) {
+		enleverUnite(cible, monde);
+		enleverUnite(unite, monde);
+		printf("Double KO\n");
+		return 0;
+	} else {
+		/* Cas 2 : L'un bat l'autre */
+		if ( cible->genre == SERF ) {
+			enleverUnite(cible, monde);
+			printf("Victoire !!!\n");
+			return 1;
+		} else if ( unite->genre == SERF ) {
+			enleverUnite(unite, monde);
+			printf("Defaite :(\n");
+			return 0;			
+		} else {
+			printf("ERREUR INCONNUE : Le genre n'est pas bon\n");
+			return 4;
+		}		
+	}
+	
+	
+	
+	printf("Attaque reussie\n");
+	return 0;
 
-
+}
 
 
 
