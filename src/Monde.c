@@ -156,9 +156,11 @@ int deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	Supprime une unite du plateau et de l'equipe qui la possede
 	Renvoie :
 	0 = Erreur l'unite n'existe pas
+	1 = Erreur suppression
 	2 = Succes
 */
 int enleverUnite( Unite *unite, Monde *monde ) {
+	int errSuppression;
 	/* On verifie que l'unite existe */
 	if ( unite == NULL ) {
 		printf("L'unite n'existe pas\n");
@@ -168,10 +170,20 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	monde->plateau[unite->posX][unite->posY] = NULL;
 	
 	/* On supprime la reference a l'unite de la liste correspondante */
+	if ( unite->couleur == BLEU ) {
+		errSuppression = supprimerUniteUListe( &(monde->bleu), unite ); 	
+	}
+	if ( unite->couleur == ROUGE ) {
+		errSuppression = supprimerUniteUListe( &(monde->rouge), unite ); 	
+	}
+	
+	if ( errSuppression == 0 ) {
+		return 1;
+	}
 	
 	/* On libere l'espace de l'unite */
 	free(unite);
-	printf("Unite supprimée\n");
+	printf("Unite enlevée\n");
 	return 2;
 	
 }

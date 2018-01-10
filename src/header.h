@@ -29,12 +29,13 @@ void initialiserMonde( Monde *monde );
 int creerUnite( char type, Unite *unite );
 int placerAuMonde( Unite *unite, Monde *monde, int posX,int posY, char couleur );
 int deplacerUnite( Unite *unite, Monde *monde, int destX, int destY );
-int enleverUnite( Unite *unite, Monde *monde );
 int afficherPlateau( Monde *monde );
 void printborderline();
 void remplirMonde ( Monde *monde );
+int enleverUnite( Unite *unite, Monde *monde );
+
 /* UListe */
 void insertionUListe ( UListe *l, Unite *u );
 void afficherUListe ( UListe *liste );
-void supprimerUnite ( UListe *liste, Unite *unite );
+int supprimerUniteUListe ( UListe *liste, Unite *unite );
 #endif

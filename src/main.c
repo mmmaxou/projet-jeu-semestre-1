@@ -24,6 +24,16 @@ int main(int argc, char *argv[]) {
 	deplacerUnite( monde.rouge.premier, &monde, 3, -4);
 	deplacerUnite( monde.rouge.premier, &monde, 0, 0);
 	afficherPlateau(&monde);
+	
+	/* Test suppression */
+	if ( enleverUnite( monde.bleu.premier, &monde ) == 2 ) {	
+		afficherUListe(&(monde.bleu));
+		afficherPlateau(&monde);
+	}
+	if ( enleverUnite( monde.bleu.premier, &monde ) == 2 ) {	
+		afficherUListe(&(monde.bleu));
+		afficherPlateau(&monde);
+	}
   return 0;
 	
 }

@@ -36,6 +36,33 @@ void afficherUListe ( UListe *liste ) {
   printf("NULL\n");
 }
 
-void supprimerUnite ( UListe *liste, Unite *unite ) {
+int supprimerUniteUListe ( UListe *liste, Unite *unite ) {
+	Unite *actuel, *precedent;
+	printf("Suppr obj from list ... \n");
 	
+	/* On trouve l'objet dans la liste */
+	actuel = liste->premier;
+	precedent = NULL;
+	
+	while ( actuel != NULL ) {
+		printf("Element ...\n");
+		
+		if ( actuel == unite ) {
+			printf("Unite correspondante\n");
+			if ( precedent == NULL ) {
+				liste->premier = actuel->suiv;
+			} else if ( actuel->suiv == NULL ) {
+				precedent->suiv = NULL;
+			} else {
+				precedent->suiv = actuel;
+			}
+			printf("Suppression réussie\n");
+			return 1;
+		}		
+		precedent = actuel;
+		actuel = actuel->suiv;
+	}
+	
+	printf("Erreur de suppression \n");
+	return 0;	
 }
