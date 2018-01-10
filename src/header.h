@@ -29,6 +29,7 @@ void initialiserMonde( Monde *monde );
 int creerUnite( char type, Unite *unite );
 int placerAuMonde( Unite *unite, Monde *monde, int posX,int posY, char couleur );
 int afficherPlateau( Monde *monde );
+void printborderline();
 void remplirMonde ( Monde *monde );
 void insertionUListe ( UListe *l, Unite *u );
 void afficherUListe ( UListe *liste );

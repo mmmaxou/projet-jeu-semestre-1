@@ -57,17 +57,29 @@ int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur 
 */
 int afficherPlateau( Monde *monde ) {
   int x,y;
-  for ( x=0; x<LONG; x++) {
-    for ( y=0; y<LARG; y++) {
+  for ( x=0; x<LONG; x++ ) {
+		
+		/* affiche une ligne de bord */
+		printborderline();
+    for ( y=0; y<LARG; y++ ) {
       if ( monde->plateau[x][y] == NULL ) {
-        printf(".");
+        printf("|   ");
       } else {
-        printf("%c", monde->plateau[x][y]->genre);
+        printf("| %c ", monde->plateau[x][y]->genre);
       }
     }
-    printf("\n");
+    printf("|\n");
   }
+	printborderline();
   return 1;
+}
+
+void printborderline() {
+	int i;
+	for ( i=0; i<LARG; i++ ) {
+		printf("+---");
+	}
+	printf("+\n");	
 }
 
 /*
