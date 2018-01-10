@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "header.h"
-
-/* Dimensions du monde en nombre de casess */
 #define LONG 12
 #define LARG 18
 #define ROUGE 'R'/* Identifiant du premier joueur */
@@ -108,6 +106,7 @@ void remplirMonde ( Monde *monde ) {
   Unite *u4 = malloc(sizeof(*u4));
   Unite *u5 = malloc(sizeof(*u5));
   Unite *u6 = malloc(sizeof(*u6));
+  Unite *u7 = malloc(sizeof(*u7));
   
   creerUnite(GUERRIER, u1);
   creerUnite(SERF, u2);
@@ -115,6 +114,7 @@ void remplirMonde ( Monde *monde ) {
   creerUnite(GUERRIER, u4);
   creerUnite(SERF, u5);
   creerUnite(SERF, u6);
+  creerUnite(GUERRIER, u7);
   
   placerAuMonde( u1, monde, 0, 0, BLEU);
   placerAuMonde( u2, monde, 1, 0, BLEU);
@@ -122,33 +122,17 @@ void remplirMonde ( Monde *monde ) {
   placerAuMonde( u4, monde, LONG-1, LARG-1, ROUGE);
   placerAuMonde( u5, monde, LONG-2, LARG-1, ROUGE);
   placerAuMonde( u6, monde, LONG-1, LARG-2, ROUGE);  
+  placerAuMonde( u7, monde, LONG-2, LARG-2, BLEU);  
 }
 
 /*
 	Deplace une unite sur le monde
-	Renvoie :
-	0 = Erreur destX ou destY non valide
-	1 = Erreur position occupée
-	2 = Succes
 */
-int deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
-	/* On verifie que la coordonnée entrée est valide */
-	if ( destX<0 || destX>LARG || destY<0 || destY>LONG ) {
-		printf("ERREUR : Position non valide\n");
-		return 0;
-	}
-	/* On verifie que la coordonnée entrée est disponible */
-	if ( monde->plateau[destX][destY] != NULL ) {
-		printf("ERREUR : Position occupée\n");
-		return 1;	
-	}
-	
+void deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	monde->plateau[unite->posX][unite->posY] = NULL;
 	unite->posX = destX;
 	unite->posY = destY;
 	monde->plateau[destX][destY] = unite;
-	printf("Deplacement réussi\n");
-	return 2;
 }
 
 
@@ -198,26 +182,11 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	Renvoi :
 	0 = Perte de l'unite attaquante
 	1 = Victoire
-	2 = Erreur case attaquée vide
-	3 = Erreur tir allié
-	4 = Erreur inconnue
+	2 = Erreur inconnue
 */
 int attaquer( Unite *unite, Monde *monde, int posX, int
 posY ) {
-	Unite *cible;
-	/* On verifie que la case attaquée n'est pas vide */
-	if ( monde->plateau[posX][posY] == NULL ) {
-		printf("ERREUR : La case attaquée est vide\n");
-		return 2;
-	}
-	
-	cible = monde->plateau[posX][posY];
-	
-	/* On verifie que l'unite n'attaque pas son allié */
-	if ( cible->couleur == unite->couleur ) {
-		printf("ERREUR : La case attaquée est un allié\n");
-		return 3;		
-	}
+	Unite *cible = monde->plateau[posX][posY];
 	
 	/* 
 	Recherche du gagnant, il y a plusieurs cas :
@@ -242,21 +211,84 @@ posY ) {
 			return 0;			
 		} else {
 			printf("ERREUR INCONNUE : Le genre n'est pas bon\n");
-			return 4;
+			return 2;
 		}		
 	}
-	
-	
-	
-	printf("Attaque reussie\n");
-	return 0;
-
 }
 
+/*
+	Gere le deplacement et le combat
+	Renvoi :
+	-1 = ERREUR : coordonnees invalides
+	-2 = ERREUR : coordonnees non voisines
+	-3 = ERREUR : tir allié
+	 1 = Deplacement reussi
+	 2 = Combat : Victoire
+	 3 = Combat : Defaite
+*/
+int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
+	Unite *cible;
+	int delta = 0;
+	int resultatAttaque;
+	
+	/* 
+		On verifie que la coordonnée entrée est valide 
+	*/
+	if ( destX<0 ||
+			 destX>LARG ||
+			 destY<0 ||
+			 destY>LONG ) {
+		printf("ERREUR : Position non valide\n");
+		return -1;
+	}
+	
+	/*
+		On verifie que la coordonnée entrée est voisine
+	*/
+	delta += abs( unite->posX - destX );
+	delta += abs( unite->posY - destY );
+	/*printf("delta : %d\n", delta);*/
+	if ( delta > 2 ) {
+		printf("ERREUR : Position non voisine\n");
+		return -2;
+	}
+	
+	if ( monde->plateau[destX][destY] != NULL )
+	{
+		/* Il y a une unite a la case ciblée */		
+		cible = monde->plateau[destX][destY];
+		
+		/* On verifie que l'unite n'attaque pas son allié */
+		if ( cible->couleur == unite->couleur ) {
+			printf("ERREUR : La case attaquée est un allié\n");
+			return -3;
+		}
+		
+		resultatAttaque = attaquer(unite, monde, destX, destY);
+		/* DEFAITE */
+		if ( resultatAttaque == 0 ) {
+			return 3;
+		}
+		/* VICTOIRE */
+		if ( resultatAttaque == 1 ) {
+			return 2;
+		}
+		
+	} 
+	else
+	{
+		/* La case ciblée est vide */
+		deplacerUnite(unite, monde, destX, destY);
+		return 1;
+	}
+	
+	return 0;
+	
+}
 
-
-
-
+int abs ( int x ) {
+	return x < 0 ? -x : x;
+}
 
 
 

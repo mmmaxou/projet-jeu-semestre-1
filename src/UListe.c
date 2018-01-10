@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "header.h"
-
-/* Dimensions du monde en nombre de casess */
 #define LONG 12
 #define LARG 18
 #define ROUGE 'R'/* Identifiant du premier joueur */
