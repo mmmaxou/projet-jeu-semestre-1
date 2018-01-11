@@ -13,7 +13,7 @@
 */
 void initialiserMonde( Monde *monde ) {
   int x,y;
-  monde->tour = 0;
+  monde->tour = 1;
   monde->rouge.premier = NULL;
   monde->bleu.premier = NULL;
   for ( x=0; x<LARG; x++) {
@@ -72,7 +72,115 @@ void remplirMonde ( Monde *monde ) {
   placerAuMonde( u6, monde, 16, 11, ROUGE);   
 }
 
+/*
+  Gere toutes les actions du joueur pendant un tour
+*/
 void gererDemiTour( char joueur, Monde *monde ) {
+  Unite * unite;
+  int userX, userY;
+  
+  /* Pour un joueur <joueur> donnée : */
+  if( joueur == ROUGE ) {
+    unite = monde->rouge.premier;
+  } else if ( joueur == BLEU ) {
+    unite = monde->bleu.premier;
+  }
+  
+  /* Pour chacune des unites du joueur : */
+  while ( unite != NULL ) {
+    /* On affiche les informations de l'état actuel */
+    afficherPlateau( monde );
+    afficherUnite( unite );
+    
+    /* On demande à l'utilisateur ce qu'il veux faire */
+    printf("Ou aller ? ");
+    scanf("%d %d", &userX, &userY);
+    if ( userX != -1 && userY != -1 ) {
+      /* Cas normal */
+      deplacerOuAttaquer( unite, monde, userX, userY );   
+    } else {     
+      /* Ne rien faire */
+      printf("L'unite attend\n");    
+    }
+    
+    /* On passe à l'unite suivante */
+    unite = unite->suiv;
+  }
+  
+  /* On termine le tour */
+  printLigneDelimitation();
+  printf("Votre tour est terminé !\n");
+  
+}
+
+/*
+  Gere le tour des deux joueurs
+  Incrémente le compteur de tours
+*/
+void gererTour( Monde *monde ) {
+  printf("Tour actuel : %d\n", monde->tour);
+  printLigneDelimitation();
+  gererDemiTour( ROUGE, monde );
+  printLigneDelimitation();
+  gererDemiTour( BLEU, monde );
+  printLigneDelimitation();
+  monde->tour++;
+}
+
+/*
+  Vide le monde
+  Libere toute la memoire
+  Reinitialise la structure Monde
+*/
+void viderMonde( Monde *monde ) {
+  /* Supprime les unites */
+  while ( monde->rouge.premier != NULL ) {
+    enleverUnite( monde->rouge.premier, monde );
+  }
+  while ( monde->bleu.premier != NULL ) {
+    enleverUnite( monde->bleu.premier, monde );
+  }
+  initialiserMonde( monde );
+}
+
+/*
+  Effectue une partie :
+  - Prepare le plateau
+  - Positionne les unites initiales sur le plateau
+  - Laisse chaque joueur jouer
+  - Propose d'arreter
+  - Annonce le resultat et vide correctement le monde
+*/
+void gererPartie() {
+  char c;
+  int forceStop = 0;
+  
+  /* Prepare le plateau et positionne les unites initiales */
+  Monde monde;  
+  initialiserMonde( &monde );
+  remplirMonde( &monde );
+  afficherTutoriel();
+  
+  
+  /* Laisse chaque joueur jouer */
+  while ( monde.rouge.premier != NULL && monde.bleu.premier != NULL && forceStop == 0) {
+    gererTour( &monde );
+    printf("Voulez vous arreter la ? (Y/n)\n");
+    scanf(" %c", &c);
+    if ( c == 'Y' || c == 'y' ) {
+      printf("D'accord ! Salut :(\n");
+      forceStop = 1;
+    }
+    
+  }
+  
+  /* Resultat et vide le monde */
+  if ( monde.rouge.premier == NULL && forceStop == 0 ) {
+    printf("Le joueur BLEU à gagné !!\nBravo :) :) :)\n");
+  } else if ( monde.bleu.premier == NULL && forceStop == 0 ) {
+    printf("Le joueur rouge à gagné !!\nBravo :) :) :)\n");    
+  }
+  viderMonde( &monde );
   
 }
 

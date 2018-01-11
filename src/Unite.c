@@ -140,7 +140,6 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 		return -1;
 	}
 	
-	afficherUnite(unite);
 	/*
 		On verifie que la coordonnée entrée est voisine
 	*/

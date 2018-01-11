@@ -18,12 +18,12 @@ int afficherPlateau( Monde *monde ) {
   int x,y;
 	char *s;
 	
-	printupperline();
+	printLigneHaut();
   for ( y=0; y<LONG; y++ ) {
 		s = format(y);
 		
 		/* affiche une ligne de bord */
-		printborderline();
+		printLigneBord();
 		printf("%s ", s);
     for ( x=0; x<LARG; x++ ) {
       if ( monde->plateau[x][y] == NULL ) {
@@ -38,10 +38,10 @@ int afficherPlateau( Monde *monde ) {
     }
     printf("|\n");
   }
-	printborderline();
+	printLigneBord();
   return 1;
 }
-void printborderline() {
+void printLigneBord() {
 	int i;
 	printf("    ");
 	for ( i=0; i<LARG; i++ ) {
@@ -49,7 +49,7 @@ void printborderline() {
 	}
 	printf("+\n");	
 }
-void printupperline() {
+void printLigneHaut() {
 	int i;
 	char * s;
 	printf("    ");
@@ -59,6 +59,15 @@ void printupperline() {
 	}
 	printf("  <- x\n");	
 }
+void printLigneDelimitation() {
+  printf(">>> ••••••••••••••••••••••••••••••••••••••••••••••••• <<<\n");  
+}
 void afficherUnite( Unite * u ) {
-	printf("X : %d || Y: %d || clr: %c || genre: %c\n", u->posX, u->posY, u->couleur, u->genre );
+	printf(">>> X: %d || Y: %d || clr: %c || genre: %c\n", u->posX, u->posY, u->couleur, u->genre );
+}
+void afficherTutoriel() {
+  printLigneDelimitation();
+  printf("\nCe jeu ce joue à deux joueurs.\nChaque joueur possède 2 Serfs ( représentés par un 's' ) et un Guerrier ( représenté par un 'g')\n Le jeu se déroule en tour. Le joueur ROUGE ( en bas ) commence la partie. Durant chaque tour de jeu, on demande au joueur ce qu'il souhaite faire.\n");
+  printf("Entrez les coordonnées de la case vers laquelle se deplacer / attaquer, séparées par un espace ( ex: '10 15' ), ou bien entrez '-1 -1' pour ne rien faire.\n\n");
+  printLigneDelimitation();
 }

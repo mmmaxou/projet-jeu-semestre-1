@@ -10,16 +10,12 @@
 
 int main(int argc, char *argv[]) {
 
-  Monde monde;  
-  initialiserMonde(&monde);
-  remplirMonde(&monde);
 	
-	afficherPlateau(&monde);
 	/*testDeplacement(&monde);*/
 	/*testSuppression(&monde);*/
 	/*testAttaque(&monde);*/
-	
-	
+  
+  gererPartie();
 	
   return 0;
 	

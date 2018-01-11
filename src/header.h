@@ -27,14 +27,19 @@ typedef struct monde {
 /* Affichage */
 int afficherPlateau ( Monde *monde );
 void afficherUnite( Unite * u );
-void printborderline ();
-void printupperline ();
+void printLigneBord ();
+void printLigneHaut ();
+void printLigneDelimitation ();
+void afficherTutoriel ();
 
 /* Monde */
 void initialiserMonde ( Monde *monde );
 int placerAuMonde ( Unite *unite, Monde *monde, int posX,int posY, char couleur );
 void remplirMonde ( Monde *monde );
-void gererDemiTour( char joueur, Monde *monde );
+void gererDemiTour ( char joueur, Monde *monde );
+void gererTour ( Monde *monde );
+void viderMonde ( Monde *monde );
+void gererPartie ();
 
 /* Unite */
 int creerUnite ( char type, Unite *unite );
