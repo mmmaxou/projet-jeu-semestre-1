@@ -1,8 +1,8 @@
 #ifndef UNITE_H
 #define UNITE_H
 
-#define LONG 12
 #define LARG 18
+#define LONG 12
 #define ROUGE 'R'
 #define BLEU 'B'
 #define SERF 's'
@@ -19,17 +19,36 @@ typedef struct liste {
   Unite *premier;
 } UListe;
 typedef struct monde {
-  Unite *plateau[LONG][LARG];
+  Unite *plateau[LARG][LONG];
   UListe rouge, bleu; /* Listes des deux joueurs */
   int tour; /* Numero du tour */
 } Monde;
 
 /* DECLARATIONS DES FONCTIONS */
-void initialiserMonde( Monde *monde );
-int creerUnite( char type, Unite *unite );
-int placerAuMonde( Unite *unite, Monde *monde, int posX,int posY, char couleur );
-int afficherPlateau( Monde *monde );
+void initialiserMonde ( Monde *monde );
+int creerUnite ( char type, Unite *unite );
+int placerAuMonde ( Unite *unite, Monde *monde, int posX,int posY, char couleur );
+void deplacerUnite ( Unite *unite, Monde *monde, int destX, int destY );
+int afficherPlateau ( Monde *monde );
+void afficherUnite( Unite * u );
+void printborderline ();
+void printupperline ();
 void remplirMonde ( Monde *monde );
+int enleverUnite ( Unite *unite, Monde *monde );
+int attaquer ( Unite *unite, Monde *monde, int posX, int
+posY );
+int deplacerOuAttaquer (Unite *unite, Monde *monde, int destX, int destY);
+
+/* HELPERS */
+int abs ( int x );
+char* format( int n );
+
+/* UListe */
 void insertionUListe ( UListe *l, Unite *u );
 void afficherUListe ( UListe *liste );
+int supprimerUniteUListe ( UListe *liste, Unite *unite );
 #endif
+
+/* TESTS */
+void testDeplacement ( Monde * monde );
+void testSuppression ( Monde * monde );

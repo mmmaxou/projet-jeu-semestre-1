@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "header.h"
-
-/* Dimensions du monde en nombre de casess */
 #define LONG 12
 #define LARG 18
 #define ROUGE 'R'/* Identifiant du premier joueur */
@@ -34,4 +32,31 @@ void afficherUListe ( UListe *liste ) {
     actuel = actuel->suiv;
   }
   printf("NULL\n");
+}
+
+int supprimerUniteUListe ( UListe *liste, Unite *unite ) {
+	Unite *actuel, *precedent;
+	
+	/* On trouve l'objet dans la liste */
+	actuel = liste->premier;
+	precedent = NULL;
+	
+	while ( actuel != NULL ) {
+		if ( actuel == unite ) {
+			if ( precedent == NULL ) {
+				liste->premier = actuel->suiv;
+			} else if ( actuel->suiv == NULL ) {
+				precedent->suiv = NULL;
+			} else {
+				precedent->suiv = actuel;
+			}
+			/*printf("Suppression réussie\n");*/
+			return 1;
+		}		
+		precedent = actuel;
+		actuel = actuel->suiv;
+	}
+	
+	printf("ERREUR : suppression \n");
+	return 0;	
 }
