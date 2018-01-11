@@ -14,10 +14,10 @@ int main(int argc, char *argv[]) {
   initialiserMonde(&monde);
   remplirMonde(&monde);
 	
-	afficherPlateau(monde.plateau);
+	afficherPlateau(&monde);
 	/*testDeplacement(&monde);*/
 	/*testSuppression(&monde);*/
-	testAttaque(&monde);
+	/*testAttaque(&monde);*/
 	
 	
 	
