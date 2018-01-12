@@ -24,22 +24,32 @@ typedef struct monde {
   int tour; /* Numero du tour */
 } Monde;
 
-/* DECLARATIONS DES FONCTIONS */
-void initialiserMonde ( Monde *monde );
-int creerUnite ( char type, Unite *unite );
-int placerAuMonde ( Unite *unite, Monde *monde, int posX,int posY, char couleur );
-void deplacerUnite ( Unite *unite, Monde *monde, int destX, int destY );
+/* Affichage */
 int afficherPlateau ( Monde *monde );
 void afficherUnite( Unite * u );
-void printborderline ();
-void printupperline ();
+void printLigneBord ();
+void printLigneHaut ();
+void printLigneDelimitation ();
+void afficherTutoriel ();
+
+/* Monde */
+void initialiserMonde ( Monde *monde );
+int placerAuMonde ( Unite *unite, Monde *monde, int posX,int posY, char couleur );
 void remplirMonde ( Monde *monde );
+void gererDemiTour ( char joueur, Monde *monde );
+void gererTour ( Monde *monde );
+void viderMonde ( Monde *monde );
+void gererPartie ();
+
+/* Unite */
+int creerUnite ( char type, Unite *unite );
+void deplacerUnite ( Unite *unite, Monde *monde, int destX, int destY );
 int enleverUnite ( Unite *unite, Monde *monde );
 int attaquer ( Unite *unite, Monde *monde, int posX, int
 posY );
 int deplacerOuAttaquer (Unite *unite, Monde *monde, int destX, int destY);
 
-/* HELPERS */
+/* Utils */
 int abs ( int x );
 char* format( int n );
 
@@ -50,5 +60,8 @@ int supprimerUniteUListe ( UListe *liste, Unite *unite );
 #endif
 
 /* TESTS */
+
+/*
 void testDeplacement ( Monde * monde );
 void testSuppression ( Monde * monde );
+*/
