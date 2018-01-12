@@ -3,7 +3,7 @@
 src_dir = src
 obj_dir = obj
 
-_OBJECTS = main.o UListe.o Monde.o Unite.o Affichage.o Utils.o
+_OBJECTS = main.o UListe.o Monde.o Unite.o Affichage.o AffichageMLV.o Utils.o
 OBJECTS = $(patsubst %,$(obj_dir)/%,$(_OBJECTS))
 
 

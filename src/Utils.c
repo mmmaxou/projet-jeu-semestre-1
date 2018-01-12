@@ -28,15 +28,3 @@ char* format( int n ) {
 	}
 	return s;
 }
-
-
-
-
-
-
-
-
-
-
-
-

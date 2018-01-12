@@ -32,6 +32,11 @@ void printLigneHaut ();
 void printLigneDelimitation ();
 void afficherTutoriel ();
 
+/* Affichage MLV */
+int MLVafficherPlateau ( Monde *monde );
+void MLVafficherUnite( Unite * u );
+void MLVafficherTutoriel ();
+
 /* Monde */
 void initialiserMonde ( Monde *monde );
 int placerAuMonde ( Unite *unite, Monde *monde, int posX,int posY, char couleur );
