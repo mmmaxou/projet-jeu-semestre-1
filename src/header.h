@@ -62,11 +62,15 @@ char* format( int n );
 void insertionUListe ( UListe *l, Unite *u );
 void afficherUListe ( UListe *liste );
 int supprimerUniteUListe ( UListe *liste, Unite *unite );
+
+/* Sauvegarder */
+int sauvegarder ( Monde * monde );
+void ecrireUnite ( Unite * unite, FILE * fichier );
+int charger ( Monde * monde );
+int lireUnite ( FILE * fichier, Monde * monde );
+
+
 #endif
 
-/* TESTS */
 
-/*
-void testDeplacement ( Monde * monde );
-void testSuppression ( Monde * monde );
-*/
+

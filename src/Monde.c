@@ -15,7 +15,7 @@
   Initialise une variable de type Monde
 */
 void initialiserMonde( Monde *monde ) {
-  int x,y;
+  int x,y;	
   monde->tour = 1;
   monde->rouge.premier = NULL;
   monde->bleu.premier = NULL;
@@ -53,33 +53,33 @@ int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur 
 /*
   Fonction utilitaire pour remplir le monde
 */
-void remplirMonde ( Monde *monde ) {
-  Unite *u1 = malloc(sizeof(Unite));
-  Unite *u2 = malloc(sizeof(Unite));
-  Unite *u3 = malloc(sizeof(Unite));
-  Unite *u4 = malloc(sizeof(Unite));
-  Unite *u5 = malloc(sizeof(Unite));
-  Unite *u6 = malloc(sizeof(Unite));
-  Unite *u7 = malloc(sizeof(Unite));
-  Unite *u8 = malloc(sizeof(Unite));
-	
-  creerUnite(GUERRIER, u1);
-  creerUnite(SERF, u2);
-  creerUnite(SERF, u3);
-  creerUnite(GUERRIER, u4);
-  creerUnite(SERF, u5);
-  creerUnite(SERF, u6);
-  creerUnite(REINE, u7);
-  creerUnite(REINE, u8);
-  
-  placerAuMonde( u1, monde, 2, 2, BLEU);
-  placerAuMonde( u2, monde, 2, 0, BLEU);
-  placerAuMonde( u3, monde, 0, 2, BLEU);
-  placerAuMonde( u4, monde, 15, 9, ROUGE);
-  placerAuMonde( u5, monde, 17, 9, ROUGE);
-  placerAuMonde( u6, monde, 15, 11, ROUGE);   
-  placerAuMonde( u7, monde, 0, 0, BLEU);   
-  placerAuMonde( u8, monde, 17, 11, ROUGE);   
+void remplirMonde ( Monde *monde ) {	
+	Unite *u1 = malloc(sizeof(Unite));
+	Unite *u2 = malloc(sizeof(Unite));
+	Unite *u3 = malloc(sizeof(Unite));
+	Unite *u4 = malloc(sizeof(Unite));
+	Unite *u5 = malloc(sizeof(Unite));
+	Unite *u6 = malloc(sizeof(Unite));
+	Unite *u7 = malloc(sizeof(Unite));
+	Unite *u8 = malloc(sizeof(Unite));
+
+	creerUnite(GUERRIER, u1);
+	creerUnite(SERF, u2);
+	creerUnite(SERF, u3);
+	creerUnite(GUERRIER, u4);
+	creerUnite(SERF, u5);
+	creerUnite(SERF, u6);
+	creerUnite(REINE, u7);
+	creerUnite(REINE, u8);
+
+	placerAuMonde( u1, monde, 2, 2, BLEU);
+	placerAuMonde( u2, monde, 2, 0, BLEU);
+	placerAuMonde( u3, monde, 0, 2, BLEU);
+	placerAuMonde( u4, monde, 15, 9, ROUGE);
+	placerAuMonde( u5, monde, 17, 9, ROUGE);
+	placerAuMonde( u6, monde, 15, 11, ROUGE);   
+	placerAuMonde( u7, monde, 0, 0, BLEU);   
+	placerAuMonde( u8, monde, 17, 11, ROUGE);   
 }
 
 /*
@@ -130,6 +130,7 @@ void gererDemiTour( char joueur, Monde *monde ) {
 				unite->genre = SERF;
 				printf("L'oeuf grandit et devient un faible Serf\n");
 			}
+			unite->pm = 2;
 			
 		} else {
 			
@@ -224,22 +225,42 @@ void gererPartie() {
   
   /* Prepare le plateau et positionne les unites initiales */
 	srand(time(NULL));
-  Monde monde;  
+  Monde monde;	
   initialiserMonde( &monde );
-  remplirMonde( &monde );
+		
+	/* On demander si l'on veut charger la derniere partie */
+	printf("Voulez vous charger la derniere partie ? (Y/n)\n");
+	scanf(" %c", &c);
+	if ( c == 'Y' || c == 'y' ) {
+		if ( charger( &monde ) != 1 ) {
+			remplirMonde( &monde );
+		}
+	} else {
+		remplirMonde( &monde );
+	}
   afficherTutoriel();
   
   
   /* Laisse chaque joueur jouer */
   while ( monde.rouge.premier != NULL && monde.bleu.premier != NULL && forceStop == 0) {
-    gererTour( &monde );
+    
+		gererTour( &monde );
+				
+		/* On demander si l'on veut sauvegarder la partie */
+		printf("Voulez vous Sauvegarder la partie ? (Y/n)\n");
+    scanf(" %c", &c);
+    if ( c == 'Y' || c == 'y' ) {
+			sauvegarder ( &monde );
+    }
+		
+		/* On demande si l'on veut arreter la partie */
     printf("Voulez vous arreter la ? (Y/n)\n");
     scanf(" %c", &c);
     if ( c == 'Y' || c == 'y' ) {
       printf("D'accord ! Salut :(\n");
       forceStop = 1;
     }
-    
+		   
   }
   
   /* Resultat et vide le monde */

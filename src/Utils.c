@@ -15,10 +15,11 @@ int abs ( int x ) {
 }
 
 char* format( int n ) {
-	char *s = malloc(3 * sizeof(*s));
+	char *s = malloc(4 * sizeof(char));
 	s[0] = '0';
 	s[1] = '0';
 	s[2] = '0';
+	s[3] = '\0';
 	
 	if ( n == 0 ) {
 		return "000";
