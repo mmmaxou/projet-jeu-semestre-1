@@ -118,11 +118,35 @@ void gererDemiTour( char joueur, Monde *monde ) {
   Incrémente le compteur de tours
 */
 void gererTour( Monde *monde ) {
+	int aleatoire;
+	/* Choix du joueur aléatoire */
+	aleatoire = rand() % 2;
   printf("Tour actuel : %d\n", monde->tour);
   printLigneDelimitation();
-  gererDemiTour( ROUGE, monde );
-  printLigneDelimitation();
-  gererDemiTour( BLEU, monde );
+	if ( aleatoire == 0 ) {
+		/* Le rouge joue en 1er */
+		printf("Tour du joueur ROUGE\n");
+		printLigneDelimitation();
+		gererDemiTour( ROUGE, monde );
+		
+		printLigneDelimitation();
+		
+		printf("Tour du joueur BLEU\n");
+		printLigneDelimitation();
+		gererDemiTour( BLEU, monde );
+		
+	} else if ( aleatoire == 1 ) {		
+		/* Le bleu joue en 1er */
+		printf("Tour du joueur BLEU\n");
+		printLigneDelimitation();
+		gererDemiTour( BLEU, monde );
+		
+		printLigneDelimitation();
+		
+		printf("Tour du joueur ROUGE\n");
+		printLigneDelimitation();
+		gererDemiTour( ROUGE, monde );		
+	}
   printLigneDelimitation();
   monde->tour++;
 }
