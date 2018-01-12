@@ -279,7 +279,6 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 		
 		/* Il y a une unite a la case ciblée */		
 		cible = monde->plateau[destX][destY];
-		printf("OUI\n");
 		
 		/* On verifie que l'unite n'attaque pas son allié */
 		if ( cible->couleur == unite->couleur ) {
