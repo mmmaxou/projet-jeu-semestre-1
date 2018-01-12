@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "header.h"
 #define LARG 18
 #define LONG 12
@@ -119,6 +120,10 @@ void gererDemiTour( char joueur, Monde *monde ) {
 */
 void gererTour( Monde *monde ) {
 	int aleatoire;
+	
+	/* Initialise le generateur de nombre aleatoire */
+  srand(time(NULL));
+	
 	/* Choix du joueur aléatoire */
 	aleatoire = rand() % 2;
   printf("Tour actuel : %d\n", monde->tour);
