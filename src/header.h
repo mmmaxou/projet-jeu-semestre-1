@@ -7,12 +7,16 @@
 #define BLEU 'B'
 #define SERF 's'
 #define GUERRIER 'g'
+#define REINE 'r'
+#define OEUF 'o'
 
 /* STRUCTURES */
 typedef struct unite {
   int posX, posY; /* Pour stocker les coordonnees de l'unite*/
   char couleur; /* ROUGE ou BLEU */
-  char genre; /* GUERRIER ou SERF*/
+  char genre; /* GUERRIER ou SERF ou REINE */
+	int pm; /* Points de mouvements */
+	int attente; /* Tour de recharge pour la reine */
   struct unite *suiv; /* liste des unites suivantes*/
 } Unite;
 typedef struct liste { 
@@ -48,6 +52,7 @@ int enleverUnite ( Unite *unite, Monde *monde );
 int attaquer ( Unite *unite, Monde *monde, int posX, int
 posY );
 int deplacerOuAttaquer (Unite *unite, Monde *monde, int destX, int destY);
+int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joueur );
 
 /* Utils */
 int abs ( int x );

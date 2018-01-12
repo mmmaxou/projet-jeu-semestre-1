@@ -15,6 +15,6 @@ compil: $(OBJECTS)
 	gcc $(OBJECTS) -o game.exe
 	@echo Compilation finie
 $(obj_dir)/%.o: $(src_dir)/%.c
-	gcc -c -Wall -ansi $< -o $@
+	gcc -c -Wall -Werror -ansi $< -o $@
 clean:
 	del /S *.o

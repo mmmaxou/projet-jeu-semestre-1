@@ -8,6 +8,8 @@
 #define BLEU 'B' /* Identifiant du deuxieme joueur */
 #define SERF 's'/* Identifiant du Serf */
 #define GUERRIER 'g'/* Identifiant du Guerrier */
+#define REINE 'r'/* Identifiant de la Reine */
+#define OEUF 'o'/* Identifiant de l'oeuf */
 
 /*
   Initialise une variable de type Monde
@@ -32,6 +34,7 @@ void initialiserMonde( Monde *monde ) {
 */
 int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur ) {
   if ( monde->plateau[posX][posY] != NULL ) {
+		printf("ERREUR : Case deja occupee\n");
     return 0;
   } else {
     unite->couleur = couleur;
@@ -51,12 +54,14 @@ int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur 
   Fonction utilitaire pour remplir le monde
 */
 void remplirMonde ( Monde *monde ) {
-  Unite *u1 = malloc(sizeof(*u1));
-  Unite *u2 = malloc(sizeof(*u2));
-  Unite *u3 = malloc(sizeof(*u3));
-  Unite *u4 = malloc(sizeof(*u4));
-  Unite *u5 = malloc(sizeof(*u5));
-  Unite *u6 = malloc(sizeof(*u6));
+  Unite *u1 = malloc(sizeof(Unite));
+  Unite *u2 = malloc(sizeof(Unite));
+  Unite *u3 = malloc(sizeof(Unite));
+  Unite *u4 = malloc(sizeof(Unite));
+  Unite *u5 = malloc(sizeof(Unite));
+  Unite *u6 = malloc(sizeof(Unite));
+  Unite *u7 = malloc(sizeof(Unite));
+  Unite *u8 = malloc(sizeof(Unite));
 	
   creerUnite(GUERRIER, u1);
   creerUnite(SERF, u2);
@@ -64,13 +69,17 @@ void remplirMonde ( Monde *monde ) {
   creerUnite(GUERRIER, u4);
   creerUnite(SERF, u5);
   creerUnite(SERF, u6);
+  creerUnite(REINE, u7);
+  creerUnite(REINE, u8);
   
-  placerAuMonde( u1, monde, 0, 0, BLEU);
-  placerAuMonde( u2, monde, 1, 0, BLEU);
-  placerAuMonde( u3, monde, 0, 1, BLEU);
-  placerAuMonde( u4, monde, 17, 11, ROUGE);
-  placerAuMonde( u5, monde, 17, 10, ROUGE);
-  placerAuMonde( u6, monde, 16, 11, ROUGE);   
+  placerAuMonde( u1, monde, 2, 2, BLEU);
+  placerAuMonde( u2, monde, 2, 0, BLEU);
+  placerAuMonde( u3, monde, 0, 2, BLEU);
+  placerAuMonde( u4, monde, 15, 9, ROUGE);
+  placerAuMonde( u5, monde, 17, 9, ROUGE);
+  placerAuMonde( u6, monde, 15, 11, ROUGE);   
+  placerAuMonde( u7, monde, 0, 0, BLEU);   
+  placerAuMonde( u8, monde, 17, 11, ROUGE);   
 }
 
 /*
@@ -92,17 +101,51 @@ void gererDemiTour( char joueur, Monde *monde ) {
     /* On affiche les informations de l'état actuel */
     afficherPlateau( monde );
     afficherUnite( unite );
-    
-    /* On demande à l'utilisateur ce qu'il veux faire */
-    printf("Ou aller ? ");
-    scanf("%d %d", &userX, &userY);
-    if ( userX != -1 && userY != -1 ) {
-      /* Cas normal */
-      deplacerOuAttaquer( unite, monde, userX, userY );   
-    } else {     
-      /* Ne rien faire */
-      printf("L'unite attend\n");    
-    }
+		
+		if ( unite->genre == REINE ) {
+			/* On demande à l'utilisateur ou il veux produire */
+			if ( unite->attente == 1 ) {
+				/* La reine ne peut plus produire durant ce tour */
+				unite->attente = 0;
+				printf("La reine se repose après avoir créer une unite\n");
+			} else {
+				printf("Ou souhaitez vous créer une unite ? ");
+				scanf("%d %d", &userX, &userY);
+
+				if ( userX != -1 && userY != -1 ) {
+					/* Cas normal */
+					produireUnOeuf( unite, monde, userX, userY, joueur );
+				} else {     
+					/* Ne rien faire */
+					printf("ERREUR : La reine attend\n");    
+				}
+			}
+			
+		} else if ( unite->genre == OEUF ) {
+			/* L'oeuf grandit en soit un GUERRIER soit un SERF de maniere aleatoire */
+			if ( rand() % 2 == 0 ) {
+				unite->genre = GUERRIER;
+				printf("L'oeuf grandit et devient un puissant Guerrier\n");
+			} else {
+				unite->genre = SERF;
+				printf("L'oeuf grandit et devient un faible Serf\n");
+			}
+			
+		} else {
+			
+			/* Si ce n'est pas une reine */
+			/* On demande à l'utilisateur ce qu'il veux faire */
+			printf("Ou aller ? ");
+			scanf("%d %d", &userX, &userY);
+			if ( userX != -1 && userY != -1 ) {
+				/* Cas normal */
+				deplacerOuAttaquer( unite, monde, userX, userY );   
+			} else {     
+				/* Ne rien faire */
+				printf("L'unite attend\n");    
+			}
+			
+		}
     
     /* On passe à l'unite suivante */
     unite = unite->suiv;
@@ -119,16 +162,11 @@ void gererDemiTour( char joueur, Monde *monde ) {
   Incrémente le compteur de tours
 */
 void gererTour( Monde *monde ) {
-	int aleatoire;
-	
-	/* Initialise le generateur de nombre aleatoire */
-  srand(time(NULL));
 	
 	/* Choix du joueur aléatoire */
-	aleatoire = rand() % 2;
   printf("Tour actuel : %d\n", monde->tour);
   printLigneDelimitation();
-	if ( aleatoire == 0 ) {
+	if (  rand() % 2 == 0 ) {
 		/* Le rouge joue en 1er */
 		printf("Tour du joueur ROUGE\n");
 		printLigneDelimitation();
@@ -140,7 +178,7 @@ void gererTour( Monde *monde ) {
 		printLigneDelimitation();
 		gererDemiTour( BLEU, monde );
 		
-	} else if ( aleatoire == 1 ) {		
+	} else {		
 		/* Le bleu joue en 1er */
 		printf("Tour du joueur BLEU\n");
 		printLigneDelimitation();
@@ -185,6 +223,7 @@ void gererPartie() {
   int forceStop = 0;
   
   /* Prepare le plateau et positionne les unites initiales */
+	srand(time(NULL));
   Monde monde;  
   initialiserMonde( &monde );
   remplirMonde( &monde );

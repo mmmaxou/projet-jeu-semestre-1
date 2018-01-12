@@ -7,6 +7,8 @@
 #define BLEU 'B' /* Identifiant du deuxieme joueur */
 #define SERF 's'/* Identifiant du Serf */
 #define GUERRIER 'g'/* Identifiant du Guerrier */
+#define REINE 'r'/* Identifiant de la Reine */
+#define OEUF 'o'/* Identifiant de l'oeuf */
 
 /*
   Affiche le plateau et les unites qu'il y a dessus
@@ -63,11 +65,11 @@ void printLigneDelimitation() {
   printf(">>> ••••••••••••••••••••••••••••••••••••••••••••••••• <<<\n");  
 }
 void afficherUnite( Unite * u ) {
-	printf(">>> X: %d || Y: %d || clr: %c || genre: %c\n", u->posX, u->posY, u->couleur, u->genre );
+	printf(">>> UNITE >>> X: %d || Y: %d || clr: %c || genre: %c || PM: %d\n", u->posX, u->posY, u->couleur, u->genre, u->pm );
 }
 void afficherTutoriel() {
   printLigneDelimitation();
-  printf("\nCe jeu ce joue à deux joueurs.\nChaque joueur possède 2 Serfs ( représentés par un 's' ) et un Guerrier ( représenté par un 'g')\nLe jeu se déroule en tour.\nChaque tour le joueur qui commence est choisi aléatoirement.\nDurant chaque tour de jeu, on demande au joueur ce qu'il souhaite faire.\n");
+  printf("\nCe jeu ce joue à deux joueurs.\nChaque joueur possède:\n• 2 Serfs 's'\n• 1 Guerrier 'g'( Bat le Serf )\n• 1 Reine 'r' ( Immobile, elle produit des unites )\n  |> La reine créer des oeufs sur une position qui lui est adjacente\n  |> Les oeufs mettent 2 tours pour éclore.\nLe jeu se déroule en tour.\nChaque tour le joueur qui commence est choisi aléatoirement.\nDurant chaque tour de jeu, on demande au joueur ce qu'il souhaite faire.\n");
   printf("Entrez les coordonnées de la case vers laquelle se deplacer / attaquer, séparées par un espace ( ex: '10 15' ), ou bien entrez '-1 -1' pour ne rien faire.\n\n");
   printLigneDelimitation();
 }

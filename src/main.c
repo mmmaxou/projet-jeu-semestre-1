@@ -7,6 +7,8 @@
 #define BLEU 'B' /* Identifiant du deuxieme joueur */
 #define SERF 's'/* Identifiant du Serf */
 #define GUERRIER 'g'/* Identifiant du Guerrier */
+#define REINE 'r'/* Identifiant de la Reine */
+#define OEUF 'o'/* Identifiant de l'oeuf */
 
 int main(int argc, char *argv[]) {
 

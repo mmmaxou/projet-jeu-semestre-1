@@ -7,18 +7,18 @@
 #define BLEU 'B' /* Identifiant du deuxieme joueur */
 #define SERF 's'/* Identifiant du Serf */
 #define GUERRIER 'g'/* Identifiant du Guerrier */
+#define REINE 'r'/* Identifiant de la Reine */
+#define OEUF 'o'/* Identifiant de l'oeuf */
 
 
 /*
   Insere une nouvelle unite dans une liste
 */
 void insertionUListe ( UListe *liste, Unite *unite ) {
-  if ( liste->premier == NULL ) {
-    liste->premier = unite;
-  } else {
+  if ( liste->premier != NULL ) {
     unite->suiv = liste->premier;
-    liste->premier = unite;
   }
+	liste->premier = unite;
 }
 
 /*

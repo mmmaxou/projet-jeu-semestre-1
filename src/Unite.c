@@ -7,6 +7,8 @@
 #define BLEU 'B' /* Identifiant du deuxieme joueur */
 #define SERF 's'/* Identifiant du Serf */
 #define GUERRIER 'g'/* Identifiant du Guerrier */
+#define REINE 'r'/* Identifiant de la Reine */
+#define OEUF 'o'/* Identifiant de l'oeuf */
 
 /*
   Cree une variable de type Unite 
@@ -17,9 +19,16 @@
 int creerUnite( char type, Unite *unite ) {
   if ( unite != NULL ) {
     unite->genre = type;
+		unite->attente = 0;
+		if ( type == REINE ) {
+			unite->pm = 0;
+		} else {
+			unite->pm = 2;
+		}
     unite->suiv = NULL;
     return 1;
   } else {
+		printf("ERREUR : Allocation memoire\n");
     return 0;
   }
 }
@@ -64,7 +73,7 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	}
 	
 	/* On libere l'espace de l'unite */
-	free(unite);
+	free( unite );
 	/*printf("Unite enlevée\n");*/
 	return 2;
 	
@@ -147,7 +156,10 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 	delta += abs( unite->posY - destY );
 	/*printf("delta : %d\n", delta);*/
 	
-	if ( delta > 2 ) {
+	/*
+		Le deplacement maximum possible est la quantite de PM de l'unite
+	*/
+	if ( delta > unite->pm ) {
 		printf("ERREUR : Position non voisine\n");
 		return -2;
 	}
@@ -156,7 +168,6 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 		
 		/* Il y a une unite a la case ciblée */		
 		cible = monde->plateau[destX][destY];
-		printf("OUI\n");
 		
 		/* On verifie que l'unite n'attaque pas son allié */
 		if ( cible->couleur == unite->couleur ) {
@@ -186,10 +197,50 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 	
 }
 
-
-
-
-
+/*
+	Fonction qui créer un oeuf de la reine à une emplacement adjacent à la reine.
+	Retourne :
+	 0 = SUCCES
+	-1 = ERREUR : coordonnees invalides
+	-2 = ERREUR : coordonnees non adjacentes
+*/
+int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joueur ) {
+	int delta = 0;	
+	Unite *oeuf = malloc(sizeof(Unite));
+	
+	/* On verifie que la coordonnée entrée est valide */
+	if ( destX<0 ||
+			 destX>LARG ||
+			 destY<0 ||
+			 destY>LONG ) {
+		printf("ERREUR : Position non valide\n");
+		return -1;
+	}
+	
+	/* On verifie que la coordonnée entrée est voisine */
+	delta += abs( unite->posX - destX );
+	delta += abs( unite->posY - destY );
+	if ( delta != 1 ) {
+		printf("ERREUR : Position non adjacente à la reine\n");
+		return -2;
+	}
+	
+	/* 
+		On cree un nouvel oeuf, on le place sur le monde et on met la reine en attente
+	*/
+	if ( creerUnite( OEUF, oeuf ) == 1 ) {
+		if ( placerAuMonde( oeuf, monde, destX, destY, joueur ) == 1 ) {
+			unite->attente = 1;			
+		}		
+	}
+	
+	printf("Unite ajoutee ... affichage : \n");
+	
+	afficherUListe( &(monde->rouge) );
+	afficherUListe( &(monde->bleu) );
+	
+	return 0;
+}
 
 
 
