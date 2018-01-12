@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <MLV/MLV_all.h>
 #include "header.h"
 #define LARG 18
 #define LONG 12
@@ -7,6 +8,8 @@
 #define BLEU 'B' /* Identifiant du deuxieme joueur */
 #define SERF 's'/* Identifiant du Serf */
 #define GUERRIER 'g'/* Identifiant du Guerrier */
+
+#define LARG_CASE 30 /* Dimension d'un cote d'une case */
 
 /*
   Affiche le plateau et les unites qu'il y a dessus
@@ -16,14 +19,14 @@
 */
 
 int MLVafficherPlateau( Monde *monde ) {
-  int x,y;
+  /*int x,y;
 	char *s;
 	
 	printLigneHaut();
   for ( y=0; y<LONG; y++ ) {
 		s = format(y);
 		
-		/* affiche une ligne de bord */
+		affiche une ligne de bord
 		printLigneBord();
 		printf("%s ", s);
     for ( x=0; x<LARG; x++ ) {
@@ -39,7 +42,13 @@ int MLVafficherPlateau( Monde *monde ) {
     }
     printf("|\n");
   }
-	printLigneBord();
+	printLigneBord();*/
+
+  MLV_create_window("MaxiFun", "MaxiFun", 600, 600);
+  MLV_draw_filled_rectangle(100, 100, LARG_CASE, LARG_CASE, MLV_COLOR_LIGHTYELLOW);
+  MLV_draw_text(100, 100, "Bonjour", MLV_COLOR_YELLOW);
+  MLV_actualise_window();
+
   return 1;
 }
 

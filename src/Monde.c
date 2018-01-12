@@ -82,7 +82,7 @@ void gererDemiTour( char joueur, Monde *monde ) {
   /* Pour un joueur <joueur> donnée : */
   if( joueur == ROUGE ) {
     unite = monde->rouge.premier;
-  } else if ( joueur == BLEU ) {
+  } else {
     unite = monde->bleu.premier;
   }
   
@@ -151,18 +151,21 @@ void viderMonde( Monde *monde ) {
   - Propose d'arreter
   - Annonce le resultat et vide correctement le monde
 */
-void gererPartie() {
+void gererPartie() { 
   char c;
   int forceStop = 0;
   
+
   /* Prepare le plateau et positionne les unites initiales */
   Monde monde;  
+  MLVafficherPlateau(&monde);
+
   initialiserMonde( &monde );
   remplirMonde( &monde );
   afficherTutoriel();
   
-  
   /* Laisse chaque joueur jouer */
+  
   while ( monde.rouge.premier != NULL && monde.bleu.premier != NULL && forceStop == 0) {
     gererTour( &monde );
     printf("Voulez vous arreter la ? (Y/n)\n");
@@ -171,23 +174,14 @@ void gererPartie() {
       printf("D'accord ! Salut :(\n");
       forceStop = 1;
     }
-    
   }
   
   /* Resultat et vide le monde */
+  
   if ( monde.rouge.premier == NULL && forceStop == 0 ) {
     printf("Le joueur BLEU à gagné !!\nBravo :) :) :)\n");
   } else if ( monde.bleu.premier == NULL && forceStop == 0 ) {
     printf("Le joueur rouge à gagné !!\nBravo :) :) :)\n");    
   }
   viderMonde( &monde );
-  
 }
-
-
-
-
-
-
-
-
