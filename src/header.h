@@ -65,7 +65,8 @@ int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joue
 
 /* Utils */
 int abs ( int x );
-char* format( int n );
+char* format2( int n );
+char* format3( int n );
 
 /* UListe */
 void ajouterDebutUListe ( UListe * liste , Unite * unite );

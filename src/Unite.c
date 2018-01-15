@@ -100,7 +100,6 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	}	
 	/* On libere l'espace de l'unite */
 	free( unite );
-	printf("Freed\n");
 	return 2;	
 }
 
@@ -153,7 +152,7 @@ posY ) {
 	Renvoi :
 	-1 = ERREUR : coordonnees invalides
 	-2 = ERREUR : coordonnees non voisines
-	-3 = ERREUR : tir allié
+	-3 = ERREUR : tir allié => Empiler
 	 1 = Deplacement reussi
 	 2 = Combat : Victoire
 	 3 = Combat : Defaite
@@ -196,7 +195,7 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 		
 		/* On verifie que l'unite n'attaque pas son allié */
 		if ( cible->couleur == unite->couleur ) {
-			printf("ERREUR : La case attaquée est un allié\n");
+			printf("Les unites s'empilent\n");
 			return -3;
 		}
 		

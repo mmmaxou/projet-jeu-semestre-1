@@ -215,11 +215,11 @@ void viderMonde( Monde *monde ) {
 	
   while ( monde->rouge.taille != 0 ) {
 		enleverUnite( monde->rouge.premier, monde );
-		afficherUListe ( &(monde->rouge) );
+		/*afficherUListe ( &(monde->rouge) );*/
   }
   while ( monde->bleu.taille != 0 ) {
     enleverUnite( monde->bleu.premier, monde );
-		afficherUListe ( &(monde->bleu) );
+		/*afficherUListe ( &(monde->bleu) );*/
   }
   initialiserMonde( monde );
 }
@@ -280,7 +280,7 @@ void gererPartie() {
   if ( monde.rouge.taille == 0 && forceStop == 0 ) {
     printf("Le joueur BLEU à gagné !!\nBravo :) :) :)\n");
   } else if ( monde.bleu.taille == 0 && forceStop == 0 ) {
-    printf("Le joueur rouge à gagné !!\nBravo :) :) :)\n");    
+    printf("Le joueur ROUGE à gagné !!\nBravo :) :) :)\n");    
   }
   viderMonde( &monde );
   

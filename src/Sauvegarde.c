@@ -24,14 +24,14 @@ int sauvegarder ( Monde * monde ) {
 	if ( fichier != NULL ) {
 		
 		/* On sauvegarde les unites rouges */
-		unite = monde->rouge;
+		unite = monde->rouge.premier;
 		while ( unite != NULL ) {
 			ecrireUnite( unite, fichier );
 			unite = unite->suiv;
 		}
 		
 		/* On sauvegarde les unites bleues */
-		unite = monde->bleu;
+		unite = monde->bleu.premier;
 		while ( unite != NULL ) {
 			ecrireUnite( unite, fichier );
 			unite = unite->suiv;

@@ -15,7 +15,24 @@ int abs ( int x ) {
 	return x < 0 ? -x : x;
 }
 
-char* format( int n ) {
+char* format2( int n ) {
+	char *s = malloc(3 * sizeof(char));
+	s[0] = '0';
+	s[1] = '0';
+	s[2] = '\0';
+	
+	if ( n == 0 ) {
+		return "00";
+	}
+	
+	s[1] += n % 10;
+	if( n >= 10) {
+		s[0] += (n-(n%10)) / 10;
+	}
+	return s;
+}
+
+char* format3( int n ) {
 	char *s = malloc(4 * sizeof(char));
 	s[0] = '0';
 	s[1] = '0';

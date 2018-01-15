@@ -22,20 +22,16 @@ int afficherPlateau( Monde *monde ) {
 	
 	printLigneHaut();
   for ( y=0; y<LONG; y++ ) {
-		s = format(y);
+		s = format3(y);
 		
 		/* affiche une ligne de bord */
 		printLigneBord();
 		printf("%s ", s);
     for ( x=0; x<LARG; x++ ) {
       if ( monde->plateau[x][y] == NULL ) {
-        printf("|   ");
+        printf("|    ");
       } else {
-				if ( monde->plateau[x][y]->couleur == BLEU ) {
-        	printf("|•%c•", monde->plateau[x][y]->genre);
-				} else {
-        	printf("| %c ", monde->plateau[x][y]->genre);
-				}
+				printf("|%c%c%s", monde->plateau[x][y]->couleur, monde->plateau[x][y]->genre, format2(monde->plateau[x][y]->pv));
       }
     }
     printf("|\n");
@@ -47,7 +43,7 @@ void printLigneBord() {
 	int i;
 	printf("    ");
 	for ( i=0; i<LARG; i++ ) {
-		printf("+---");
+		printf("+----");
 	}
 	printf("+\n");	
 }
@@ -56,8 +52,8 @@ void printLigneHaut() {
 	char * s;
 	printf("    ");
 	for ( i=0; i<LARG; i++ ) {
-		s = format(i);
-		printf(" %s", s);
+		s = format3(i);
+		printf(" %s ", s);
 	}
 	printf("  <- x\n");	
 }
@@ -65,7 +61,7 @@ void printLigneDelimitation() {
   printf(">>> ••••••••••••••••••••••••••••••••••••••••••••••••• <<<\n");  
 }
 void afficherUnite( Unite * u ) {
-	printf(">>> UNITE >>> X: %d || Y: %d || clr: %c || genre: %c || PM: %d || atk: %d || id: %d\n", u->posX, u->posY, u->couleur, u->genre, u->pm, u->atk, u->id );
+	printf(">>> UNITE (%d %d) >>> clr: %c || genre: %c || PM: %d || atk: %d || id: %d\n", u->posX, u->posY, u->couleur, u->genre, u->pm, u->atk, u->id );
 }
 void afficherTutoriel() {
   printLigneDelimitation();
