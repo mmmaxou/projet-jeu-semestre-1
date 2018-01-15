@@ -18,7 +18,11 @@ void initialiserMonde( Monde *monde ) {
   int x,y;	
   monde->tour = 1;
   monde->rouge.premier = NULL;
+  monde->rouge.dernier = NULL;
+	monde->rouge.taille = 0;
   monde->bleu.premier = NULL;
+  monde->bleu.dernier = NULL;
+	monde->bleu.taille = 0;
   for ( x=0; x<LARG; x++) {
     for ( y=0; y<LONG; y++) {
       monde->plateau[x][y] = NULL;
@@ -42,12 +46,16 @@ int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur 
     unite->posY = posY;
     monde->plateau[posX][posY] = unite;
     if ( couleur == ROUGE ) {
-      insertionUListe(&(monde->rouge), unite);
+			ajouterDebutUListe( &(monde->rouge), unite );
     } else if ( couleur == BLEU ) {
-      insertionUListe(&(monde->bleu), unite);
-    }
+			ajouterDebutUListe( &(monde->bleu), unite );			
+    } else {
+			printf("Erreur insertion Liste\n");
+		}
+		afficherUnite ( unite );
     return 1;
-  }  
+  }
+	return 0;
 }
 
 /*
@@ -62,7 +70,7 @@ void remplirMonde ( Monde *monde ) {
 	Unite *u6 = malloc(sizeof(Unite));
 	Unite *u7 = malloc(sizeof(Unite));
 	Unite *u8 = malloc(sizeof(Unite));
-
+	
 	creerUnite(GUERRIER, u1);
 	creerUnite(SERF, u2);
 	creerUnite(SERF, u3);
@@ -79,7 +87,9 @@ void remplirMonde ( Monde *monde ) {
 	placerAuMonde( u5, monde, 17, 9, ROUGE);
 	placerAuMonde( u6, monde, 15, 11, ROUGE);   
 	placerAuMonde( u7, monde, 0, 0, BLEU);   
-	placerAuMonde( u8, monde, 17, 11, ROUGE);   
+	placerAuMonde( u8, monde, 17, 11, ROUGE);
+	
+	afficherUListe( &(monde->bleu) );
 }
 
 /*
@@ -202,11 +212,14 @@ void gererTour( Monde *monde ) {
 */
 void viderMonde( Monde *monde ) {
   /* Supprime les unites */
-  while ( monde->rouge.premier != NULL ) {
-    enleverUnite( monde->rouge.premier, monde );
+	
+  while ( monde->rouge.taille != 0 ) {
+		enleverUnite( monde->rouge.premier, monde );
+		afficherUListe ( &(monde->rouge) );
   }
-  while ( monde->bleu.premier != NULL ) {
+  while ( monde->bleu.taille != 0 ) {
     enleverUnite( monde->bleu.premier, monde );
+		afficherUListe ( &(monde->bleu) );
   }
   initialiserMonde( monde );
 }
@@ -228,7 +241,7 @@ void gererPartie() {
   Monde monde;	
   initialiserMonde( &monde );
 		
-	/* On demander si l'on veut charger la derniere partie */
+	/* On demander si l'on veut charger la derniere partie */	
 	printf("Voulez vous charger la derniere partie ? (Y/n)\n");
 	scanf(" %c", &c);
 	if ( c == 'Y' || c == 'y' ) {
@@ -238,11 +251,12 @@ void gererPartie() {
 	} else {
 		remplirMonde( &monde );
 	}
-  afficherTutoriel();
-  
+	
+	/* On affiche les instructions */
+	afficherTutoriel();;
   
   /* Laisse chaque joueur jouer */
-  while ( monde.rouge.premier != NULL && monde.bleu.premier != NULL && forceStop == 0) {
+  while ( monde.rouge.taille != 0 && monde.bleu.taille != 0 && forceStop == 0) {
     
 		gererTour( &monde );
 				
@@ -257,16 +271,15 @@ void gererPartie() {
     printf("Voulez vous arreter la ? (Y/n)\n");
     scanf(" %c", &c);
     if ( c == 'Y' || c == 'y' ) {
-      printf("D'accord ! Salut :(\n");
+      printf("D'accord ! Salut :)\n");
       forceStop = 1;
-    }
-		   
+    }		   
   }
   
   /* Resultat et vide le monde */
-  if ( monde.rouge.premier == NULL && forceStop == 0 ) {
+  if ( monde.rouge.taille == 0 && forceStop == 0 ) {
     printf("Le joueur BLEU à gagné !!\nBravo :) :) :)\n");
-  } else if ( monde.bleu.premier == NULL && forceStop == 0 ) {
+  } else if ( monde.bleu.taille == 0 && forceStop == 0 ) {
     printf("Le joueur rouge à gagné !!\nBravo :) :) :)\n");    
   }
   viderMonde( &monde );

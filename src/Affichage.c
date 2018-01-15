@@ -65,7 +65,7 @@ void printLigneDelimitation() {
   printf(">>> ••••••••••••••••••••••••••••••••••••••••••••••••• <<<\n");  
 }
 void afficherUnite( Unite * u ) {
-	printf(">>> UNITE >>> X: %d || Y: %d || clr: %c || genre: %c || PM: %d\n", u->posX, u->posY, u->couleur, u->genre, u->pm );
+	printf(">>> UNITE >>> X: %d || Y: %d || clr: %c || genre: %c || PM: %d || atk: %d || id: %d\n", u->posX, u->posY, u->couleur, u->genre, u->pm, u->atk, u->id );
 }
 void afficherTutoriel() {
   printLigneDelimitation();

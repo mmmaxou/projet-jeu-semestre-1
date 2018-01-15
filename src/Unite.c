@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "header.h"
 #define LARG 18
 #define LONG 12
@@ -9,6 +10,8 @@
 #define GUERRIER 'g'/* Identifiant du Guerrier */
 #define REINE 'r'/* Identifiant de la Reine */
 #define OEUF 'o'/* Identifiant de l'oeuf */
+
+static int id = 0;
 
 /*
   Cree une variable de type Unite 
@@ -20,17 +23,46 @@ int creerUnite( char type, Unite *unite ) {
   if ( unite != NULL ) {
     unite->genre = type;
 		unite->attente = 0;
-		if ( type == REINE ) {
-			unite->pm = 0;
-		} else {
-			unite->pm = 2;
-		}
     unite->suiv = NULL;
+    unite->prec = NULL;
+		unite->id = id;
+		id++;
+		donnerStatsUnite ( type, unite );
     return 1;
   } else {
 		printf("ERREUR : Allocation memoire\n");
     return 0;
   }
+}
+
+void donnerStatsUnite ( char type, Unite *unite ) {
+	switch ( type ) {
+		case REINE:
+			unite->pm = 0;
+			unite->atk = 0;
+			unite->pv = 30;
+			break;
+		case GUERRIER:
+			unite->pv = 20;
+			unite->atk = 4;
+			unite->pm = 2;
+			break;
+		case SERF:
+			unite->pv = 10;
+			unite->atk = 3;
+			unite->pm = 3;
+			break;
+		case OEUF:
+			unite->pv = 1;
+			unite->atk = 0;
+			unite->pm = 0;
+			break;
+		default:
+			unite->pv = 1;
+			unite->atk = 0;
+			unite->pm = 0;
+			break;			
+	}
 }
 
 /*
@@ -51,7 +83,7 @@ void deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	2 = Succes
 */
 int enleverUnite( Unite *unite, Monde *monde ) {
-	int errSuppression;
+	
 	/* On verifie que l'unite existe */
 	if ( unite == NULL ) {
 		printf("ERREUR : L'unite n'existe pas\n");
@@ -61,22 +93,15 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	monde->plateau[unite->posX][unite->posY] = NULL;
 	
 	/* On supprime la reference a l'unite de la liste correspondante */
-	if ( unite->couleur == BLEU ) {
-		errSuppression = supprimerUniteUListe( &(monde->bleu), unite ); 	
-	}
 	if ( unite->couleur == ROUGE ) {
-		errSuppression = supprimerUniteUListe( &(monde->rouge), unite ); 	
-	}
-	
-	if ( errSuppression == 0 ) {
-		return 1;
-	}
-	
+		supprimerUniteUListe( &(monde->rouge), unite->id );
+	} else if ( unite->couleur == BLEU ) {
+		supprimerUniteUListe( &(monde->bleu), unite->id );
+	}	
 	/* On libere l'espace de l'unite */
 	free( unite );
-	/*printf("Unite enlevée\n");*/
-	return 2;
-	
+	printf("Freed\n");
+	return 2;	
 }
 
 /*
@@ -235,9 +260,6 @@ int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joue
 	}
 	
 	printf("Unite ajoutee ... affichage : \n");
-	
-	afficherUListe( &(monde->rouge) );
-	afficherUListe( &(monde->bleu) );
 	
 	return 0;
 }

@@ -17,11 +17,19 @@ typedef struct unite {
   char genre; /* GUERRIER ou SERF ou REINE */
 	int pm; /* Points de mouvements */
 	int attente; /* Tour de recharge pour la reine */
-  struct unite *suiv; /* liste des unites suivantes*/
+	int pv;
+	int atk;
+	int id;
+  struct unite *suiv;
+  struct unite *prec;
 } Unite;
-typedef struct liste { 
-  Unite *premier;
+
+typedef struct doublelist {
+	Unite * premier;
+	Unite * dernier;	
+	int taille;
 } UListe;
+
 typedef struct monde {
   Unite *plateau[LARG][LONG];
   UListe rouge, bleu; /* Listes des deux joueurs */
@@ -47,6 +55,7 @@ void gererPartie ();
 
 /* Unite */
 int creerUnite ( char type, Unite *unite );
+void donnerStatsUnite ( char type, Unite *unite );
 void deplacerUnite ( Unite *unite, Monde *monde, int destX, int destY );
 int enleverUnite ( Unite *unite, Monde *monde );
 int attaquer ( Unite *unite, Monde *monde, int posX, int
@@ -59,9 +68,10 @@ int abs ( int x );
 char* format( int n );
 
 /* UListe */
-void insertionUListe ( UListe *l, Unite *u );
-void afficherUListe ( UListe *liste );
-int supprimerUniteUListe ( UListe *liste, Unite *unite );
+void ajouterDebutUListe ( UListe * liste , Unite * unite );
+void ajouterFinUListe ( UListe * liste , Unite * unite );
+void afficherUListe ( UListe * liste );
+int supprimerUniteUListe (  UListe * liste, int id );
 
 /* Sauvegarder */
 int sauvegarder ( Monde * monde );

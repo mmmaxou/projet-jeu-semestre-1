@@ -10,23 +10,37 @@
 #define REINE 'r'/* Identifiant de la Reine */
 #define OEUF 'o'/* Identifiant de l'oeuf */
 
-
-/*
-  Insere une nouvelle unite dans une liste
-*/
-void insertionUListe ( UListe *liste, Unite *unite ) {
-  if ( liste->premier != NULL ) {
-    unite->suiv = liste->premier;
-  }
-	liste->premier = unite;
+void ajouterDebutUListe ( UListe * liste , Unite * unite ) {
+	
+	if ( liste->taille == 0 ) {
+		liste->premier = unite;
+		liste->dernier = unite;		
+	} else {
+		liste->premier->prec = unite;
+		unite->suiv = liste->premier;
+		liste->premier = unite;
+	}
+	
+	liste->taille++;
 }
 
-/*
-  Fonction utilitaire pour afficher une liste
-*/
-void afficherUListe ( UListe *liste ) {
-  Unite *actuel = liste->premier;
-  
+void ajouterFinUListe ( UListe * liste , Unite * unite ) {
+	
+	if ( liste->taille == 0 ) {
+		liste->premier = unite;
+		liste->dernier = unite;		
+	} else {
+		liste->dernier->suiv = unite;
+		unite->prec = liste->dernier;
+		liste->dernier = unite;
+	}
+	
+	liste->taille++;
+}
+
+void afficherUListe ( UListe * liste ) {
+	Unite * actuel = liste->premier;
+	printf("Taille : %d  |  ", liste->taille);
   while ( actuel != NULL ) {
     printf("%c -> ", actuel->genre);
     actuel = actuel->suiv;
@@ -34,29 +48,31 @@ void afficherUListe ( UListe *liste ) {
   printf("NULL\n");
 }
 
-int supprimerUniteUListe ( UListe *liste, Unite *unite ) {
-	Unite *actuel, *precedent;
+int supprimerUniteUListe ( UListe * liste, int id ) {
+	Unite *tmp = liste->premier;
+	int found = 0;
 	
-	/* On trouve l'objet dans la liste */
-	actuel = liste->premier;
-	precedent = NULL;
-	
-	while ( actuel != NULL ) {
-		if ( actuel == unite ) {
-			if ( precedent == NULL ) {
-				liste->premier = actuel->suiv;
-			} else if ( actuel->suiv == NULL ) {
-				precedent->suiv = NULL;
+	while ( tmp != NULL && !found ) {
+		if ( tmp->id == id ) {
+			if ( liste->taille == 1 ) {
+				liste->premier = NULL;	
+				liste->dernier = NULL;	
+			} else if ( tmp->suiv == NULL ) {
+				liste->dernier = tmp->prec;
+				liste->dernier->suiv = NULL;
+			} else if ( tmp->prec == NULL ) {
+				liste->premier = tmp->suiv;
+				liste->premier->prec = NULL;				
 			} else {
-				precedent->suiv = actuel;
+				tmp->suiv->prec = tmp->prec;
+				tmp->prec->suiv = tmp->suiv;
 			}
-			/*printf("Suppression réussie\n");*/
-			return 1;
-		}		
-		precedent = actuel;
-		actuel = actuel->suiv;
+			found = 1;
+			liste->taille--;
+		} else {
+			tmp = tmp->suiv;
+		}
 	}
 	
-	printf("ERREUR : suppression \n");
-	return 0;	
+	return 1;	
 }

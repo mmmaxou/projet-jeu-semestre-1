@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "header.h"
 #define LARG 18
 #define LONG 12
@@ -31,15 +32,4 @@ char* format( int n ) {
 	}
 	return s;
 }
-
-
-
-
-
-
-
-
-
-
-
 
