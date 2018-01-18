@@ -11,11 +11,6 @@
 #define OEUF 'o'/* Identifiant de l'oeuf */
 
 int main(int argc, char *argv[]) {
-
-	
-	/*testDeplacement(&monde);*/
-	/*testSuppression(&monde);*/
-	/*testAttaque(&monde);*/
   
   gererPartie();
 	

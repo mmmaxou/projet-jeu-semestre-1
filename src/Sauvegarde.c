@@ -49,12 +49,12 @@ int sauvegarder ( Monde * monde ) {
 
 /*
 	Format d'ecriture : 
-	X;Y;COULEUR;GENRE;PM;ATTENTE;ATK;$
+	X;Y;COULEUR;GENRE;PV;PM;ATTENTE;ATK;$
 	$ > Fin de la ligne
 */
 void ecrireUnite ( Unite * u, FILE * fichier ) {	
 	afficherUnite( u );
-	fprintf(fichier, "%d;%d;%c;%c;%d;%d;%d;$\n", u->posX, u->posY, u->couleur, u->genre, u->pm, u->attente, u->atk );		
+	fprintf(fichier, "%d;%d;%c;%c;%d;%d;%d;%d;$\n", u->posX, u->posY, u->couleur, u->genre, u->pv, u->pm, u->attente, u->atk );		
 }
 
 
@@ -88,18 +88,19 @@ int charger ( Monde * monde ) {
 	1 = Fichier fini
 */
 int lireUnite ( FILE * fichier, Monde * monde ) {
-	int x, y, pm, attente, atk;
+	int x, y, pm, attente, atk, pv;
 	char couleur, genre;
 	int eof;
 	Unite *unite = malloc(sizeof(Unite));
 	
-	eof = fscanf(fichier, "%d;%d;%c;%c;%d;%d;%d;$\n", &x, &y, &couleur, &genre, &pm, &attente, &atk );
+	eof = fscanf(fichier, "%d;%d;%c;%c;%d;%d;%d;%d;$\n", &x, &y, &couleur, &genre, &pv, &pm, &attente, &atk );
 
 	if ( eof != 0 ) {
 		creerUnite( genre, unite );
 		unite->attente = attente;
 		unite->pm = pm;
 		unite->atk = atk;
+		unite->pv = pv;
 		placerAuMonde( unite, monde, x, y, couleur );
 	}
 	

@@ -20,8 +20,10 @@ typedef struct unite {
 	int pv;
 	int atk;
 	int id;
-  struct unite *suiv;
-  struct unite *prec;
+  struct unite *suivTile;
+  struct unite *suivClr;
+  struct unite *precTile;
+  struct unite *precClr;
 } Unite;
 
 typedef struct doublelist {
@@ -31,7 +33,7 @@ typedef struct doublelist {
 } UListe;
 
 typedef struct monde {
-  Unite *plateau[LARG][LONG];
+  UListe plateau[LARG][LONG];
   UListe rouge, bleu; /* Listes des deux joueurs */
   int tour; /* Numero du tour */
 } Monde;
@@ -62,6 +64,7 @@ int attaquer ( Unite *unite, Monde *monde, int posX, int
 posY, int riposte );
 int deplacerOuAttaquer (Unite *unite, Monde *monde, int destX, int destY);
 int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joueur );
+int donnerValeur ( Unite * unite );
 
 /* Utils */
 int abs ( int x );
@@ -69,10 +72,14 @@ char* format2( int n );
 char* format3( int n );
 
 /* UListe */
-void ajouterDebutUListe ( UListe * liste , Unite * unite );
-void ajouterFinUListe ( UListe * liste , Unite * unite );
-void afficherUListe ( UListe * liste );
-int supprimerUniteUListe (  UListe * liste, int id );
+void ajouterDebutUListeTile ( UListe * liste , Unite * unite );
+void ajouterFinUListeTile ( UListe * liste , Unite * unite );
+void ajouterDebutUListeClr ( UListe * liste , Unite * unite );
+void ajouterFinUListeClr ( UListe * liste , Unite * unite );
+void afficherUListeTile ( UListe * liste );
+void afficherUListeClr ( UListe * liste );
+int supprimerUniteUListeTile (  UListe * liste, int id );
+int supprimerUniteUListeClr (  UListe * liste, int id );
 
 /* Sauvegarder */
 int sauvegarder ( Monde * monde );

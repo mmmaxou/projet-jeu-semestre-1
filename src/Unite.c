@@ -25,8 +25,10 @@ int creerUnite( char type, Unite *unite ) {
   if ( unite != NULL ) {
     unite->genre = type;
 		unite->attente = 0;
-    unite->suiv = NULL;
-    unite->prec = NULL;
+    unite->suivTile = NULL;
+    unite->suivClr = NULL;
+    unite->precTile = NULL;
+    unite->precClr = NULL;
 		unite->id = id;
 		id++;
 		donnerStatsUnite ( type, unite );
@@ -71,10 +73,17 @@ void donnerStatsUnite ( char type, Unite *unite ) {
 	Deplace une unite sur le monde
 */
 void deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
-	monde->plateau[unite->posX][unite->posY] = NULL;
+	/* On supprime l'unite de la liste du plateau qui lui correspond */
+	supprimerUniteUListeTile( &(monde->plateau[unite->posX][unite->posY]), unite->id );
+	afficherUListeTile( &(monde->plateau[unite->posX][unite->posY]) );
+	
+	/* On modifie les coordonnées propres de l'unite */	
 	unite->posX = destX;
 	unite->posY = destY;
-	monde->plateau[destX][destY] = unite;
+	
+	/* On deplace l'unite vers une nouvelle liste destination du plateau */
+	ajouterDebutUListeTile( &(monde->plateau[destX][destY]), unite );
+	afficherUListeTile( &(monde->plateau[destX][destY]) );
 }
 
 /*
@@ -92,13 +101,13 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 		return 0;
 	}
 	/* On supprime la reference a l'unite du plateau */
-	monde->plateau[unite->posX][unite->posY] = NULL;
+	supprimerUniteUListeTile( &(monde->plateau[unite->posX][unite->posY]), unite->id );
 	
 	/* On supprime la reference a l'unite de la liste correspondante */
 	if ( unite->couleur == ROUGE ) {
-		supprimerUniteUListe( &(monde->rouge), unite->id );
+		supprimerUniteUListeClr( &(monde->rouge), unite->id );
 	} else if ( unite->couleur == BLEU ) {
-		supprimerUniteUListe( &(monde->bleu), unite->id );
+		supprimerUniteUListeClr( &(monde->bleu), unite->id );
 	}	
 	/* On libere l'espace de l'unite */
 	free( unite );
@@ -121,8 +130,24 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 */
 int attaquer( Unite *unite, Monde *monde, int posX, int
 posY, int riposte ) {
-	Unite *cible = monde->plateau[posX][posY];
+	Unite * tile = monde->plateau[posX][posY].premier;
+	Unite * cible = tile;
+	printf( "Tile : ");
+	afficherUListeTile ( &(monde->plateau[posX][posY]) );
+	int currentValue, maxValue;
 	int resultatAttaque;
+	
+	/* On choisit la cible */
+	/* Ordre : GUERRIER > SERF > OEUF > REINE */
+	maxValue = donnerValeur ( cible );
+	while ( tile != NULL ) {
+		currentValue = donnerValeur ( tile );
+		if ( currentValue > maxValue ) {
+			maxValue = currentValue;
+			cible = tile;			
+		}
+		tile = tile->suivTile;
+	} 
 	
 	
 	/* La cible perds des pv */
@@ -142,16 +167,13 @@ posY, int riposte ) {
 			if ( resultatAttaque == 1) {
 				printf("Vous avez été vaincu\n");
 				return 0;
+			} else {
+				printf("Pas de victime\n");
 			}
-		}
-		if ( riposte == ATTAQUE ) {
-			printf("Pas de victime\n");
-		}
+ 		}
 		return 2;
 	}
 }
-
-
 
 /*
 	Gere le deplacement et le combat
@@ -164,7 +186,6 @@ posY, int riposte ) {
 	 3 = Combat : Defaite
 */
 int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
-	Unite *cible;
 	int delta = 0;
 	int resultatAttaque;
 	
@@ -180,44 +201,37 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 	}
 	
 	/*
-		On verifie que la coordonnée entrée est voisine
+		On verifie que la coordonnée entrée est atteignable
+		Le deplacement maximum possible est la quantite de PM de l'unite
 	*/
 	delta += abs( unite->posX - destX );
 	delta += abs( unite->posY - destY );
 	/*printf("delta : %d\n", delta);*/
-	
-	/*
-		Le deplacement maximum possible est la quantite de PM de l'unite
-	*/
 	if ( delta > unite->pm ) {
 		printf("ERREUR : Position non voisine\n");
 		return -2;
 	}
 	
-	if ( monde->plateau[destX][destY] != NULL )	{
-		
-		/* Il y a une unite a la case ciblée */		
-		cible = monde->plateau[destX][destY];
+	/* La case n'est pas vide */
+	if ( monde->plateau[destX][destY].taille != 0 )	{
 		
 		/* On verifie que l'unite n'attaque pas son allié */
-		if ( cible->couleur == unite->couleur ) {
+		if ( monde->plateau[destX][destY].premier->couleur == unite->couleur ) {
 			printf("Les unites s'empilent\n");
-			return -3;
-		}
-		
-		resultatAttaque = attaquer(unite, monde, destX, destY, ATTAQUE);
-		/* DEFAITE */
-		if ( resultatAttaque == 0 ) {
-			return 3;
-		}
-		/* VICTOIRE */
-		if ( resultatAttaque == 1 ) {
-			return 2;
-		}
-		
-	} 
-	else
-	{
+			deplacerUnite(unite, monde, destX, destY);
+			return 1;
+		} else {		
+			resultatAttaque = attaquer(unite, monde, destX, destY, ATTAQUE);
+			/* DEFAITE */
+			if ( resultatAttaque == 0 ) {
+				return 3;
+			}
+			/* VICTOIRE */
+			if ( resultatAttaque == 1 ) {
+				return 2;
+			}
+		}		
+	} else 	{
 		/* La case ciblée est vide */
 		deplacerUnite(unite, monde, destX, destY);
 		return 1;
@@ -269,7 +283,26 @@ int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joue
 	return 0;
 }
 
-
+/* Fonction utilitaire qui donne la valeure d'une unite pour faciliter le choix de la cible d'une attaque */
+int donnerValeur ( Unite * unite ) {
+	switch ( unite->genre ) {
+			case GUERRIER:
+				return 30;
+				break;
+			case SERF:
+				return 20;
+				break;
+			case OEUF:
+				return 10;
+				break;
+			case REINE:
+				return 0;
+				break;
+			default:
+				return 0;
+				break;
+		}
+}
 
 
 

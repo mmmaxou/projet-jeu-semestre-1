@@ -25,7 +25,9 @@ void initialiserMonde( Monde *monde ) {
 	monde->bleu.taille = 0;
   for ( x=0; x<LARG; x++) {
     for ( y=0; y<LONG; y++) {
-      monde->plateau[x][y] = NULL;
+      monde->plateau[x][y].premier = NULL;
+      monde->plateau[x][y].dernier = NULL;
+      monde->plateau[x][y].taille = 0;
     }
   }
 }
@@ -33,29 +35,26 @@ void initialiserMonde( Monde *monde ) {
 /*
   Place une unite qui vient d'etre creee a la position souhaitee dans le monde sous le controle de son nouveau maitre.
   Retourne un code d'erreur :
-  0: Case designee deja occupee
+	0: Erreur insertion liste
   1: Pas d'erreur  
 */
 int placerAuMonde( Unite *unite, Monde *monde, int posX, int posY, char couleur ) {
-  if ( monde->plateau[posX][posY] != NULL ) {
-		printf("ERREUR : Case deja occupee\n");
-    return 0;
-  } else {
-    unite->couleur = couleur;
-    unite->posX = posX;
-    unite->posY = posY;
-    monde->plateau[posX][posY] = unite;
-    if ( couleur == ROUGE ) {
-			ajouterDebutUListe( &(monde->rouge), unite );
-    } else if ( couleur == BLEU ) {
-			ajouterDebutUListe( &(monde->bleu), unite );			
-    } else {
-			printf("Erreur insertion Liste\n");
-		}
-		afficherUnite ( unite );
-    return 1;
-  }
-	return 0;
+	unite->couleur = couleur;
+	unite->posX = posX;
+	unite->posY = posY;
+	
+	/* On ajoute a la liste de la case */
+	ajouterDebutUListeTile( &( monde->plateau[posX][posY] ), unite );
+	if ( couleur == ROUGE ) {
+		ajouterDebutUListeClr( &(monde->rouge), unite );
+	} else if ( couleur == BLEU ) {
+		ajouterDebutUListeClr( &(monde->bleu), unite );			
+	} else {
+		printf("Erreur insertion Liste\n");
+		return 0;
+	}
+	afficherUnite ( unite );
+	return 1;
 }
 
 /*
@@ -89,7 +88,7 @@ void remplirMonde ( Monde *monde ) {
 	placerAuMonde( u7, monde, 0, 0, BLEU);   
 	placerAuMonde( u8, monde, 17, 11, ROUGE);
 	
-	afficherUListe( &(monde->bleu) );
+	afficherUListeClr( &(monde->bleu) );
 }
 
 /*
@@ -111,6 +110,8 @@ void gererDemiTour( char joueur, Monde *monde ) {
     /* On affiche les informations de l'état actuel */
     afficherPlateau( monde );
     afficherUnite( unite );
+		printf( "Taille rouge : %d\n", monde->rouge.taille );
+		printf( "Taille bleu : %d\n", monde->bleu.taille );
 		
 		if ( unite->genre == REINE ) {
 			/* On demande à l'utilisateur ou il veux produire */
@@ -159,7 +160,7 @@ void gererDemiTour( char joueur, Monde *monde ) {
 		}
     
     /* On passe à l'unite suivante */
-    unite = unite->suiv;
+    unite = unite->suivTile;
   }
   
   /* On termine le tour */
@@ -254,10 +255,11 @@ void gererPartie() {
 		remplirMonde( &monde );
 	}
 	*/
+	
 	genererUnitesCentre ( &monde );
 	
 	/* On affiche les instructions */
-	afficherTutoriel();;
+	afficherTutoriel();
   
   /* Laisse chaque joueur jouer */
   while ( monde.rouge.taille != 0 && monde.bleu.taille != 0 && forceStop == 0) {
@@ -285,8 +287,8 @@ void gererPartie() {
     printf("Le joueur BLEU à gagné !!\nBravo :) :) :)\n");
   } else if ( monde.bleu.taille == 0 && forceStop == 0 ) {
     printf("Le joueur ROUGE à gagné !!\nBravo :) :) :)\n");    
-  }
-  viderMonde( &monde );
+  } 
+	viderMonde( &monde );
   
 }
 
@@ -294,10 +296,16 @@ void gererPartie() {
 void genererUnitesCentre ( Monde * monde ) {
 	Unite *u1 = malloc(sizeof(Unite));
 	Unite *u2 = malloc(sizeof(Unite));
+	Unite *u3 = malloc(sizeof(Unite));
+	Unite *u4 = malloc(sizeof(Unite));
 	
 	creerUnite(GUERRIER, u1);
 	creerUnite(SERF, u2);
+	creerUnite(REINE, u3);
+	creerUnite(SERF, u4);
 	
 	placerAuMonde( u1, monde, 6, 6, BLEU);
 	placerAuMonde( u2, monde, 7, 7, ROUGE);	
+	placerAuMonde( u3, monde, 7, 6, ROUGE);	
+	placerAuMonde( u4, monde, 6, 7, BLEU);	
 }

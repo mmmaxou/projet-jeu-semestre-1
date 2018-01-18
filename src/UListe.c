@@ -10,45 +10,84 @@
 #define REINE 'r'/* Identifiant de la Reine */
 #define OEUF 'o'/* Identifiant de l'oeuf */
 
-void ajouterDebutUListe ( UListe * liste , Unite * unite ) {
+void ajouterDebutUListeTile ( UListe * liste , Unite * unite ) {
 	
 	if ( liste->taille == 0 ) {
 		liste->premier = unite;
 		liste->dernier = unite;		
 	} else {
-		liste->premier->prec = unite;
-		unite->suiv = liste->premier;
+		liste->premier->precTile = unite;
+		unite->suivTile = liste->premier;
 		liste->premier = unite;
 	}
 	
 	liste->taille++;
 }
 
-void ajouterFinUListe ( UListe * liste , Unite * unite ) {
+void ajouterDebutUListeClr ( UListe * liste , Unite * unite ) {
 	
 	if ( liste->taille == 0 ) {
 		liste->premier = unite;
 		liste->dernier = unite;		
 	} else {
-		liste->dernier->suiv = unite;
-		unite->prec = liste->dernier;
+		liste->premier->precClr = unite;
+		unite->suivClr = liste->premier;
+		liste->premier = unite;
+	}
+	
+	liste->taille++;
+}
+
+void ajouterFinUListeTile ( UListe * liste , Unite * unite ) {
+	
+	if ( liste->taille == 0 ) {
+		liste->premier = unite;
+		liste->dernier = unite;		
+	} else {
+		liste->dernier->suivTile = unite;
+		unite->precTile = liste->dernier;
 		liste->dernier = unite;
 	}
 	
 	liste->taille++;
 }
 
-void afficherUListe ( UListe * liste ) {
+void ajouterFinUListeClr ( UListe * liste , Unite * unite ) {
+	
+	if ( liste->taille == 0 ) {
+		liste->premier = unite;
+		liste->dernier = unite;		
+	} else {
+		liste->dernier->suivClr = unite;
+		unite->precClr = liste->dernier;
+		liste->dernier = unite;
+	}
+	
+	liste->taille++;
+}
+
+void afficherUListeTile ( UListe * liste ) {
 	Unite * actuel = liste->premier;
 	printf("Taille : %d  |  ", liste->taille);
   while ( actuel != NULL ) {
     printf("%c -> ", actuel->genre);
-    actuel = actuel->suiv;
+    actuel = actuel->suivTile;
+  }
+  printf("NULL\n");
+	
+}
+
+void afficherUListeClr ( UListe * liste ) {
+	Unite * actuel = liste->premier;
+	printf("Taille : %d  |  ", liste->taille);
+  while ( actuel != NULL ) {
+    printf("%c -> ", actuel->genre);
+    actuel = actuel->suivClr;
   }
   printf("NULL\n");
 }
 
-int supprimerUniteUListe ( UListe * liste, int id ) {
+int supprimerUniteUListeTile ( UListe * liste, int id ) {
 	Unite *tmp = liste->premier;
 	int found = 0;
 	
@@ -56,21 +95,50 @@ int supprimerUniteUListe ( UListe * liste, int id ) {
 		if ( tmp->id == id ) {
 			if ( liste->taille == 1 ) {
 				liste->premier = NULL;	
-				liste->dernier = NULL;	
-			} else if ( tmp->suiv == NULL ) {
-				liste->dernier = tmp->prec;
-				liste->dernier->suiv = NULL;
-			} else if ( tmp->prec == NULL ) {
-				liste->premier = tmp->suiv;
-				liste->premier->prec = NULL;				
+				liste->dernier = NULL;
+			} else if ( tmp->suivTile == NULL ) {
+				liste->dernier = tmp->precTile;
+				liste->dernier->suivTile = NULL;
+			} else if ( tmp->precTile == NULL ) {
+				liste->premier = tmp->suivTile;
+				liste->premier->precTile = NULL;				
 			} else {
-				tmp->suiv->prec = tmp->prec;
-				tmp->prec->suiv = tmp->suiv;
+				tmp->suivTile->precTile = tmp->precTile;
+				tmp->precTile->suivTile = tmp->suivTile;
 			}
 			found = 1;
 			liste->taille--;
 		} else {
-			tmp = tmp->suiv;
+			tmp = tmp->suivTile;
+		}
+	}
+	
+	return 1;	
+}
+
+int supprimerUniteUListeClr ( UListe * liste, int id ) {
+	Unite *tmp = liste->premier;
+	int found = 0;
+	
+	while ( tmp != NULL && !found ) {
+		if ( tmp->id == id ) {
+			if ( liste->taille == 1 ) {
+				liste->premier = NULL;	
+				liste->dernier = NULL;
+			} else if ( tmp->suivClr == NULL ) {
+				liste->dernier = tmp->precClr;
+				liste->dernier->suivClr = NULL;
+			} else if ( tmp->precClr == NULL ) {
+				liste->premier = tmp->suivClr;
+				liste->premier->precClr = NULL;				
+			} else {
+				tmp->suivClr->precClr = tmp->precClr;
+				tmp->precClr->suivClr = tmp->suivClr;
+			}
+			found = 1;
+			liste->taille--;
+		} else {
+			tmp = tmp->suivClr;
 		}
 	}
 	
