@@ -41,6 +41,8 @@ void MLVafficherUniteSelectionee(Unite * u);
 void MLVafficherTutoriel(Monde * monde);
 void MLVactualiserPlateau(Monde *monde);
 void MLVafficherToutesUnites(Monde * monde);
+void MLVafficherSauvegarder();
+void MLVafficherQuitter();
 
 /* Monde */
 void initialiserMonde(Monde *monde);

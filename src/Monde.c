@@ -95,7 +95,13 @@ void gererDemiTour(char joueur, Monde *monde) {
     
     /* On demande à l'utilisateur ce qu'il veux faire */
     printf("Ou aller ? ");
-    scanf("%d %d", &userX, &userY);
+    
+    /* On calcule la nouvelle position de l'unite selectionnee en fonction des coordonnees du clic de la souris */
+    MLV_wait_mouse(&userX, &userY);
+    userX = userX/30-1;
+    userY = userY/30-1;
+    /*printf("\nX : %d | Y : %d\n", userX, userY);
+    scanf("%d %d", &userX, &userY);*/
     if (userX != -1 && userY != -1) {
       /* Cas normal */
       deplacerOuAttaquer(unite, monde, userX, userY);   
@@ -125,6 +131,7 @@ void gererTour(Monde *monde) {
   printLigneDelimitation();
   gererDemiTour(BLEU, monde);
   printLigneDelimitation();
+  MLVactualiserPlateau(monde);
   monde->tour++;
 }
 
@@ -162,6 +169,8 @@ void gererPartie() {
   initialiserMonde(&monde);
   remplirMonde(&monde);
   MLVafficherTutoriel(&monde);
+  MLVafficherSauvegarder();
+  MLVafficherQuitter();
   
   /* Laisse chaque joueur jouer */
   

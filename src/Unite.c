@@ -184,15 +184,3 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 	return 0;
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
