@@ -82,5 +82,6 @@ void afficherTutoriel() {
   printLigneDelimitation();
   printf("\nCe jeu ce joue à deux joueurs.\nChaque joueur possède:\n• 2 Serfs 's'\n• 1 Guerrier 'g'( Bat le Serf )\n• 1 Reine 'r' ( Immobile, elle produit des unites )\n  |> La reine créer des oeufs sur une position qui lui est adjacente\n  |> Les oeufs mettent 2 tours pour éclore.\nLe jeu se déroule en tour.\nChaque tour le joueur qui commence est choisi aléatoirement.\nDurant chaque tour de jeu, on demande au joueur ce qu'il souhaite faire.\n");
   printf("Entrez les coordonnées de la case vers laquelle se deplacer / attaquer, séparées par un espace ( ex: '10 15' ), ou bien entrez '-1 -1' pour ne rien faire.\n\n");
+	printf("Il peut y avoir plusieurs unites sur une même case. Cela permet de défendre certaines unites.\nPar exemple, si il y à une reine, elle sera défendue par toutes les autres unites.\nAttention, seule l'unite du dessus sera affichée dans l'interface textuelle.\n");
   printLigneDelimitation();
 }
