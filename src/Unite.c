@@ -147,6 +147,8 @@ posY ) {
 	}
 }
 
+
+
 /*
 	Gere le deplacement et le combat
 	Renvoi :

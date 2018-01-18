@@ -9,6 +9,15 @@
 #define GUERRIER 'g'/* Identifiant du Guerrier */
 #define REINE 'r'/* Identifiant de la Reine */
 #define OEUF 'o'/* Identifiant de l'oeuf */
+/* Couleurs */
+#define RED   "\x1B[31m"
+#define GREEN   "\x1B[32m"
+#define YELLOW   "\x1B[33m"
+#define BLUE   "\x1B[34m"
+#define MAGENTA   "\x1B[35m"
+#define CYAN   "\x1B[36m"
+#define WHITE   "\x1B[37m"
+#define RESET "\x1B[0m"
 
 /*
   Affiche le plateau et les unites qu'il y a dessus
@@ -26,12 +35,18 @@ int afficherPlateau( Monde *monde ) {
 		
 		/* affiche une ligne de bord */
 		printLigneBord();
-		printf("%s ", s);
+		printf("%s", s);
     for ( x=0; x<LARG; x++ ) {
       if ( monde->plateau[x][y] == NULL ) {
-        printf("|    ");
+        printf("|   ");
       } else {
-				printf("|%c%c%s", monde->plateau[x][y]->couleur, monde->plateau[x][y]->genre, format2(monde->plateau[x][y]->pv));
+				printf("|");
+				if ( monde->plateau[x][y]->couleur == BLEU ) {
+					printf( BLUE "%c%s" RESET , monde->plateau[x][y]->genre, format2(monde->plateau[x][y]->pv));					
+				}
+				if ( monde->plateau[x][y]->couleur == ROUGE ) {
+					printf( RED "%c%s" RESET , monde->plateau[x][y]->genre, format2(monde->plateau[x][y]->pv));					
+				}
       }
     }
     printf("|\n");
@@ -41,9 +56,9 @@ int afficherPlateau( Monde *monde ) {
 }
 void printLigneBord() {
 	int i;
-	printf("    ");
+	printf("   ");
 	for ( i=0; i<LARG; i++ ) {
-		printf("+----");
+		printf("+---");
 	}
 	printf("+\n");	
 }
@@ -53,7 +68,7 @@ void printLigneHaut() {
 	printf("    ");
 	for ( i=0; i<LARG; i++ ) {
 		s = format3(i);
-		printf(" %s ", s);
+		printf(" %s", s);
 	}
 	printf("  <- x\n");	
 }
