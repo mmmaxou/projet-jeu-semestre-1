@@ -241,7 +241,9 @@ void gererPartie() {
   Monde monde;	
   initialiserMonde( &monde );
 		
-	/* On demander si l'on veut charger la derniere partie */	
+	/* On demander si l'on veut charger la derniere partie */
+	
+	/*
 	printf("Voulez vous charger la derniere partie ? (Y/n)\n");
 	scanf(" %c", &c);
 	if ( c == 'Y' || c == 'y' ) {
@@ -251,6 +253,8 @@ void gererPartie() {
 	} else {
 		remplirMonde( &monde );
 	}
+	*/
+	genererUnitesCentre ( &monde );
 	
 	/* On affiche les instructions */
 	afficherTutoriel();;
@@ -284,4 +288,16 @@ void gererPartie() {
   }
   viderMonde( &monde );
   
+}
+
+
+void genererUnitesCentre ( Monde * monde ) {
+	Unite *u1 = malloc(sizeof(Unite));
+	Unite *u2 = malloc(sizeof(Unite));
+	
+	creerUnite(GUERRIER, u1);
+	creerUnite(SERF, u2);
+	
+	placerAuMonde( u1, monde, 6, 6, BLEU);
+	placerAuMonde( u2, monde, 7, 7, ROUGE);	
 }

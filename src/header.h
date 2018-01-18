@@ -80,6 +80,9 @@ void ecrireUnite ( Unite * unite, FILE * fichier );
 int charger ( Monde * monde );
 int lireUnite ( FILE * fichier, Monde * monde );
 
+/* Tests */
+void genererUnitesCentre ( Monde * monde );
+
 
 #endif
 
