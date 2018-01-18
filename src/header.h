@@ -25,48 +25,53 @@ typedef struct monde {
 } Monde;
 
 /* Affichage */
-int afficherPlateau ( Monde *monde );
-void afficherUnite( Unite * u );
-void printLigneBord ();
-void printLigneHaut ();
-void printLigneDelimitation ();
-void afficherTutoriel ();
+int afficherPlateau(Monde *monde);
+void afficherUnite(Unite * u);
+void printLigneBord();
+void printLigneHaut();
+void printLigneDelimitation();
+void afficherTutoriel();
 
 /* Affichage MLV */
-int MLVafficherPlateau ( Monde *monde );
-void MLVafficherUnite( Unite * u );
-void MLVafficherTutoriel ();
+void MLVinit ();
+int MLVafficherPlateau(Monde *monde);
+void MLVafficherDansZoneTexte(char *texte);
+void MLVafficherUnite(Unite * u);
+void MLVafficherUniteSelectionee(Unite * u);
+void MLVafficherTutoriel(Monde * monde);
+void MLVactualiserPlateau(Monde *monde);
+void MLVafficherToutesUnites(Monde * monde);
 
 /* Monde */
-void initialiserMonde ( Monde *monde );
-int placerAuMonde ( Unite *unite, Monde *monde, int posX,int posY, char couleur );
-void remplirMonde ( Monde *monde );
-void gererDemiTour ( char joueur, Monde *monde );
-void gererTour ( Monde *monde );
-void viderMonde ( Monde *monde );
-void gererPartie ();
+void initialiserMonde(Monde *monde);
+int placerAuMonde(Unite *unite, Monde *monde, int posX, int posY, char couleur);
+void remplirMonde(Monde *monde);
+void gererDemiTour(char joueur, Monde *monde);
+void gererTour(Monde *monde);
+void viderMonde(Monde *monde);
+void gererPartie();
 
 /* Unite */
-int creerUnite ( char type, Unite *unite );
-void deplacerUnite ( Unite *unite, Monde *monde, int destX, int destY );
-int enleverUnite ( Unite *unite, Monde *monde );
-int attaquer ( Unite *unite, Monde *monde, int posX, int
-posY );
-int deplacerOuAttaquer (Unite *unite, Monde *monde, int destX, int destY);
+int creerUnite(char type, Unite *unite);
+void deplacerUnite(Unite *unite, Monde *monde, int destX, int destY);
+int enleverUnite(Unite *unite, Monde *monde);
+int attaquer(Unite *unite, Monde *monde, int posX, int
+posY);
+int deplacerOuAttaquer(Unite *unite, Monde *monde, int destX, int destY);
 
 /* Utils */
-int abs ( int x );
-char* format( int n );
+int abs(int x);
+char* format(int n);
 
 /* UListe */
-void insertionUListe ( UListe *l, Unite *u );
-void afficherUListe ( UListe *liste );
-int supprimerUniteUListe ( UListe *liste, Unite *unite );
+void insertionUListe(UListe *l, Unite *u);
+void afficherUListe(UListe *liste);
+int supprimerUniteUListe(UListe *liste, Unite *unite);
 #endif
 
 /* TESTS */
 
 /*
-void testDeplacement ( Monde * monde );
-void testSuppression ( Monde * monde );
+void testDeplacement(Monde * monde);
+void testSuppression(Monde * monde);
 */

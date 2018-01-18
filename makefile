@@ -6,7 +6,7 @@ obj_dir = obj
 _OBJECTS = main.o UListe.o Monde.o Unite.o Affichage.o AffichageMLV.o Utils.o
 OBJECTS = $(patsubst %,$(obj_dir)/%,$(_OBJECTS))
 
-CFLAGS = -c -ansi -g -O2 -Wall -Werror `pkg-config --cflags MLV`
+CFLAGS = -c -ansi -g -O2 -Wall `pkg-config --cflags MLV`
 LDLIBS = `pkg-config --libs MLV`
 
 

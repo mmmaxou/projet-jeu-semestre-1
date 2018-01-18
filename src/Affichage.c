@@ -67,7 +67,7 @@ void afficherUnite( Unite * u ) {
 }
 void afficherTutoriel() {
   printLigneDelimitation();
-  printf("\nCe jeu ce joue à deux joueurs.\nChaque joueur possède 2 Serfs ( représentés par un 's' ) et un Guerrier ( représenté par un 'g')\n Le jeu se déroule en tour. Le joueur ROUGE ( en bas ) commence la partie. Durant chaque tour de jeu, on demande au joueur ce qu'il souhaite faire.\n");
+  printf("\nCe jeu se joue à deux joueurs.\nChaque joueur possède deux Serfs ( représentés par un 's' ) et un Guerrier ( représenté par un 'g')\n Le jeu se déroule en tour. Le joueur ROUGE ( en bas ) commence la partie. Durant chaque tour de jeu, on demande au joueur ce qu'il souhaite faire.\n");
   printf("Entrez les coordonnées de la case vers laquelle se deplacer / attaquer, séparées par un espace ( ex: '10 15' ), ou bien entrez '-1 -1' pour ne rien faire.\n\n");
   printLigneDelimitation();
 }
