@@ -59,7 +59,7 @@ void donnerStatsUnite ( char type, Unite *unite );
 void deplacerUnite ( Unite *unite, Monde *monde, int destX, int destY );
 int enleverUnite ( Unite *unite, Monde *monde );
 int attaquer ( Unite *unite, Monde *monde, int posX, int
-posY );
+posY, int riposte );
 int deplacerOuAttaquer (Unite *unite, Monde *monde, int destX, int destY);
 int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joueur );
 

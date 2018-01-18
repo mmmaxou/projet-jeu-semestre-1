@@ -10,6 +10,8 @@
 #define GUERRIER 'g'/* Identifiant du Guerrier */
 #define REINE 'r'/* Identifiant de la Reine */
 #define OEUF 'o'/* Identifiant de l'oeuf */
+#define ATTAQUE 0
+#define RIPOSTE 1
 
 static int id = 0;
 
@@ -110,40 +112,42 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	Le GUERRIER bat le SERF
 	Les deux meur 1ent en cas d'égalité
 	
+	Le champs riposte est à 1 si c'est une riposte, 0 autrement
+	
 	Renvoi :
 	0 = Perte de l'unite attaquante
 	1 = Victoire
-	2 = Erreur inconnue
+	2 = Pas de victime
 */
 int attaquer( Unite *unite, Monde *monde, int posX, int
-posY ) {
+posY, int riposte ) {
 	Unite *cible = monde->plateau[posX][posY];
+	int resultatAttaque;
 	
-	/* 
-	Recherche du gagnant, il y a plusieurs cas :
-		- Les deux unites sont de meme genre -> 2 morts
-		- Une unite bat l'autre -> 1 mort
-	*/
-	/* Cas 1 : Meme genre */
-	if ( cible->genre == unite->genre ) {
+	
+	/* La cible perds des pv */
+	cible->pv -= unite->atk;
+	/* On verifie si elle passe en dessous de 0 */
+	if ( cible->pv <= 0 ) {
+		/* On la supprime, elle est morte */
 		enleverUnite(cible, monde);
-		enleverUnite(unite, monde);
-		printf("Double KO\n");
-		return 0;
+		if ( riposte == ATTAQUE ) {
+			printf("La cible à été éliminée !\n");
+		}
+		return 1;
 	} else {
-		/* Cas 2 : L'un bat l'autre */
-		if ( cible->genre == SERF ) {
-			enleverUnite(cible, monde);
-			printf("Victoire !!!\n");
-			return 1;
-		} else if ( unite->genre == SERF ) {
-			enleverUnite(unite, monde);
-			printf("Defaite :(\n");
-			return 0;			
-		} else {
-			printf("ERREUR INCONNUE : Le genre n'est pas bon\n");
-			return 2;
-		}		
+		/* Si c'est une attaque, la cible riposte */
+		if ( riposte == ATTAQUE) {
+			resultatAttaque = attaquer(cible, monde, unite->posX, unite->posY, RIPOSTE);
+			if ( resultatAttaque == 1) {
+				printf("Vous avez été vaincu\n");
+				return 0;
+			}
+		}
+		if ( riposte == ATTAQUE ) {
+			printf("Pas de victime\n");
+		}
+		return 2;
 	}
 }
 
@@ -201,7 +205,7 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 			return -3;
 		}
 		
-		resultatAttaque = attaquer(unite, monde, destX, destY);
+		resultatAttaque = attaquer(unite, monde, destX, destY, ATTAQUE);
 		/* DEFAITE */
 		if ( resultatAttaque == 0 ) {
 			return 3;
