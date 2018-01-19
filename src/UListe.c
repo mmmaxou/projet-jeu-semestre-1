@@ -12,7 +12,7 @@
 /*
   Insere une nouvelle unite dans une liste
 */
-void insertionUListe ( UListe *liste, Unite *unite ) {
+void insertionUListe ( UListe * liste, Unite * unite ) {
   if ( liste->premier == NULL ) {
     liste->premier = unite;
   } else {
@@ -24,8 +24,8 @@ void insertionUListe ( UListe *liste, Unite *unite ) {
 /*
   Fonction utilitaire pour afficher une liste
 */
-void afficherUListe ( UListe *liste ) {
-  Unite *actuel = liste->premier;
+void afficherUListe ( UListe * liste ) {
+  Unite * actuel = liste->premier;
   
   while ( actuel != NULL ) {
     printf("%c -> ", actuel->genre);
@@ -34,8 +34,8 @@ void afficherUListe ( UListe *liste ) {
   printf("NULL\n");
 }
 
-int supprimerUniteUListe ( UListe *liste, Unite *unite ) {
-	Unite *actuel, *precedent;
+int supprimerUniteUListe ( UListe * liste, Unite * unite ) {
+	Unite * actuel, * precedent;
 	
 	/* On trouve l'objet dans la liste */
 	actuel = liste->premier;

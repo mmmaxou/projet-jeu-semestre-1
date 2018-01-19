@@ -14,7 +14,7 @@
   0: ???
   1: Pas d'erreur
 */
-int afficherPlateau( Monde *monde ) {
+int afficherPlateau( Monde * monde ) {
   int x,y;
 	char *s;
 	

@@ -14,8 +14,8 @@
   0: Erreur d'allocation memoire
   1: Pas d'erreur  
 */
-int creerUnite( char type, Unite *unite ) {
-  if ( unite != NULL ) {
+int creerUnite(char type, Unite * unite) {
+  if (unite != NULL) {
     unite->genre = type;
     unite->suiv = NULL;
     return 1;
@@ -27,7 +27,7 @@ int creerUnite( char type, Unite *unite ) {
 /*
 	Deplace une unite sur le monde
 */
-void deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
+void deplacerUnite(Unite * unite, Monde * monde, int destX, int destY) {
 	monde->plateau[unite->posX][unite->posY] = NULL;
 	unite->posX = destX;
 	unite->posY = destY;
@@ -41,31 +41,29 @@ void deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	1 = Erreur suppression
 	2 = Succes
 */
-int enleverUnite( Unite *unite, Monde *monde ) {
+int enleverUnite(Unite * unite, Monde * monde) {
 	int errSuppression;
 	/* On verifie que l'unite existe */
-	if ( unite == NULL ) {
-		printf("ERREUR : L'unite n'existe pas\n");
+	if (unite == NULL) {
 		return 0;
 	}
 	/* On supprime la reference a l'unite du plateau */
 	monde->plateau[unite->posX][unite->posY] = NULL;
 	
 	/* On supprime la reference a l'unite de la liste correspondante */
-	if ( unite->couleur == BLEU ) {
-		errSuppression = supprimerUniteUListe( &(monde->bleu), unite ); 	
+	if (unite->couleur == BLEU) {
+		errSuppression = supprimerUniteUListe(&(monde->bleu), unite); 	
 	}
-	if ( unite->couleur == ROUGE ) {
-		errSuppression = supprimerUniteUListe( &(monde->rouge), unite ); 	
+	if (unite->couleur == ROUGE) {
+		errSuppression = supprimerUniteUListe(&(monde->rouge), unite); 	
 	}
 	
-	if ( errSuppression == 0 ) {
+	if (errSuppression == 0) {
 		return 1;
 	}
 	
 	/* On libere l'espace de l'unite */
 	free(unite);
-	/*printf("Unite enlevée\n");*/
 	return 2;
 	
 }
@@ -82,8 +80,8 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	1 = Victoire
 	2 = Erreur inconnue
 */
-int attaquer( Unite *unite, Monde *monde, int posX, int
-posY ) {
+int attaquer(Unite * unite, Monde * monde, int posX, int
+posY) {
 	Unite *cible = monde->plateau[posX][posY];
 	
 	/* 
@@ -92,25 +90,29 @@ posY ) {
 		- Une unite bat l'autre -> 1 mort
 	*/
 	/* Cas 1 : Meme genre */
-	if ( cible->genre == unite->genre ) {
+	if (cible->genre == unite->genre) {
 		enleverUnite(cible, monde);
 		enleverUnite(unite, monde);
 		printf("Double KO\n");
+		MLVafficherDansZoneTexte("Double KO\n");		
 		return 0;
 	} else {
 		/* Cas 2 : L'un bat l'autre */
-		if ( cible->genre == SERF ) {
+		if (cible->genre == SERF) {
 			enleverUnite(cible, monde);
-			printf("Victoire !!!\n");
+			printf("Victoire !\n");
+			MLVafficherDansZoneTexte("Victoire !");
 			return 1;
-		} else if ( unite->genre == SERF ) {
+		} else if (unite->genre == SERF) {
 			enleverUnite(unite, monde);
-			printf("Defaite :(\n");
+			printf("Defaite...\n");
+			MLVafficherDansZoneTexte("Defaite...");
 			return 0;			
 		} else {
 			printf("ERREUR INCONNUE : Le genre n'est pas bon\n");
+			MLVafficherDansZoneTexte("ERREUR INCONNUE : Le genre n'est pas bon.");
 			return 2;
-		}		
+		}
 	}
 }
 
@@ -124,7 +126,7 @@ posY ) {
 	 2 = Combat : Victoire
 	 3 = Combat : Defaite
 */
-int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
+int deplacerOuAttaquer(Unite * unite, Monde * monde, int destX, int destY) {
 	Unite *cible;
 	int delta = 0;
 	int resultatAttaque;
@@ -132,50 +134,47 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 	/* 
 		On verifie que la coordonnée entrée est valide 
 	*/
-	if ( destX<0 ||
+	if (destX < 0 ||
 			 destX>LARG ||
 			 destY<0 ||
-			 destY>LONG ) {
-		printf("ERREUR : Position non valide\n");
+			 destY>LONG) {
+		MLVafficherDansZoneTexte("ERREUR : Position non valide");
 		return -1;
 	}
 	
 	/*
 		On verifie que la coordonnée entrée est voisine
 	*/
-	delta += abs( unite->posX - destX );
-	delta += abs( unite->posY - destY );
-	/*printf("delta : %d\n", delta);*/
+	delta += abs(unite->posX - destX);
+	delta += abs(unite->posY - destY);
 	
-	if ( delta > 2 ) {
-		printf("ERREUR : Position non voisine\n");
+	if (delta > 2) {
+		MLVafficherDansZoneTexte("ERREUR : Position non voisine");
 		return -2;
 	}
 	
-	if ( monde->plateau[destX][destY] != NULL )	{
+	if (monde->plateau[destX][destY] != NULL)	{
 		
 		/* Il y a une unite a la case ciblée */		
 		cible = monde->plateau[destX][destY];
 		
 		/* On verifie que l'unite n'attaque pas son allié */
-		if ( cible->couleur == unite->couleur ) {
-			printf("ERREUR : La case attaquée est un allié\n");
+		if (cible->couleur == unite->couleur) {
+			MLVafficherDansZoneTexte("ERREUR : La case attaquée est un allié");
 			return -3;
 		}
 		
 		resultatAttaque = attaquer(unite, monde, destX, destY);
 		/* DEFAITE */
-		if ( resultatAttaque == 0 ) {
+		if (resultatAttaque == 0) {
 			return 3;
 		}
 		/* VICTOIRE */
-		if ( resultatAttaque == 1 ) {
+		if (resultatAttaque == 1) {
 			return 2;
 		}
 		
-	} 
-	else
-	{
+	} else {
 		/* La case ciblée est vide */
 		deplacerUnite(unite, monde, destX, destY);
 		return 1;

@@ -16,16 +16,16 @@ typedef struct unite {
   struct unite *suiv; /* liste des unites suivantes*/
 } Unite;
 typedef struct liste { 
-  Unite *premier;
+  Unite * premier;
 } UListe;
 typedef struct monde {
-  Unite *plateau[LARG][LONG];
+  Unite * plateau[LARG][LONG];
   UListe rouge, bleu; /* Listes des deux joueurs */
   int tour; /* Numero du tour */
 } Monde;
 
 /* Affichage */
-int afficherPlateau(Monde *monde);
+int afficherPlateau(Monde * monde);
 void afficherUnite(Unite * u);
 void printLigneBord();
 void printLigneHaut();
@@ -34,41 +34,44 @@ void afficherTutoriel();
 
 /* Affichage MLV */
 void MLVinit ();
-int MLVafficherPlateau(Monde *monde);
+int MLVafficherPlateau(Monde * monde);
 void MLVafficherDansZoneTexte(char *texte);
 void MLVafficherUnite(Unite * u);
-void MLVafficherUniteSelectionee(Unite * u);
+void MLVafficherUniteActive(Unite * u);
 void MLVafficherTutoriel(Monde * monde);
-void MLVactualiserPlateau(Monde *monde);
+void MLVactualiserPlateau(Monde * monde);
 void MLVafficherToutesUnites(Monde * monde);
-void MLVafficherSauvegarder();
-void MLVafficherQuitter();
+int MLVactiverQuitter();
+int MLVactiverNeRienFaire(int userX, int userY);
+int MLVactiverSauvegarder();
+void MLVdesactiverQuitter();
+void MLVdesactiverNeRienFaire();
+void MLVdesactiverSauvegarder();
 
 /* Monde */
-void initialiserMonde(Monde *monde);
-int placerAuMonde(Unite *unite, Monde *monde, int posX, int posY, char couleur);
-void remplirMonde(Monde *monde);
-void gererDemiTour(char joueur, Monde *monde);
-void gererTour(Monde *monde);
-void viderMonde(Monde *monde);
+void initialiserMonde(Monde * monde);
+int placerAuMonde(Unite * unite, Monde * monde, int posX, int posY, char couleur);
+void remplirMonde(Monde * monde);
+void gererDemiTour(char joueur, Monde * monde);
+void gererTour(Monde * monde);
+void viderMonde(Monde * monde);
 void gererPartie();
 
 /* Unite */
-int creerUnite(char type, Unite *unite);
-void deplacerUnite(Unite *unite, Monde *monde, int destX, int destY);
-int enleverUnite(Unite *unite, Monde *monde);
-int attaquer(Unite *unite, Monde *monde, int posX, int
-posY);
-int deplacerOuAttaquer(Unite *unite, Monde *monde, int destX, int destY);
+int creerUnite(char type, Unite * unite);
+void deplacerUnite(Unite * unite, Monde * monde, int destX, int destY);
+int enleverUnite(Unite * unite, Monde * monde);
+int attaquer(Unite * unite, Monde * monde, int posX, int posY);
+int deplacerOuAttaquer(Unite * unite, Monde * monde, int destX, int destY);
 
 /* Utils */
 int abs(int x);
 char* format(int n);
 
 /* UListe */
-void insertionUListe(UListe *l, Unite *u);
-void afficherUListe(UListe *liste);
-int supprimerUniteUListe(UListe *liste, Unite *unite);
+void insertionUListe(UListe * l, Unite * u);
+void afficherUListe(UListe * liste);
+int supprimerUniteUListe(UListe * liste, Unite * unite);
 #endif
 
 /* TESTS */
