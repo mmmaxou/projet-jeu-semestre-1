@@ -135,11 +135,11 @@ void gererDemiTour( char joueur, Monde *monde ) {
 		} else if ( unite->genre == OEUF ) {
 			/* L'oeuf grandit en soit un GUERRIER soit un SERF de maniere aleatoire */
 			if ( rand() % 2 == 0 ) {
-				unite->genre = GUERRIER;
-				printf("L'oeuf grandit et devient un puissant Guerrier\n");
+        donnerStatsUnite( GUERRIER, unite );
+        printf("L'oeuf grandit et devient un puissant Guerrier\n");
 			} else {
-				unite->genre = SERF;
-				printf("L'oeuf grandit et devient un faible Serf\n");
+        donnerStatsUnite( SERF, unite );
+        printf("L'oeuf grandit et devient un faible Serf\n");
 			}
 			unite->pm = 2;
 			
@@ -160,7 +160,7 @@ void gererDemiTour( char joueur, Monde *monde ) {
 		}
     
     /* On passe à l'unite suivante */
-    unite = unite->suivTile;
+    unite = unite->suivClr;
   }
   
   /* On termine le tour */

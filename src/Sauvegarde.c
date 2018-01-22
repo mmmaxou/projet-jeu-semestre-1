@@ -27,14 +27,14 @@ int sauvegarder ( Monde * monde ) {
 		unite = monde->rouge.premier;
 		while ( unite != NULL ) {
 			ecrireUnite( unite, fichier );
-			unite = unite->suiv;
+			unite = unite->suivClr;
 		}
 		
 		/* On sauvegarde les unites bleues */
 		unite = monde->bleu.premier;
 		while ( unite != NULL ) {
 			ecrireUnite( unite, fichier );
-			unite = unite->suiv;
+			unite = unite->suivClr;
 		}
 		
 		fputc('$', fichier);

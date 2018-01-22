@@ -23,7 +23,6 @@ static int id = 0;
 */
 int creerUnite( char type, Unite *unite ) {
   if ( unite != NULL ) {
-    unite->genre = type;
 		unite->attente = 0;
     unite->suivTile = NULL;
     unite->suivClr = NULL;
@@ -40,6 +39,7 @@ int creerUnite( char type, Unite *unite ) {
 }
 
 void donnerStatsUnite ( char type, Unite *unite ) {
+  unite->genre = type;
 	switch ( type ) {
 		case REINE:
 			unite->pm = 0;
@@ -60,6 +60,7 @@ void donnerStatsUnite ( char type, Unite *unite ) {
 			unite->pv = 1;
 			unite->atk = 0;
 			unite->pm = 0;
+      unite->genre = type;
 			break;
 		default:
 			unite->pv = 1;
