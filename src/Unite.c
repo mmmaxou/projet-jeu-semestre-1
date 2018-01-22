@@ -76,15 +76,17 @@ void donnerStatsUnite ( char type, Unite *unite ) {
 void deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	/* On supprime l'unite de la liste du plateau qui lui correspond */
 	supprimerUniteUListeTile( &(monde->plateau[unite->posX][unite->posY]), unite->id );
-	afficherUListeTile( &(monde->plateau[unite->posX][unite->posY]) );
-	
+  /* afficherUListeTile( &(monde->plateau[unite->posX][unite->posY]) ); */
+  
 	/* On modifie les coordonnées propres de l'unite */	
 	unite->posX = destX;
 	unite->posY = destY;
 	
 	/* On deplace l'unite vers une nouvelle liste destination du plateau */
-	ajouterDebutUListeTile( &(monde->plateau[destX][destY]), unite );
-	afficherUListeTile( &(monde->plateau[destX][destY]) );
+	
+  ajouterDebutUListeTile( &(monde->plateau[destX][destY]), unite );
+  
+	/* afficherUListeTile( &(monde->plateau[destX][destY]) ); */
 }
 
 /*
@@ -133,10 +135,13 @@ int attaquer( Unite *unite, Monde *monde, int posX, int
 posY, int riposte ) {
 	Unite * tile = monde->plateau[posX][posY].premier;
 	Unite * cible = tile;
-	printf( "Tile : ");
-	afficherUListeTile ( &(monde->plateau[posX][posY]) );
 	int currentValue, maxValue;
 	int resultatAttaque;
+  
+  /*
+	printf( "Tile : ");
+	afficherUListeTile ( &(monde->plateau[posX][posY]) );
+  */
 	
 	/* On choisit la cible */
 	/* Ordre : GUERRIER > SERF > OEUF > REINE */

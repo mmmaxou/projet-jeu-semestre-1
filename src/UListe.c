@@ -68,7 +68,9 @@ void ajouterFinUListeClr ( UListe * liste , Unite * unite ) {
 
 void afficherUListeTile ( UListe * liste ) {
 	Unite * actuel = liste->premier;
+  /*
 	printf("Taille : %d  |  ", liste->taille);
+  */
   while ( actuel != NULL ) {
     printf("%c -> ", actuel->genre);
     actuel = actuel->suivTile;
@@ -79,7 +81,9 @@ void afficherUListeTile ( UListe * liste ) {
 
 void afficherUListeClr ( UListe * liste ) {
 	Unite * actuel = liste->premier;
+  /*
 	printf("Taille : %d  |  ", liste->taille);
+  */
   while ( actuel != NULL ) {
     printf("%c -> ", actuel->genre);
     actuel = actuel->suivClr;
