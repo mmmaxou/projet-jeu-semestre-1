@@ -19,7 +19,6 @@
 int sauvegarder ( Monde * monde ) {
 	FILE *fichier = NULL;	
 	Unite *unite = NULL;
-	printf("Sauvegarde en cours ...\n");	
 	fichier = fopen("./data/save.txt", "w+");
 	if ( fichier != NULL ) {
 		
@@ -40,10 +39,9 @@ int sauvegarder ( Monde * monde ) {
 		fputc('$', fichier);
 		fclose( fichier );
 	}	else {
-		printf("ERREUR : Impossible d'ouvrir le fichier\n");
+		MLVafficherDansZoneTexte("ERREUR : Impossible d'ouvrir le fichier\n");
 		return -1;
 	}	
-	printf("Sauvegarde terminée\n");
 	return 1;
 }
 
@@ -66,17 +64,15 @@ void ecrireUnite ( Unite * u, FILE * fichier ) {
 */
 int charger ( Monde * monde ) {
 	FILE *fichier = NULL;
-	printf("Chargement en cours ...\n");	
 	fichier = fopen("./data/save.txt", "r");
 	if ( fichier != NULL ) {
 		while ( lireUnite ( fichier, monde ) != 0 )
 		;
 		fclose( fichier );
 	}	else {
-		printf("ERREUR : Impossible d'ouvrir le fichier\n");
+		MLVafficherDansZoneTexte("ERREUR : Impossible d'ouvrir le fichier\n");
 		return -1;
 	}	
-	printf("Chargement terminée\n");
 	return 1;
 }
 

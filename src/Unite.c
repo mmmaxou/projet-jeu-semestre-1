@@ -97,10 +97,8 @@ void deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	2 = Succes
 */
 int enleverUnite( Unite *unite, Monde *monde ) {
-	
 	/* On verifie que l'unite existe */
-	if ( unite == NULL ) {
-		printf("ERREUR : L'unite n'existe pas\n");
+	if (unite == NULL) {
 		return 0;
 	}
 	/* On supprime la reference a l'unite du plateau */
@@ -114,7 +112,7 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	}	
 	/* On libere l'espace de l'unite */
 	free( unite );
-	return 2;	
+	return 2;
 }
 
 /*
@@ -131,8 +129,7 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	1 = Victoire
 	2 = Pas de victime
 */
-int attaquer( Unite *unite, Monde *monde, int posX, int
-posY, int riposte ) {
+int attaquer( Unite *unite, Monde *monde, int posX, int posY, int riposte ) {
 	Unite * tile = monde->plateau[posX][posY].premier;
 	Unite * cible = tile;
 	int currentValue, maxValue;
@@ -198,11 +195,11 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 	/* 
 		On verifie que la coordonnée entrée est valide 
 	*/
-	if ( destX<0 ||
+	if (destX < 0 ||
 			 destX>LARG ||
 			 destY<0 ||
-			 destY>LONG ) {
-		printf("ERREUR : Position non valide\n");
+			 destY>LONG) {
+		MLVafficherDansZoneTexte("ERREUR : Position non valide");
 		return -1;
 	}
 	
@@ -244,7 +241,6 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 	}
 	
 	return 0;
-	
 }
 
 /*
@@ -271,7 +267,7 @@ int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joue
 	delta += abs( unite->posX - destX );
 	delta += abs( unite->posY - destY );
 	if ( delta != 1 ) {
-		printf("ERREUR : Position non adjacente à la reine\n");
+		MLVafficherDansZoneTexte("ERREUR : Position non adjacente à la reine\n");
 		return -2;
 	}
 	
@@ -283,8 +279,6 @@ int produireUnOeuf ( Unite *unite, Monde *monde, int destX, int destY, char joue
 			unite->attente = 1;			
 		}		
 	}
-	
-	printf("Unite ajoutee ... affichage : \n");
 	
 	return 0;
 }
@@ -309,8 +303,3 @@ int donnerValeur ( Unite * unite ) {
 				break;
 		}
 }
-
-
-
-
-

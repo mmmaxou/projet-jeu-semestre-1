@@ -50,3 +50,24 @@ char* format3( int n ) {
 	return s;
 }
 
+char* genre( char c ) {
+	switch( c ) {
+		case REINE:
+			return "Reine";
+			break;
+		case OEUF:
+			return "Oeuf";
+			break;
+		case SERF:
+			return "Serf";
+			break;
+		case GUERRIER:
+			return "Guerrier";
+			break;
+		default:
+			return "?";
+			break;
+	}
+	return "?";
+}
+

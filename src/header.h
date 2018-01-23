@@ -39,21 +39,42 @@ typedef struct monde {
 } Monde;
 
 /* Affichage */
-int afficherPlateau ( Monde *monde );
-void afficherUnite( Unite * u );
-void printLigneBord ();
-void printLigneHaut ();
-void printLigneDelimitation ();
-void afficherTutoriel ();
+int afficherPlateau(Monde * monde);
+void afficherUnite(Unite * u);
+void printLigneBord();
+void printLigneHaut();
+void printLigneDelimitation();
+void afficherTutoriel();
+
+/* Affichage MLV */
+void MLVinit ();
+int MLVafficherPlateau(Monde * monde);
+void MLVafficherDansZoneTexte(char *texte);
+void MLVafficherUnite(Unite * u);
+void MLVafficherUniteActive(Unite * u);
+void MLVafficherTutoriel(Monde * monde);
+void MLVactualiserPlateau(Monde * monde);
+void MLVafficherToutesUnites(Monde * monde);
+void MLVgererFinTour(Monde * monde);
+void MLVactiverQuitter();
+void MLVactiverNeRienFaire();
+void MLVactiverSauvegarder();
+int MLVactiverNeRienFaireUnite(int userX, int userY);
+int MLVactiverCharger();
+void MLVdesactiverQuitter();
+void MLVdesactiverNeRienFaire();
+void MLVdesactiverSauvegarder();
+void MLVdesactiverCharger();
+void MLVattendreValidation();
 
 /* Monde */
-void initialiserMonde ( Monde *monde );
-int placerAuMonde ( Unite *unite, Monde *monde, int posX,int posY, char couleur );
-void remplirMonde ( Monde *monde );
-void gererDemiTour ( char joueur, Monde *monde );
-void gererTour ( Monde *monde );
-void viderMonde ( Monde *monde );
-void gererPartie ();
+void initialiserMonde(Monde * monde);
+int placerAuMonde(Unite * unite, Monde * monde, int posX, int posY, char couleur);
+void remplirMonde(Monde * monde);
+void gererDemiTour(char joueur, Monde * monde);
+void gererTour(Monde * monde);
+void viderMonde(Monde * monde);
+void gererPartie();
 
 /* Unite */
 int creerUnite ( char type, Unite *unite );
@@ -70,6 +91,7 @@ int donnerValeur ( Unite * unite );
 int abs ( int x );
 char* format2( int n );
 char* format3( int n );
+char* genre( char c );
 
 /* UListe */
 void ajouterDebutUListeTile ( UListe * liste , Unite * unite );
@@ -89,9 +111,4 @@ int lireUnite ( FILE * fichier, Monde * monde );
 
 /* Tests */
 void genererUnitesCentre ( Monde * monde );
-
-
 #endif
-
-
-
