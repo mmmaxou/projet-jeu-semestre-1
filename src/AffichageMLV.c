@@ -162,13 +162,13 @@ void MLVafficherTutoriel(Monde * monde) {
 	/* Affiche le tutorial */
 	
 	MLVafficherPlateau(monde);
-	MLVafficherDansZoneTexte("Ce jeu ce joue à deux joueurs.\nChaque joueur possède:\n• 2 Serfs 's'\n• 1 Guerrier 'g'( Bat le Serf )\n• 1 Reine 'r' ( Immobile, elle produit des unites )\n  |> La reine créer des oeufs sur une position qui lui est\n      adjacente\n  |> Les oeufs mettent 1 tours pour éclore.");
+	MLVafficherDansZoneTexte("Ce jeu se joue à deux joueurs.\nChaque joueur possède:\n• 2 Serfs 's'\n• 1 Guerrier 'g'( Bat le Serf )\n• 1 Reine 'r' ( Immobile, elle produit des unites )\n  |> La reine créer des oeufs sur une position qui lui est\n      adjacente\n  |> Les oeufs mettent 1 tours pour éclore.");
 	MLVattendreValidation();	
 	
-	MLVafficherDansZoneTexte("Le jeu se déroule en tour.\nChaque tour le joueur qui commence est choisi\naléatoirement. Durant chaque tour de jeu, on demande au\njoueur ce qu'il souhaite faire. Cliquez sur la case vers\n laquelle se deplacer / attaquer, ou bien cliquez sur\n'NE RIEN FAIRE' pour ne rien faire.");
+	MLVafficherDansZoneTexte("Le jeu se déroule en tour.\nChaque tour le joueur qui commence est choisi\naléatoirement. A chaque tour, le joueur peut effectuer une\naction pour chacune de ses unités. Le joueur clique sur la\ncase vers laquelle il souhaite que son unité active\n( celle dont la case est jaune ) se déplace ou attaque.\nPour passer à l'unité suivante sans rien faire,\nil peut double-cliquer sur le bouton 'NE RIEN FAIRE'.");
 	MLVattendreValidation();
 	
-	MLVafficherDansZoneTexte("Il peut y avoir plusieurs\nunites sur une même case. Cela permet de défendre\ncertaines unites plus fragiles. Par exemple, si il y à une\nreine, elle sera défendu epar toutes les autres unites.\nAttention, seule l'unite du dessus est affichée.");
+	MLVafficherDansZoneTexte("Il peut y avoir plusieurs\nunites sur une même case. Cela permet de défendre\ncertaines unites plus fragiles. Par exemple, si il y à une\nreine, elle sera défendue par toutes les autres unites.\nAttention, seule l'unite du dessus est affichée.\nA la fin de chaque tour, il est possible de sauvegarder\nla partie, quitter le jeu ou continuer.");
 	MLVattendreValidation();
 	
 	MLVafficherToutesUnites(monde);
@@ -268,6 +268,7 @@ void MLVactiverSauvegarder() {
 void MLVgererFinTour(Monde * monde) {	
 	int userX, userY;
 	int valide = 0;
+	int savegarde = 0;
 	MLVactiverQuitter();
 	MLVactiverNeRienFaire();
 	MLVactiverSauvegarder();
@@ -275,13 +276,14 @@ void MLVgererFinTour(Monde * monde) {
 	do {
 		MLVafficherDansZoneTexte("Souhaitez-vous :\n -> Arreter\n -> Sauvegarder \n -> Ne rien faire et continuer ?");
 		MLV_wait_mouse(&userX, &userY);
-		if (userX >= 460 && userX <= 570 && userY >= 480 && userY <= 500) {
+		if (userX >= 460 && userX <= 570 && userY >= 480 && userY <= 500 && sauvegarde == 0) {
 			/* Appel de la fonction SAUVEGARDER */
 			MLVafficherDansZoneTexte("Sauvegarde en cours ...\n");
 			sauvegarder( monde );
 			MLVafficherDansZoneTexte("Sauvegarde terminée\n");
 			MLVattendreValidation();
 			MLVdesactiverSauvegarder();
+			sauvegarde = 1;
 		} else if (userX >= 460 && userX <= 570 && userY >= 450 && userY <= 470) {
 			/* Ne rien faire */
 			MLV_actualise_window();
