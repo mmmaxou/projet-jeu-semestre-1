@@ -42,9 +42,9 @@ void donnerStatsUnite ( char type, Unite *unite ) {
   unite->genre = type;
 	switch ( type ) {
 		case REINE:
-			unite->pm = 0;
-			unite->atk = 0;
 			unite->pv = 30;
+			unite->atk = 0;
+			unite->pm = 0;
 			break;
 		case GUERRIER:
 			unite->pv = 20;
@@ -134,11 +134,6 @@ int attaquer( Unite *unite, Monde *monde, int posX, int posY, int riposte ) {
 	Unite * cible = tile;
 	int currentValue, maxValue;
 	int resultatAttaque;
-  
-  /*
-	printf( "Tile : ");
-	afficherUListeTile ( &(monde->plateau[posX][posY]) );
-  */
 	
 	/* On choisit la cible */
 	/* Ordre : GUERRIER > SERF > OEUF > REINE */
@@ -160,7 +155,8 @@ int attaquer( Unite *unite, Monde *monde, int posX, int posY, int riposte ) {
 		/* On la supprime, elle est morte */
 		enleverUnite(cible, monde);
 		if ( riposte == ATTAQUE ) {
-			printf("La cible à été éliminée !\n");
+			MLVafficherDansZoneTexte("La cible à été éliminée !\n");
+			MLVattendreValidation();
 		}
 		return 1;
 	} else {
@@ -168,10 +164,12 @@ int attaquer( Unite *unite, Monde *monde, int posX, int posY, int riposte ) {
 		if ( riposte == ATTAQUE) {
 			resultatAttaque = attaquer(cible, monde, unite->posX, unite->posY, RIPOSTE);
 			if ( resultatAttaque == 1) {
-				printf("Vous avez été vaincu\n");
+				MLVafficherDansZoneTexte("Vous avez été vaincu\n");
+				MLVattendreValidation();
 				return 0;
 			} else {
-				printf("Pas de victime\n");
+				MLVafficherDansZoneTexte("Pas de victime\n");
+				MLVattendreValidation();
 			}
  		}
 		return 2;
@@ -200,6 +198,7 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 			 destY<0 ||
 			 destY>LONG) {
 		MLVafficherDansZoneTexte("ERREUR : Position non valide");
+		MLVattendreValidation();
 		return -1;
 	}
 	
@@ -211,7 +210,8 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 	delta += abs( unite->posY - destY );
 	/*printf("delta : %d\n", delta);*/
 	if ( delta > unite->pm ) {
-		printf("ERREUR : Position non voisine\n");
+		MLVafficherDansZoneTexte("ERREUR : Position non voisine\n");
+		MLVattendreValidation();
 		return -2;
 	}
 	
@@ -220,7 +220,6 @@ int deplacerOuAttaquer( Unite *unite, Monde *monde, int destX, int destY ) {
 		
 		/* On verifie que l'unite n'attaque pas son allié */
 		if ( monde->plateau[destX][destY].premier->couleur == unite->couleur ) {
-			printf("Les unites s'empilent\n");
 			deplacerUnite(unite, monde, destX, destY);
 			return 1;
 		} else {		

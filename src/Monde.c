@@ -112,17 +112,13 @@ void gererDemiTour( char joueur, Monde *monde ) {
     MLVactualiserPlateau(monde);
     MLVafficherUniteActive(unite);
 		
-		
-    /*
-		printf( "Taille rouge : %d\n", monde->rouge.taille );
-		printf( "Taille bleu : %d\n", monde->bleu.taille );
-		*/
     if ( unite->genre == REINE ) {
       /* On demande à l'utilisateur ou il veux produire */
       if ( unite->attente == 1 ) {
         /* La reine ne peut plus produire durant ce tour */
         unite->attente = 0;
         MLVafficherDansZoneTexte("La reine se repose après avoir créer une unite\n");
+				MLVattendreValidation();
       } else {
 				/* On propose de créer un oeuf */
 				MLVafficherDansZoneTexte("La reine peut créer une unite sur une des cases qui lui\nest adjacente.\n -> Ou souhaitez vous créer une unité ?");
@@ -135,15 +131,6 @@ void gererDemiTour( char joueur, Monde *monde ) {
 
 				} while( produireUnOeuf( unite, monde, userX, userY, joueur ) < 0 &&
 								 MLVactiverNeRienFaireUnite( userX*30+1, userY*30+1 ) == 0 );
-				/* 
-				OLD
-        scanf("%d %d", &userX, &userY);
-
-        if ( userX != -1 && userY != -1 ) {
-        } else {     
-          printf("ERREUR : La reine attend\n");    
-        }
-				*/
       }
 
     } else if ( unite->genre == OEUF ) {
@@ -151,12 +138,13 @@ void gererDemiTour( char joueur, Monde *monde ) {
       if ( rand() % 2 == 0 ) {
         donnerStatsUnite( GUERRIER, unite );
         MLVafficherDansZoneTexte("L'oeuf grandit et devient un puissant Guerrier\n");
+				MLVattendreValidation();
       } else {
         donnerStatsUnite( SERF, unite );
+				/* Debug sale */
         MLVafficherDansZoneTexte("L'oeuf grandit et devient un faible Serf\n");
+				MLVattendreValidation();
       }
-      unite->pm = 2;
-
     } else {
 
       /* Si ce n'est pas une reine */
@@ -256,7 +244,6 @@ void gererPartie() {
 	
   /* On affiche les instructions */
   MLVafficherTutoriel(&monde);
-	MLVattendreValidation();
 	
   /* On demander si l'on veut charger la derniere partie */
 	if ( MLVactiverCharger() == 1) {

@@ -160,9 +160,17 @@ void MLVafficherToutesUnites(Monde * monde) {
 
 void MLVafficherTutoriel(Monde * monde) {
 	/* Affiche le tutorial */
-	char tutoriel[750] = "Ce jeu se joue à deux joueurs et se déroule par tour.\nChaque joueur possède deux Serfs et un Guerrier.\nLe joueur rouge commence la partie.\nCliquez sur la case vers laquelle vous souhaitez que \nvotre unité active (celle dont la case est jaune) se déplace \nou attaque. Pour passer à l'unité suivante sans rien faire,\ndouble-cliquez sur le bouton à droite.";
-	MLVafficherDansZoneTexte(tutoriel);
+	
 	MLVafficherPlateau(monde);
+	MLVafficherDansZoneTexte("Ce jeu ce joue à deux joueurs.\nChaque joueur possède:\n• 2 Serfs 's'\n• 1 Guerrier 'g'( Bat le Serf )\n• 1 Reine 'r' ( Immobile, elle produit des unites )\n  |> La reine créer des oeufs sur une position qui lui est\n      adjacente\n  |> Les oeufs mettent 1 tours pour éclore.");
+	MLVattendreValidation();	
+	
+	MLVafficherDansZoneTexte("Le jeu se déroule en tour.\nChaque tour le joueur qui commence est choisi\naléatoirement. Durant chaque tour de jeu, on demande au\njoueur ce qu'il souhaite faire. Cliquez sur la case vers\n laquelle se deplacer / attaquer, ou bien cliquez sur\n'NE RIEN FAIRE' pour ne rien faire.");
+	MLVattendreValidation();
+	
+	MLVafficherDansZoneTexte("Il peut y avoir plusieurs\nunites sur une même case. Cela permet de défendre\ncertaines unites plus fragiles. Par exemple, si il y à une\nreine, elle sera défendu epar toutes les autres unites.\nAttention, seule l'unite du dessus est affichée.");
+	MLVattendreValidation();
+	
 	MLVafficherToutesUnites(monde);
 	MLVdesactiverQuitter();
 	MLVdesactiverNeRienFaire();
