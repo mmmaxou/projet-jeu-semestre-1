@@ -243,7 +243,6 @@ void gererPartie() {
 		
 	/* On demander si l'on veut charger la derniere partie */
 	
-	/*
 	printf("Voulez vous charger la derniere partie ? (Y/n)\n");
 	scanf(" %c", &c);
 	if ( c == 'Y' || c == 'y' ) {
@@ -253,8 +252,9 @@ void gererPartie() {
 	} else {
 		remplirMonde( &monde );
 	}
-	*/
+	/*
 	genererUnitesCentre ( &monde );
+	*/
 	
 	/* On affiche les instructions */
 	afficherTutoriel();;

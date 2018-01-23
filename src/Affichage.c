@@ -70,7 +70,7 @@ void printLigneHaut() {
 		s = format3(i);
 		printf(" %s", s);
 	}
-	printf("  <- x\n");	
+	printf(" <- x\n");	
 }
 void printLigneDelimitation() {
   printf(">>> ••••••••••••••••••••••••••••••••••••••••••••••••• <<<\n");  
