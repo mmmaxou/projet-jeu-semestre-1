@@ -33,11 +33,14 @@ int creerUnite( char type, Unite *unite ) {
 		donnerStatsUnite ( type, unite );
     return 1;
   } else {
-		printf("ERREUR : Allocation memoire\n");
+		printf("ERREUR : Allocation mémoire\n");
     return 0;
   }
 }
 
+/*
+	Fonction d'aide qui donne les stats a une unite, on l'appelle quand on créer une unite, ou quand un oeuf éclot
+*/
 void donnerStatsUnite ( char type, Unite *unite ) {
   unite->genre = type;
 	switch ( type ) {
@@ -72,6 +75,7 @@ void donnerStatsUnite ( char type, Unite *unite ) {
 
 /*
 	Deplace une unite sur le monde
+	Si la case cible contient une unite alliée, les unites s'empilent correctement
 */
 void deplacerUnite( Unite *unite, Monde *monde, int destX, int destY ) {
 	/* On supprime l'unite de la liste du plateau qui lui correspond */
@@ -119,8 +123,8 @@ int enleverUnite( Unite *unite, Monde *monde ) {
 	Gere le combat
 	L'unite passée en argument attaquera la case spécifiée par <destX> et <destY>
 	
-	Le GUERRIER bat le SERF
-	Les deux meur 1ent en cas d'égalité
+	Inflige le nombre de dégat de l'unite attaquante à l'unite cible
+	Si elle survie, la cible riposte
 	
 	Le champs riposte est à 1 si c'est une riposte, 0 autrement
 	
@@ -155,7 +159,7 @@ int attaquer( Unite *unite, Monde *monde, int posX, int posY, int riposte ) {
 		/* On la supprime, elle est morte */
 		enleverUnite(cible, monde);
 		if ( riposte == ATTAQUE ) {
-			MLVafficherDansZoneTexte("La cible à été éliminée !\n");
+			MLVafficherDansZoneTexte("La cible a été éliminée !\n");
 			MLVattendreValidation();
 		}
 		return 1;

@@ -11,10 +11,14 @@
 #define REINE 'r'/* Identifiant de la Reine */
 #define OEUF 'o'/* Identifiant de l'oeuf */
 
+/* Renvoie la valeure absolue d'un entier <x> */
 int abs ( int x ) {
 	return x < 0 ? -x : x;
 }
 
+/* 
+	Prend un entier <n> en paramètre et renvoi une chaine de caractère contenant exactement 2 caractères 
+*/
 char* format2( int n ) {
 	char *s = malloc(3 * sizeof(char));
 	s[0] = '0';
@@ -32,6 +36,9 @@ char* format2( int n ) {
 	return s;
 }
 
+/* 
+	Prend un entier <n> en paramètre et renvoi une chaine de caractère contenant exactement 3 caractères 
+*/
 char* format3( int n ) {
 	char *s = malloc(4 * sizeof(char));
 	s[0] = '0';
@@ -50,6 +57,9 @@ char* format3( int n ) {
 	return s;
 }
 
+/*
+	Prend le genre <c> et renvoie une chaine de caractere correspond a ce genre
+*/
 char* genre( char c ) {
 	switch( c ) {
 		case REINE:

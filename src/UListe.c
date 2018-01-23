@@ -10,6 +10,9 @@
 #define REINE 'r'/* Identifiant de la Reine */
 #define OEUF 'o'/* Identifiant de l'oeuf */
 
+/*
+	Ajoute une unite au début de la liste doublement chainée <Tile>
+*/
 void ajouterDebutUListeTile ( UListe * liste , Unite * unite ) {
 	
 	if ( liste->taille == 0 ) {
@@ -24,6 +27,9 @@ void ajouterDebutUListeTile ( UListe * liste , Unite * unite ) {
 	liste->taille++;
 }
 
+/*
+	Ajoute une unite au début de la liste doublement chainée <Couleur>
+*/
 void ajouterDebutUListeClr ( UListe * liste , Unite * unite ) {
 	
 	if ( liste->taille == 0 ) {
@@ -38,6 +44,9 @@ void ajouterDebutUListeClr ( UListe * liste , Unite * unite ) {
 	liste->taille++;
 }
 
+/*
+	Ajoute une unite à la fin de la liste doublement chainée <Tile>
+*/
 void ajouterFinUListeTile ( UListe * liste , Unite * unite ) {
 	
 	if ( liste->taille == 0 ) {
@@ -52,6 +61,9 @@ void ajouterFinUListeTile ( UListe * liste , Unite * unite ) {
 	liste->taille++;
 }
 
+/*
+	Ajoute une unite à la fin de la liste doublement chainée <Couleur>
+*/
 void ajouterFinUListeClr ( UListe * liste , Unite * unite ) {
 	
 	if ( liste->taille == 0 ) {
@@ -66,6 +78,9 @@ void ajouterFinUListeClr ( UListe * liste , Unite * unite ) {
 	liste->taille++;
 }
 
+/*
+	Affiche la liste Tile	
+*/
 void afficherUListeTile ( UListe * liste ) {
 	Unite * actuel = liste->premier;
   /*
@@ -79,6 +94,9 @@ void afficherUListeTile ( UListe * liste ) {
 	
 }
 
+/*
+	Affiche la liste Couleur
+*/
 void afficherUListeClr ( UListe * liste ) {
 	Unite * actuel = liste->premier;
   /*
@@ -91,6 +109,10 @@ void afficherUListeClr ( UListe * liste ) {
   printf("NULL\n");
 }
 
+/*
+	Supprime une unite de la liste doublement chainée Tile
+	L'unite a supprimer est identifiée par son id
+*/
 int supprimerUniteUListeTile ( UListe * liste, int id ) {
 	Unite *tmp = liste->premier;
 	int found = 0;
@@ -120,6 +142,10 @@ int supprimerUniteUListeTile ( UListe * liste, int id ) {
 	return 1;	
 }
 
+/*
+	Supprime une unite de la liste doublement chainée Couleur
+	L'unite a supprimer est identifiée par son id
+*/
 int supprimerUniteUListeClr ( UListe * liste, int id ) {
 	Unite *tmp = liste->premier;
 	int found = 0;

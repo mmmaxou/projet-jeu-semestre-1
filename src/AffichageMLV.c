@@ -22,18 +22,19 @@ static MLV_Image *sB;
 static MLV_Image *rB;
 static MLV_Image *oB;
 
-/*
-  Affiche le plateau et les unites qu'il y a dessus
-  Retourne un code d'erreur :
-  0: ???
-  1: Pas d'erreur
-*/
 
+/*
+	Initialise l'environnement pour le code MLV
+	Créer la fenetre
+	Charge les images dont on se sert
+	Redimensionne les images pour les utiliser correctement
+*/
 void MLVinit() {
-  MLV_create_window("Stratagème", "Stratagème", WIDTH, HEIGHT);
 	/* Cree la fenetre et affiche son fond colore */
+  MLV_create_window("Stratagème", "Stratagème", WIDTH, HEIGHT);
 	MLV_draw_filled_rectangle(0, 0, WIDTH, HEIGHT, MLV_COLOR_SNOW4);
 
+	/* Charge les images */
 	gR = MLV_load_image("./img/guerrierROUGE.png");
 	sR = MLV_load_image("./img/serfROUGE.png");
 	rR = MLV_load_image("./img/reineROUGE.png");
@@ -43,11 +44,11 @@ void MLVinit() {
 	rB = MLV_load_image("./img/reineBLEU.png");
 	oB = MLV_load_image("./img/oeufBLEU.png");
 
+	/* Redimensionne les images */
 	MLV_resize_image_with_proportions(gR, LARG_CASE-6, LARG_CASE-6);
 	MLV_resize_image_with_proportions(sR, LARG_CASE-6, LARG_CASE-6);
 	MLV_resize_image_with_proportions(rR, LARG_CASE-6, LARG_CASE-6);
 	MLV_resize_image_with_proportions(oR, LARG_CASE-6, LARG_CASE-6);
-
 	MLV_resize_image_with_proportions(gB, LARG_CASE-6, LARG_CASE-6);
 	MLV_resize_image_with_proportions(sB, LARG_CASE-6, LARG_CASE-6);
 	MLV_resize_image_with_proportions(rB, LARG_CASE-6, LARG_CASE-6);
@@ -55,18 +56,21 @@ void MLVinit() {
 }
 
 
+/*
+  Affiche le plateau
+  Retourne un code d'erreur :
+  0: ???
+  1: Pas d'erreur
+*/
 int MLVafficherPlateau(Monde * monde) {
   int testParite, posX, posY, x, y;
-  posX = 30; posY = 30; testParite = 0;
   char numLignes[3], numColonnes[3];
-
-
-  /* Affiche la zone de texte */
-  /*MLV_draw_filled_rectangle(30, 420, 540, 150, MLV_COLOR_MEDIUM_SEA_GREEN);*/
+  posX = 30; 
+	posY = 30; 
+	testParite = 0;
 
   /* Parcourt les lignes et les colonnes */
   for(x = 0; x < LARG; x++) {
-
     for(y = 0; y < LONG; y++) {
 
       /* Affiche les numéros de lignes */
@@ -98,25 +102,37 @@ int MLVafficherPlateau(Monde * monde) {
   return 1;
 }
 
+/*
+	Affiche le plateau et affiche toutes les unites
+	On l'appelle après chaque action du joueur
+*/
 void MLVactualiserPlateau(Monde * monde) {
 	MLVafficherPlateau(monde);
 	MLVafficherToutesUnites(monde);
-  	MLV_actualise_window();
+  MLV_actualise_window();
 }
 
-/* Colore en jaune la case sous l'unite active (en cours de déplacement) */
+/* 
+	Colore en jaune la case sous l'unite active (en cours de déplacement)
+	Affiche les informations de l'unite active dans la case en bas
+*/
 void MLVafficherUniteActive(Unite * u) {
   char infos[100];
+	/* Affiche les informations de l'unite active dans la case en bas */
   sprintf(infos, "%s (%d %d)\nPM: %d|| PV: %d\nAttaque: %d", genre(u->genre), u->posX, u->posY, u->pm, u->pv, u->atk);
   MLV_draw_text_box(460, 510, 110, 60, infos, 1, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 
+	/* Affiche la case en jaune */
   MLV_draw_filled_rectangle((u->posX+1) * LARG_CASE, (u->posY+1) * LARG_CASE, LARG_CASE, LARG_CASE, MLV_COLOR_GOLD1);
 	
+	/* Réaffiche l'unité */
   MLVafficherUnite(u);
   MLV_actualise_window();
 }
 
-/* Affiche l'image représentant l'unité en fonction de sa couleur et de son genre */
+/* 
+	Affiche l'image représentant l'unité en fonction de sa couleur et de son genre
+*/
 void MLVafficherUnite(Unite * u) {
 	if ( u->couleur == ROUGE ) {
 		if ( u->genre == SERF ) {
@@ -129,7 +145,6 @@ void MLVafficherUnite(Unite * u) {
 			MLV_draw_image(oR, (u->posX+1) * LARG_CASE+3, (u->posY+1) * LARG_CASE+3);
 		}
 	}
-
 	if ( u->couleur == BLEU ) {
 		if ( u->genre == SERF ) {
 			MLV_draw_image(sB, (u->posX+1) * LARG_CASE+3, (u->posY+1) * LARG_CASE+3);
@@ -144,7 +159,9 @@ void MLVafficherUnite(Unite * u) {
 	MLV_actualise_window();
 }
 
-/* Affiche toutes les unités en parcourant la liste chainée et en appelant la fonction précédente */
+/* 
+	Affiche toutes les unités en parcourant la liste chainée et en appelant la fonction précédente
+*/
 void MLVafficherToutesUnites(Monde * monde) {
 	Unite * u = monde->rouge.premier;
 	while (u != NULL) {		
@@ -158,17 +175,20 @@ void MLVafficherToutesUnites(Monde * monde) {
 	}
 }
 
+
+/* 
+	Affiche le tutorial en début de partie
+*/
 void MLVafficherTutoriel(Monde * monde) {
-	/* Affiche le tutorial */
 	
 	MLVafficherPlateau(monde);
-	MLVafficherDansZoneTexte("Ce jeu se joue à deux joueurs.\nChaque joueur possède:\n• 2 Serfs 's'\n• 1 Guerrier 'g'( Bat le Serf )\n• 1 Reine 'r' ( Immobile, elle produit des unites )\n  |> La reine créer des oeufs sur une position qui lui est\n      adjacente\n  |> Les oeufs mettent 1 tours pour éclore.");
+	MLVafficherDansZoneTexte("Ce jeu se joue à deux joueurs.\nChaque joueur possède:\n• 2 Serfs 's'\n• 1 Guerrier 'g'( Bat le Serf )\n• 1 Reine 'r' ( Immobile, elle produit des unites )\n  |> La reine crée des oeufs sur une position qui lui est\n      adjacente\n  |> Les oeufs mettent 1 tour pour éclore.");
 	MLVattendreValidation();	
 	
-	MLVafficherDansZoneTexte("Le jeu se déroule en tour.\nChaque tour le joueur qui commence est choisi\naléatoirement. A chaque tour, le joueur peut effectuer une\naction pour chacune de ses unités. Le joueur clique sur la\ncase vers laquelle il souhaite que son unité active\n( celle dont la case est jaune ) se déplace ou attaque.\nPour passer à l'unité suivante sans rien faire,\nil peut double-cliquer sur le bouton 'NE RIEN FAIRE'.");
+	MLVafficherDansZoneTexte("Le jeu se déroule au tour par tour.\nChaque tour le joueur qui commence est choisi\naléatoirement. A chaque tour, le joueur peut effectuer une\naction pour chacune de ses unités. Le joueur clique sur la\ncase vers laquelle il souhaite que son unité active\n(celle dont la case est jaune) se déplace ou attaque.\nPour passer à l'unité suivante sans rien faire,\nil peut double-cliquer sur le bouton 'NE RIEN FAIRE'.");
 	MLVattendreValidation();
 	
-	MLVafficherDansZoneTexte("Il peut y avoir plusieurs\nunites sur une même case. Cela permet de défendre\ncertaines unites plus fragiles. Par exemple, si il y à une\nreine, elle sera défendue par toutes les autres unites.\nAttention, seule l'unite du dessus est affichée.\nA la fin de chaque tour, il est possible de sauvegarder\nla partie, quitter le jeu ou continuer.");
+	MLVafficherDansZoneTexte("Il peut y avoir plusieurs unités sur une même case.\nCela permet de défendre certaines unités plus fragiles.\nPar exemple, s'il y a une reine, elle sera défendue par\ntoutes les autres unités.\nAttention, seule l'unité du dessus est affichée.\nA la fin de chaque tour, il est possible de sauvegarder\nla partie, quitter le jeu ou continuer.");
 	MLVattendreValidation();
 	
 	MLVafficherToutesUnites(monde);
@@ -178,36 +198,43 @@ void MLVafficherTutoriel(Monde * monde) {
 	MLV_actualise_window();
 }
 
-/* Affiche du texte entré en paramètre dans la zone de texte sous le plateau. */
+/* 
+	Affiche du texte entré en paramètre dans la zone de texte sous le plateau.
+*/
 void MLVafficherDansZoneTexte(char *texte) {
 	MLV_draw_text_box(30, 420, 420, 150, texte, 2, MLV_COLOR_SNOW3, MLV_COLOR_GREY21, MLV_COLOR_SNOW3, MLV_TEXT_LEFT, MLV_HORIZONTAL_LEFT, MLV_VERTICAL_TOP);
 	MLV_actualise_window();
 }
 
-
-/* Propose de quitter la partie
-	Renvoi :
-	0 = Ne souhaite pas quitter
-	1 = Souhaite quitter
+/* 
+	Affiche le bouton quitter la partie
 */
 void MLVactiverQuitter() {
 	MLV_draw_text_box(460, 420, 110, 20, "QUITTER", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	MLV_actualise_window();
 }
 
-/* Propose de ne pas déplacer l'unité
-	Renvoi :
-	0 = Ne clique pas sur le bouton
-	1 = Clique sur le bouton
-	MLVafficherDansZoneTexte("Souhaitez-vous :\n -> Arreter\n -> Sauvegarder \n -> Ne rien faire et continuer ?");
+/* 
+	Affiche le bouton continuer
 */
 void MLVactiverNeRienFaire() {
-	MLV_draw_text_box(460, 450, 110, 20, "NE RIEN FAIRE", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+	MLV_draw_text_box(460, 450, 110, 20, "CONTINUER", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
+	MLV_actualise_window();
+}
+
+/*
+	Affiche le bouton sauvegarder la partie
+*/
+void MLVactiverSauvegarder() {
+	MLV_draw_text_box(460, 480, 110, 20, "SAUVEGARDER", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	MLV_actualise_window();
 }
 
 /* 
-Propose de ne pas déplacer l'unité
+	Propose de ne pas déplacer l'unité
+	Renvoi :
+	0 = Ne clique pas sur le bouton
+	1 = Clique sur le bouton
 */
 int MLVactiverNeRienFaireUnite(int userX, int userY) {
 	MLV_draw_text_box(460, 450, 110, 20, "NE RIEN FAIRE", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
@@ -254,27 +281,23 @@ int MLVactiverCharger() {
 	return -1;
 }
 
-/* Propose de sauvegarder la partie
-	Renvoi :
-	0 = Ne souhaite pas sauvegarder
-	1 = Souhaite sauvegarder
+/*
+	Fonction qui gere la fin du tour
+	Elle propose de quitte, sauvbegarder et continuer
+	Si l'on sauvegarde, on peut ensuite choisir à nouveau de quitter ou continuer
+	Si l'on quitte, le monde est vidé et le programme se fermer
+	Si l'on continue, la fonction se termine et le programme continue 
 */
-void MLVactiverSauvegarder() {
-	MLV_draw_text_box(460, 480, 110, 20, "SAUVEGARDER", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
-	MLV_actualise_window();
-}
-
-
 void MLVgererFinTour(Monde * monde) {	
 	int userX, userY;
 	int valide = 0;
-	int savegarde = 0;
+	int sauvegarde = 0;
 	MLVactiverQuitter();
 	MLVactiverNeRienFaire();
 	MLVactiverSauvegarder();
 	
 	do {
-		MLVafficherDansZoneTexte("Souhaitez-vous :\n -> Arreter\n -> Sauvegarder \n -> Ne rien faire et continuer ?");
+		MLVafficherDansZoneTexte("Souhaitez-vous :\n -> Arrêter\n -> Sauvegarder \n -> Ne rien faire et continuer ?");
 		MLV_wait_mouse(&userX, &userY);
 		if (userX >= 460 && userX <= 570 && userY >= 480 && userY <= 500 && sauvegarde == 0) {
 			/* Appel de la fonction SAUVEGARDER */
@@ -293,7 +316,7 @@ void MLVgererFinTour(Monde * monde) {
 			valide = 1;
 			exit(0);
 		} else {
-			MLVafficherDansZoneTexte("Selection invalide\nVeuillez choisir une action.");
+			MLVafficherDansZoneTexte("Sélection invalide\nVeuillez choisir une action.");
 			MLV_actualise_window();
 		}
 	} while ( valide == 0 );
@@ -303,28 +326,44 @@ void MLVgererFinTour(Monde * monde) {
 	MLVdesactiverSauvegarder();
 }
 
+/*
+	Cache le bouton quitter la partie
+*/
 void MLVdesactiverQuitter() {
 	MLV_draw_text_box(460, 420, 110, 20, "QUITTER", 2, MLV_COLOR_SNOW3, MLV_COLOR_SNOW4, MLV_COLOR_SNOW3, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	MLV_actualise_window();
 }
 
+/*
+	Cache le bouton continuer
+*/
 void MLVdesactiverNeRienFaire() {
 	MLV_draw_text_box(460, 450, 110, 20, "NE RIEN FAIRE", 2, MLV_COLOR_SNOW3, MLV_COLOR_SNOW4, MLV_COLOR_SNOW3, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	MLV_actualise_window();
 }
 
+/*
+	Cache le bouton sauvegarder la partie
+*/
 void MLVdesactiverSauvegarder() {
 	MLV_draw_text_box(460, 480, 110, 20, "SAUVEGARDER", 2, MLV_COLOR_SNOW3, MLV_COLOR_SNOW4, MLV_COLOR_SNOW3, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	MLV_actualise_window();
 }
 
+/*
+	Cache le bouton charger
+*/
 void MLVdesactiverCharger() {
 	MLV_actualise_window();
 }
 
+/*
+	Affiche un message qui indique à l'utilisateur que l'on attend sa validation
+	Le joueur doit cliquer n'importe ou sur l'ecran pour continuer 
+*/
 void MLVattendreValidation() {
 	int userX, userY;	
-	MLV_draw_text( 170, HEIGHT-22, "Cliquez n'importe ou pour continuer", MLV_COLOR_GOLD1);
+	MLV_draw_text( 170, HEIGHT-22, "Cliquez n'importe où pour continuer", MLV_COLOR_GOLD1);
 	MLV_actualise_window();
 	MLV_wait_mouse(&userX, &userY);
 	MLV_draw_filled_rectangle(0, HEIGHT-25, WIDTH, 25, MLV_COLOR_SNOW4);

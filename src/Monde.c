@@ -93,7 +93,15 @@ void remplirMonde ( Monde *monde ) {
 }
 
 /*
-  Gere toutes les actions du joueur pendant un tour
+  Gère toutes les actions du joueur pendant un tour
+	
+	Affiche l'état actuel de la partie
+	Si l'unite est une reine elle peut produire un oeuf et attendre
+	Si l'unite est un oeuf, il éclot en guerrier ou en serf
+	Si l'unite est un guerrier ou un serf, il peut se déplacer ou attaquer
+	
+	On regarde ensuite si l'un des deux joueurs n'a plus d'unite
+	Si c'est le cas on affiche le gagnant, vide le monde et termine le programmes	
 */
 void gererDemiTour( char joueur, Monde *monde ) {
   Unite * unite;
@@ -117,11 +125,11 @@ void gererDemiTour( char joueur, Monde *monde ) {
       if ( unite->attente == 1 ) {
         /* La reine ne peut plus produire durant ce tour */
         unite->attente = 0;
-        MLVafficherDansZoneTexte("La reine se repose après avoir créer une unite\n");
+        MLVafficherDansZoneTexte("La reine se repose après avoir créé une unité\n");
 				MLVattendreValidation();
       } else {
 				/* On propose de créer un oeuf */
-				MLVafficherDansZoneTexte("La reine peut créer une unite sur une des cases qui lui\nest adjacente.\n -> Ou souhaitez vous créer une unité ?");
+				MLVafficherDansZoneTexte("La reine peut créer une unité sur une des cases qui lui\nest adjacente.\n -> Où souhaitez-vous créer une unité ?");
 				
 				do {
 					/* Calcule la nouvelle position de l'unite active en fonction des coordonnees du clic de la souris */
@@ -149,7 +157,7 @@ void gererDemiTour( char joueur, Monde *monde ) {
 
       /* Si ce n'est pas une reine */
       /* On demande à l'utilisateur ce qu'il veux faire */
-      MLVafficherDansZoneTexte("Où souhaitez vous déplacer votre unité ?\n");
+      MLVafficherDansZoneTexte("Où souhaitez-vous déplacer votre unité ?\n");
 			
 			do {
 				/* Calcule la nouvelle position de l'unite active en fonction des coordonnees du clic de la souris */
@@ -175,11 +183,13 @@ void gererDemiTour( char joueur, Monde *monde ) {
 
     /* Resultat et vide le monde */
     if ( monde->rouge.taille == 0 ) {
-      MLVafficherDansZoneTexte("Le joueur BLEU à gagné !!\nBravo :) :) :)\n");
+      MLVafficherDansZoneTexte("Le joueur BLEU a gagné !!\nBravo :) :) :)\n");
+			MLVattendreValidation();
       viderMonde( monde );
       exit(0);
     } else if ( monde->bleu.taille == 0 ) {
-      MLVafficherDansZoneTexte("Le joueur ROUGE à gagné !!\nBravo :) :) :)\n");    
+      MLVafficherDansZoneTexte("Le joueur ROUGE a gagné !!\nBravo :) :) :)\n");  
+			MLVattendreValidation();
       viderMonde( monde );
       exit(0);
     } 
@@ -228,7 +238,7 @@ void viderMonde( Monde *monde ) {
 
 /*
   Effectue une partie :
-  - Prepare le plateauMLVafficherDansZoneTexte
+  - Prepare le plateau
   - Positionne les unites initiales sur le plateau
   - Laisse chaque joueur jouer
   - Propose d'arreter
@@ -268,7 +278,9 @@ void gererPartie() {
   }
 }
 
-/* Debug function */
+/* 
+	Fonction utilitaire qui crée des unites au milieu du plateau pour tester plus rapidement l'attaque et l'empilement
+*/
 void genererUnitesCentre ( Monde * monde ) {
   Unite *u1 = malloc(sizeof(Unite));
   Unite *u2 = malloc(sizeof(Unite));

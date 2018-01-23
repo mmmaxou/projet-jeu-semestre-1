@@ -20,11 +20,11 @@
 #define RESET "\x1B[0m"
 
 /*
-  Affiche le plateau et les unites qu'il y a dessus
-  Retourne un code d'erreur :
-  0: ???
-  1: Pas d'erreur
+	ATTENTION
+	Ces fonctions ne sont plus utilisés dans cette version du programme
+	Elles servent à l'affichage en console
 */
+
 int afficherPlateau( Monde * monde ) {
   int x,y;
 	char *s;
