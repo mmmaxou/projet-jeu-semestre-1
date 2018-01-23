@@ -108,6 +108,8 @@ void MLVafficherUniteActive(Unite * u) {
   MLV_draw_text_box(460, 510, 110, 60, infos, 1, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 
   MLV_draw_filled_rectangle((u->posX+1) * LARG_CASE, (u->posY+1) * LARG_CASE, LARG_CASE, LARG_CASE, MLV_COLOR_GOLD1);
+	
+	MLVafficherDansZoneTexte("Où voulez-vous déplacer cette unité ?\n");
   
   MLVafficherUnite(u);
   MLV_actualise_window();
@@ -145,27 +147,26 @@ void MLVafficherUnite(Unite * u) {
 void MLVafficherToutesUnites(Monde * monde) {
 	Unite * u = monde->rouge.premier;
 	while (u != NULL) {		
-  		MLVafficherUnite(u);
+		MLVafficherUnite(u);
 		u = u->suiv;
-  	}
-
-  	u = monde->bleu.premier;
+	}
+	u = monde->bleu.premier;
 	while (u != NULL) {
-  		MLVafficherUnite(u);
+		MLVafficherUnite(u);
 		u = u->suiv;
-  	}
+	}
 }
 
 void MLVafficherTutoriel(Monde * monde) {
-  	/* Affiche le tutorial */
-  	char tutoriel[750] = "Ce jeu se joue à deux joueurs et se déroule par tour.\nChaque joueur possède deux Serfs et un Guerrier.\nLe joueur rouge commence la partie.\nCliquez sur la case vers laquelle vous souhaitez que \nvotre unité active (celle dont la case est jaune) se déplace \nou attaque. Pour passer à l'unité suivante sans rien faire,\ndouble-cliquez sur le bouton à droite.";
-  	MLVafficherDansZoneTexte(tutoriel);
+	/* Affiche le tutorial */
+	char tutoriel[750] = "Ce jeu se joue à deux joueurs et se déroule par tour.\nChaque joueur possède deux Serfs et un Guerrier.\nLe joueur rouge commence la partie.\nCliquez sur la case vers laquelle vous souhaitez que \nvotre unité active (celle dont la case est jaune) se déplace \nou attaque. Pour passer à l'unité suivante sans rien faire,\ndouble-cliquez sur le bouton à droite.";
+	MLVafficherDansZoneTexte(tutoriel);
 	MLVafficherPlateau(monde);
 	MLVafficherToutesUnites(monde);
 	MLVdesactiverQuitter();
 	MLVdesactiverNeRienFaire();
 	MLVdesactiverSauvegarder();
-  	MLV_actualise_window();
+	MLV_actualise_window();
 }
 
 /* Affiche du texte entré en paramètre dans la zone de texte sous le plateau. */
@@ -180,37 +181,20 @@ void MLVafficherDansZoneTexte(char *texte) {
 	0 = Ne souhaite pas quitter
 	1 = Souhaite quitter
 */
-int MLVactiverQuitter() {
-	int userX, userY;
+void MLVactiverQuitter() {
 	MLV_draw_text_box(460, 420, 110, 20, "QUITTER", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	MLV_actualise_window();
-	MLV_wait_mouse(&userX, &userY);
-
-    if (userX >= 460 && userX <= 570 && userY >= 420 && userY <= 440) {
-    	return 1;
-    }
-
-    return 0;
 }
 
 /* Propose de ne pas déplacer l'unité
 	Renvoi :
 	0 = Ne clique pas sur le bouton
 	1 = Clique sur le bouton
+	MLVafficherDansZoneTexte("Souhaitez-vous :\n -> Arreter\n -> Sauvegarder \n -> Ne rien faire et continuer ?");
 */
-int MLVactiverNeRienFaire(int userX, int userY) {
+void MLVactiverNeRienFaire() {
 	MLV_draw_text_box(460, 450, 110, 20, "NE RIEN FAIRE", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	MLV_actualise_window();
-	MLV_wait_mouse(&userX, &userY);
-    
-    if (userX >= 460 && userX <= 570 && userY >= 450 && userY <= 470) {
-    	MLVafficherDansZoneTexte("L'unité ne se déplace pas.");
-    	MLV_actualise_window();
-
-    	return 1;
-    }
-
-    return 0;
 }
 
 /* Propose de sauvegarder la partie
@@ -218,19 +202,45 @@ int MLVactiverNeRienFaire(int userX, int userY) {
 	0 = Ne souhaite pas sauvegarder
 	1 = Souhaite sauvegarder
 */
-int MLVactiverSauvegarder() {
-	int userX, userY;
+void MLVactiverSauvegarder() {
 	MLV_draw_text_box(460, 480, 110, 20, "SAUVEGARDER", 2, MLV_COLOR_GREY21, MLV_COLOR_WHITE, MLV_COLOR_GREY21, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);
 	MLV_actualise_window();
-	MLV_wait_mouse(&userX, &userY);
-
-	if (userX >= 460 && userX <= 570 && userY >= 480 && userY <= 500) {
-		/* Appel de la fonction SAUVEGARDER */
-    	return 1;
-    }
-
-    return 0;
 }
+
+
+void MLVgererFinTour() {	
+	int userX, userY;
+	int valide = 0;
+	MLVafficherDansZoneTexte("Souhaitez-vous :\n -> Arreter\n -> Sauvegarder \n -> Ne rien faire et continuer ?");
+	MLVactiverQuitter();
+	MLVactiverNeRienFaire();
+	MLVactiverSauvegarder();
+	
+	do {
+		MLV_wait_mouse(&userX, &userY);
+		if (userX >= 460 && userX <= 570 && userY >= 480 && userY <= 500) {
+			/* Appel de la fonction SAUVEGARDER */
+			valide = 1;
+		} else if (userX >= 460 && userX <= 570 && userY >= 450 && userY <= 470) {
+			/* Ne rien faire */
+			MLVafficherDansZoneTexte("L'unité ne se déplace pas.");
+			MLV_actualise_window();
+			valide = 1;
+		} else if (userX >= 460 && userX <= 570 && userY >= 420 && userY <= 440) {
+			/* Quitter */
+			valide = 1;
+			exit(0);
+		} else {
+			MLVafficherDansZoneTexte("Selection invalide\nVeuillez choisir une action.");
+			MLV_actualise_window();
+		}
+	} while ( valide == 0 );
+		
+	MLVdesactiverQuitter();
+	MLVdesactiverNeRienFaire();
+	MLVdesactiverSauvegarder();
+}
+
 
 void MLVdesactiverQuitter() {
 	MLV_draw_text_box(460, 420, 110, 20, "QUITTER", 2, MLV_COLOR_SNOW3, MLV_COLOR_SNOW4, MLV_COLOR_SNOW3, MLV_TEXT_LEFT, MLV_HORIZONTAL_CENTER, MLV_VERTICAL_CENTER);

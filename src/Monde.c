@@ -113,8 +113,9 @@ void gererDemiTour(char joueur, Monde * monde) {
   }
   
   /* Le tour se termine */
+	/*
   MLVafficherDansZoneTexte("Votre tour est terminé.\nAu suivant !");
-  
+  */
 }
 
 /*
@@ -165,11 +166,7 @@ void gererPartie() {
   /* Laisse chaque joueur jouer */
   while (monde.rouge.premier != NULL && monde.bleu.premier != NULL && forceStop == 0) {
     gererTour(&monde);
-    MLVafficherDansZoneTexte("Souhaitez-vous arreter là ?\nCliquez n'importe où pour continuer.");
-    if (MLVactiverQuitter() == 1) {
-      forceStop = 1;
-    }
-    MLVdesactiverQuitter();
+		MLVgererFinTour();
   }
   
   /* Affiche le resultat et vide le monde */

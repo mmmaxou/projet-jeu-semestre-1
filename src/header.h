@@ -41,12 +41,13 @@ void MLVafficherUniteActive(Unite * u);
 void MLVafficherTutoriel(Monde * monde);
 void MLVactualiserPlateau(Monde * monde);
 void MLVafficherToutesUnites(Monde * monde);
-int MLVactiverQuitter();
-int MLVactiverNeRienFaire(int userX, int userY);
-int MLVactiverSauvegarder();
+void MLVactiverQuitter();
+void MLVactiverNeRienFaire();
+void MLVactiverSauvegarder();
 void MLVdesactiverQuitter();
 void MLVdesactiverNeRienFaire();
 void MLVdesactiverSauvegarder();
+void MLVgererFinTour();
 
 /* Monde */
 void initialiserMonde(Monde * monde);

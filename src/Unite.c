@@ -42,7 +42,7 @@ void deplacerUnite(Unite * unite, Monde * monde, int destX, int destY) {
 	2 = Succes
 */
 int enleverUnite(Unite * unite, Monde * monde) {
-	int errSuppression;
+	int errSuppression = 1;
 	/* On verifie que l'unite existe */
 	if (unite == NULL) {
 		return 0;
