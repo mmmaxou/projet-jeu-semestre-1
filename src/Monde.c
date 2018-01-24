@@ -101,7 +101,7 @@ void remplirMonde ( Monde *monde ) {
 	Si l'unite est un guerrier ou un serf, il peut se déplacer ou attaquer
 	
 	On regarde ensuite si l'un des deux joueurs n'a plus d'unite
-	Si c'est le cas on affiche le gagnant, vide le monde et termine le programmes	
+	Si c'est le cas on affiche le gagnant, vide le monde et termine le programme.	
 */
 void gererDemiTour( char joueur, Monde *monde ) {
   Unite * unite;
